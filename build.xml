@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Build js/css"  basedir=".">
+    
+    <property name="root" location="." />
+    <property name="setup" location="${root}/latest/" />
+    <property name="docs" location="./docs" />
+    
+    <taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" classpath="${root}/../jar/jsdoc-toolkit-ant-task-1.1.2.jar;${root}/../jar/jsdoc_toolkit-2.4.0/jsdoc-toolkit/java/classes/js.jar;${root}/../jar/rhino1_7R4/rhino1_7R4/js.jar"/>
+
+    <target name="build-docs">
+        <jsdoctoolkit jsdochome="${root}/../jar/jsdoc_toolkit-2.4.0/jsdoc-toolkit/" template="jsdoc" outputdir="${docs}">
+            <fileset dir="${root}/js/jSrb/Code" />
+            <fileset dir="${root}/js/jSrb" />
+        </jsdoctoolkit>
+    </target>
+
+    <target name="revision">
+        <propertyfile  file="build_info.properties">
+            <entry key="build.revision.number" type="int" operation="+" value="1" pattern="0"/>
+            <entry key="build.timestamp" type="date" default="now"/>
+        </propertyfile>
+    </target>
+    
+    <target name="minor">
+        <propertyfile  file="build_info.properties">
+            <entry key="build.minor.number" type="int" operation="+" value="1" pattern="0"/>
+            <entry key="build.revision.number" type="int" value="0" pattern="0"/>
+            <entry key="build.timestamp" type="date" default="now"/>
+        </propertyfile>
+    </target>
+
+    <target name="major">
+        <propertyfile  file="build_info.properties">
+            <entry key="build.major.number" type="int" operation="+" value="1" pattern="0"/>
+            <entry key="build.minor.number" type="int" value="0" pattern="0"/>
+            <entry key="build.revision.number" type="int" value="0" pattern="0"/>
+            <entry key="build.timestamp" type="date" default="now"/>
+        </propertyfile>
+    </target>
+        
+    <target name="inject">
+        <property file="build_info.properties"/>
+        <replaceregexp file="${root}/config-template.php" match="const app_version = &quot;[0-9.]*&quot;" replace="const app_version = &quot;${build.major.number}.${build.minor.number}.${build.revision.number}&quot;" />
+        <replaceregexp file="${root}/config.php" match="const app_version = &quot;[0-9.]*&quot;" replace="const app_version = &quot;${build.major.number}.${build.minor.number}.${build.revision.number}&quot;"/>
+        
+    </target>
+    
+    <target name="upload">
+        <property file="build_info.properties"/>
+        <ftp server="ftp.postvoyant.com"
+             userid="europetech@postvoyant.com"
+             password="balleklor1n"
+             passive="yes"
+             remotedir="locloud/latest">
+            <fileset dir="latest">
+                <include name="locloudgc-${build.major.number}.${build.minor.number}.${build.revision.number}.zip"/>
+                <include name="index.php"/>
+                <include name="version.txt"/>
+            </fileset>
+        </ftp>
+    </target>
+
+    <target name="zipit">
+        <echo file="log/messages.txt" append="false">Build: ${build.major.number}.${build.minor.number}.${build.revision.number}${line.separator}</echo>        
+        <echo file="${setup}/version.txt" append="false">${build.major.number}.${build.minor.number}.${build.revision.number}</echo>
+        <zip destfile="${setup}/locloudgc-${build.major.number}.${build.minor.number}.${build.revision.number}.zip">
+            <zipfileset dir="css" prefix="css/"/>
+            <zipfileset dir="images" prefix="images/"/>
+            <zipfileset dir="js" prefix="js/"/>
+            <zipfileset dir="docs" prefix="docs/"/>
+            <zipfileset dir="lib" prefix="lib/"/>
+            <zipfileset dir="log" prefix="log/"/>
+            <zipfileset dir="mod" prefix="mod/"/>
+            <zipfileset dir="res" prefix="res/"/>
+            <zipfileset dir="setup" prefix="setup/" includes="**" excludes="zip/*"/>
+            <zipfileset dir="ws" prefix="ws/"/>
+            <zipfileset dir="." includes="*.php" excludes="config.php"/>
+            <zipfileset dir="." includes="*.tpl"/>
+            <zipfileset dir="." includes="robots.txt"/>
+        </zip>
+    </target>
+    
+    <target name="build-revision" depends="revision, inject, build-docs, zipit"> 
+    </target>
+
+    <target name="build-minor-version" depends="minor, inject, build-docs, zipit"> 
+    </target>
+
+    <target name="build-major-version" depends="major, inject, build-docs, zipit"> 
+    </target>
+    
+</project>
