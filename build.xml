@@ -4,11 +4,17 @@
     <property name="root" location="." />
     <property name="setup" location="${root}/latest/" />
     <property name="docs" location="./docs" />
+    <property name="jar" location = "${root}/../_jar"/>
+    <property name="ftp_userid" value = "europetech@postvoyant.com"/>
+    <property name="ftp_password" value = "balleklor1n"/>
+    <property name="ftp_server" value = "ftp.postvoyant.com"/>
+    <property name="ftp_remotedir" value = "locloud/latest"/>
     
-    <taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" classpath="${root}/../jar/jsdoc-toolkit-ant-task-1.1.2.jar;${root}/../jar/jsdoc_toolkit-2.4.0/jsdoc-toolkit/java/classes/js.jar;${root}/../jar/rhino1_7R4/rhino1_7R4/js.jar"/>
+    
+    <taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" classpath="${jar}/jsdoc-toolkit-ant-task-1.1.2.jar;${jar}/jsdoc_toolkit-2.4.0/jsdoc-toolkit/java/classes/js.jar;${jar}/rhino1_7R4/rhino1_7R4/js.jar"/>
 
     <target name="build-docs">
-        <jsdoctoolkit jsdochome="${root}/../jar/jsdoc_toolkit-2.4.0/jsdoc-toolkit/" template="jsdoc" outputdir="${docs}">
+        <jsdoctoolkit jsdochome="${jar}/jsdoc_toolkit-2.4.0/jsdoc-toolkit/" template="jsdoc" outputdir="${docs}">
             <fileset dir="${root}/js/jSrb/Code" />
             <fileset dir="${root}/js/jSrb" />
         </jsdoctoolkit>
@@ -47,11 +53,11 @@
     
     <target name="upload">
         <property file="build_info.properties"/>
-        <ftp server="ftp.postvoyant.com"
-             userid="europetech@postvoyant.com"
-             password="balleklor1n"
+        <ftp server="${ftp_server}"
+             userid="${ftp_userid}"
+             password="${ftp_password}"
              passive="yes"
-             remotedir="locloud/latest">
+             remotedir="${ftp_remotedir}">
             <fileset dir="latest">
                 <include name="locloudgc-${build.major.number}.${build.minor.number}.${build.revision.number}.zip"/>
                 <include name="index.php"/>

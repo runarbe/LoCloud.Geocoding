@@ -18,6 +18,9 @@ if (!isLoggedIn()) {
         <link rel="stylesheet" href="css/cupertino/jquery-ui.css"/>
         <link rel="stylesheet" href="css/pure/pure.css"/>
         <link rel="stylesheet" href="js/jQuery.layout/layout-default-latest.css"/>
+        <link rel="stylesheet" href="js/w2ui-1.3/w2ui-1.3.min.css"/>
+
+        <!-- Main custom stylesheet -->
         <link rel="stylesheet" href="css/style.css" title="main"/>
 
         <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
@@ -28,7 +31,8 @@ if (!isLoggedIn()) {
         <script src="js/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
         <script src="js/jQueryForm/jquery.form.min.js"></script>        
         <script src="js/jQuery.layout/jquery.layout-latest.min.js"></script>        
-
+        <script src="js/w2ui-1.3/w2ui-1.3.min.js"/></script>
+        
         <!-- Main custom Javascript -->
         <script src="js/jSrb/jSrb.js" type="text/javascript"></script>
 

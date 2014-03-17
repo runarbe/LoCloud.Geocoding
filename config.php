@@ -7,8 +7,8 @@ class LgmsConfig {
     const db_host = "localhost";
     const db_usr = "root";
     const db_pwd = "root";
-    const basedir = "C:/Users/runarbe/Documents/Dropbox/70 - Private documents/Projects/Apache Root/locloudgc";
-    const app_version = "1.2.24";
+    const basedir = "C:\GitHub\LoCLoud.Geocoding";
+    const app_version = "1.2.25";
     const updateurl = "http://locloud.avinet.no/latest";
     const debug = false;
 
