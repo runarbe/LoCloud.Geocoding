@@ -131,12 +131,17 @@ if (typeof(OpenLayers) !== "undefined") {
             limit: 100,
             url: 'http://localhost:81/locloudgc/ws/ws-load-source-items3.php?t=ds33&dsID=33&idc=id&nc=namn&xc=null&yc=null&ic=null&uc=&a0_c=null&a0=&p=&a1_c=null&a1=&c_c=null&c=&offset=0&limit=10',
             columns: [
-                {field: 'probability', caption: 'P?', size: '25px'},
-                {field: 'name', caption: 'Name', size: '100%'}
+                {field: 'recid', caption: 'ID', size: '25px'},
+                {field: 'gc_probability', caption: '?', size: '25px'},
+                {field: '_nc', caption: 'Name', size: '100%'}
             ],
-            records: [
-                {recid: 1, name: 'Runar', object: {test: 'test'}}
-            ]
+            onSelect: function(event) {
+                event.onComplete = function() {
+                    var mRecId = w2ui['sourceGrid'].getSelection()[0];
+                    var mRec = w2ui['sourceGrid'].get(mRecId);
+                    handlerSelectSourceItem2(mRec);
+                };
+            }
         }));
 
         // Setup nested search layout

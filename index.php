@@ -50,9 +50,7 @@ if (!isLoggedIn()) {
         <div id="theMap"></div>
     </div>
     <div id="divForm">
-        <div class="innerPadding">
-            <?php include("./mod/mod-form.php"); ?>
-        </div>            
+        <?php include("./mod/mod-form.php"); ?>
     </div>
     <div id="divStatusBar">
         <?php include("./mod/mod-statusbar.php"); ?>
