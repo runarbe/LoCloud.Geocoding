@@ -5,18 +5,22 @@ if (typeof(OpenLayers) !== 'undefined') {
      * String, Number, Boolean, Array, Object, Null, Undefined.
      */
 
-    
     /**
-     * Application title
-     * @type String
+     * Global configuration settings for the application
+     * @class JsConf
      */
-    jSrb.Configuration.app_title = "LoCloud Geocoding Microservice";
-    
-    /**
-     * Application version
-     * @type String
-     */
-    jSrb.Configuration.app_version = "1.0";
+    var jsConf = {
+        /**
+         * The title of the application
+         * @type String
+         */
+        app_title: "LoCloud Geocoding Microservice",
+        /**
+         * Application version
+         * @type String
+         */
+        app_version: "1.0"
+    };
 
     /**
      * Name of default source table
@@ -83,7 +87,7 @@ if (typeof(OpenLayers) !== 'undefined') {
      * @type Number
      * @default 13
      */
-    jSrb.Map.defaultZoomTo = 13;
+    var defaultZoomTo = 13;
 
     /**
      * An object holding information about the selected data source.

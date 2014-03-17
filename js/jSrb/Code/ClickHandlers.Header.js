@@ -1,9 +1,6 @@
-/**
- * Calls the upgrade Web Service
- */
-jSrb.Handlers.handlerBtnUpgrade = function() {
+function handlerBtnUpgrade() {
     showMsgBox("Please wait while upgrade commences. This operation may take several minutes");
-    jQuery.getJSON(WsUrl.upgradeInstallation, {
+    jQuery.getJSON("./ws/ws-upgrade.php", {
         pVersion: jQuery("#btnUpgrade").data("version")
     }, function(pData) {
         if (pData.v === 1) {
@@ -15,12 +12,9 @@ jSrb.Handlers.handlerBtnUpgrade = function() {
     }).fail(function() {
         showMsgBox("Web service request failed", true);
     });
-};
+}
 
-/**
- * Opens a popup window and displays help text
- */
-jSrb.Handlers.handlerBtnHelp = function() {
+function handlerBtnHelp() {
     jQuery.ajax({
         url: "./res/help.html"
     }).done(function(data) {
@@ -35,7 +29,7 @@ jSrb.Handlers.handlerBtnHelp = function() {
                             jQuery("#dlgHelp").empty().dialog("close");
                         }
                     }],
-                title: "Help for " + jSrb.Configuration.app_title,
+                title: "Help for " + jsConf.app_title,
                 hide: "fade",
                 show: "fade",
                 closeOnEscape: true,
@@ -44,12 +38,9 @@ jSrb.Handlers.handlerBtnHelp = function() {
                 width: 640
             }
     );
-};
+}
 
-/**
- * Opens a popup and shows the "about" text for the application
- */
-jSrb.Handlers.handlerBtnAbout = function() {
+function handlerBtnAbout() {
     jQuery.ajax({
         url: "./res/about.html"
     }).done(function(data) {
@@ -66,37 +57,36 @@ jSrb.Handlers.handlerBtnAbout = function() {
                     }],
                 hide: "fade",
                 show: "fade",
-                title: "About the " + jSrb.Configuration.app_title,
+                title: "About the " + jsConf.app_title,
                 closeOnEscape: true,
                 modal: true,
                 height: 480,
                 width: 640
             }
     );
-};
+}
 
-/**
- * Triggers download of the currently selected data source as KML
+/*
+ * Handler for button to download geocoding as KML
  */
-jSrb.Handlers.handlerDownloadKML = function() {
+function handlerDownloadKML() {
     var mDatasource = getSelectedDatasource();
     window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=kml");
-};
+}
 
-/**
- * Triggers download of the currently selected data source as GeoJSON
+/*
+ * Handler for button to download geocoding as GeoJSON
  */
-jSrb.Handlers.handlerDownloadGeoJSON = function() {
+function handlerDownloadGeoJSON() {
     var mDatasource = getSelectedDatasource();
     window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=geojson");
-};
+}
 
 /**
- * Triggers download of the currently selected data source as GeoJSON assigned
- * to a JavaScript variable
+ * Handler for button to download geocoding as GeoJSON JavaScript
  */
-jSrb.Handlers.handlerDownloadGeoJSONJavaScript = function() {
+function handlerDownloadGeoJSONJavaScript() {
     // Add logic to define name of JS variable
     var mDatasource = getSelectedDatasource();
     window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=geojson.js");
-};
+}

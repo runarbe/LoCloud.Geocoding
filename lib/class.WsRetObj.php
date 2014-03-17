@@ -78,24 +78,6 @@ class WsRetObj {
     }
 
     /**
-     * Get a WsRetObj as a w2ui grid json data source
-     * @return JSON for loading into a w2ui grid
-     */
-    public function getGridJson() {
-        $mResults = array();
-        $mResults["status"] = $this->v;
-        $mResults["total"] = count($this->d);
-        if (count($this->d) >= 1) {
-            $mResults["records"] = $this->d;
-        }
-        //$mResults["m"] = $this->m;
-        return json_encode(
-                $mResults
-        );
-    }
-
-    
-    /**
      * Outputs the result object as a JSON string
      * 
      * @return void

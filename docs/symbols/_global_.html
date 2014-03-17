@@ -191,17 +191,7 @@ ul.inheritsList
 	
 	<li><i><a href="../symbols/_global_.html">_global_</a></i></li>
 	
-	<li><a href="../symbols/jSrb.html">jSrb</a></li>
-	
-	<li><a href="../symbols/jSrb.AppSetup.html">jSrb.AppSetup</a></li>
-	
-	<li><a href="../symbols/jSrb.Configuration.html">jSrb.Configuration</a></li>
-	
-	<li><a href="../symbols/jSrb.Handlers.html">jSrb.Handlers</a></li>
-	
-	<li><a href="../symbols/jSrb.Map.html">jSrb.Map</a></li>
-	
-	<li><a href="../symbols/jSrb.Utilities.html">jSrb.Utilities</a></li>
+	<li><a href="../symbols/jsConf.html">jsConf</a></li>
 	
 	<li><a href="../symbols/WsRetObj.html">WsRetObj</a></li>
 	
@@ -273,6 +263,26 @@ for an item as read from the database.</div>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
+								<b><a href="../symbols/_global_.html#ctlNewDataSourceWizard">ctlNewDataSourceWizard</a></b>
+								</div>
+								<div class="description">The new data source wizard</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/_global_.html#ctlSearchForm">ctlSearchForm</a></b>
+								</div>
+								<div class="description">The search form</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
 								<b><a href="../symbols/_global_.html#currentMarker">currentMarker</a></b>
 								</div>
 								<div class="description"></div>
@@ -286,6 +296,17 @@ for an item as read from the database.</div>
 								<b><a href="../symbols/_global_.html#defaultMapLayers">defaultMapLayers</a></b>
 								</div>
 								<div class="description">The map layers to show by default at start-up</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont">
+								<b><a href="../symbols/_global_.html#defaultZoomTo">defaultZoomTo</a></b>
+								</div>
+								<div class="description">The default level that the application will zoom to when clicking an item
+in the source data to be geocoded</div>
 							</td>
 						</tr>
 					
@@ -445,16 +466,6 @@ of the aplplication</div>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
 								<div class="fixedFont">
-								<b><a href="../symbols/_global_.html#scriptName">scriptName</a></b>
-								</div>
-								<div class="description">The name of the root script</div>
-							</td>
-						</tr>
-					
-						<tr>
-							<td class="attributes">&nbsp;</td>
-							<td class="nameDescription">
-								<div class="fixedFont">
 								<b><a href="../symbols/_global_.html#select">select</a></b>
 								</div>
 								<div class="description">The layer to hold selection</div>
@@ -535,6 +546,16 @@ of the aplplication</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#checkUpgrade">checkUpgrade</a></b>()
+								</div>
+								<div class="description">Show the upgrade button on the header menu if an update is available for
+download.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/_global_.html#getErrorMessages">getErrorMessages</a></b>(pMessageArray)
 								</div>
 								<div class="description">Creates a set of html paragraphs from an array</div>
@@ -548,6 +569,24 @@ of the aplplication</div>
 								</div>
 								<div class="description">Function that is triggered when clicking the cancel button in the geocoding
 form</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#handlerBtnNewDatasource">handlerBtnNewDatasource</a></b>()
+								</div>
+								<div class="description">Function that is triggered when the new data source button is pressed.</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#handlerBtnNewDatasourceOk">handlerBtnNewDatasourceOk</a></b>()
+								</div>
+								<div class="description">Insert new data source</div>
 							</td>
 						</tr>
 					
@@ -613,6 +652,15 @@ geocoding form</div>
 								<div class="fixedFont"><b><a href="../symbols/_global_.html#handlerClickMap">handlerClickMap</a></b>(pPoint)
 								</div>
 								<div class="description">Function that is triggered when the user clicks in the map</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#handlerDownloadGeoJSONJavaScript">handlerDownloadGeoJSONJavaScript</a></b>()
+								</div>
+								<div class="description">Handler for button to download geocoding as GeoJSON JavaScript</div>
 							</td>
 						</tr>
 					
@@ -687,6 +735,34 @@ item list on the bottom right hand side of the screen</div>
 						<tr>
 							<td class="attributes">&nbsp;</td>
 							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#onDocumentReady">onDocumentReady</a></b>()
+								</div>
+								<div class="description">Once all HTML markup and linked files have been loaded, this
+function is executed</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#reflow">reflow</a></b>()
+								</div>
+								<div class="description">Setup, place and size window panes</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
+								<div class="fixedFont"><b><a href="../symbols/_global_.html#SetNewDataSourceTab">SetNewDataSourceTab</a></b>(pEnabledTab)
+								</div>
+								<div class="description">Set the currently visible tab in the new datasource wizard dialogs</div>
+							</td>
+						</tr>
+					
+						<tr>
+							<td class="attributes">&nbsp;</td>
+							<td class="nameDescription">
 								<div class="fixedFont"><b><a href="../symbols/_global_.html#showImagePopup">showImagePopup</a></b>(pImageUrl)
 								</div>
 								<div class="description">Open a popup window and show a URL</div>
@@ -723,7 +799,7 @@ item list on the bottom right hand side of the screen</div>
 for an item as read from the database.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -748,7 +824,7 @@ for an item as read from the database.
 						The number of significant digits for decimal numbers
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -769,6 +845,56 @@ for an item as read from the database.
 
 					<hr />
 				
+					<a name="ctlNewDataSourceWizard"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>ctlNewDataSourceWizard</b>
+					
+					</div>
+					<div class="description">
+						The new data source wizard
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ApplicationSetup.js.html">ApplicationSetup.js</a>.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
+					<a name="ctlSearchForm"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Object}</span>
+					<b>ctlSearchForm</b>
+					
+					</div>
+					<div class="description">
+						The search form
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ApplicationSetup.js.html">ApplicationSetup.js</a>.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="currentMarker"> </a>
 					<div class="fixedFont">
 					
@@ -780,7 +906,7 @@ for an item as read from the database.
 						
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -805,7 +931,7 @@ for an item as read from the database.
 						The map layers to show by default at start-up
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -815,6 +941,39 @@ for an item as read from the database.
 						
 						
 						
+						
+
+					<hr />
+				
+					<a name="defaultZoomTo"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{Number}</span>
+					<b>defaultZoomTo</b>
+					
+					</div>
+					<div class="description">
+						The default level that the application will zoom to when clicking an item
+in the source data to be geocoded
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
+						
+						
+					</div>
+					
+					
+
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Default Value:</dt>
+							<dd>
+								13
+							</dd>
+							</dl>
 						
 
 					<hr />
@@ -835,7 +994,7 @@ The key 'ApH6SQ0ZxiJAIv7_uGCBvKhmz-P9t4fVt3-gElJrcPQb2tIlHOEenjTRZPa5_4oE' is
 for a localhost address in the name of (Stein) Runar Bergheim.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -860,7 +1019,7 @@ for a localhost address in the name of (Stein) Runar Bergheim.
 						Latitude: The latitude that the map will be centered on at startup
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -892,7 +1051,7 @@ for a localhost address in the name of (Stein) Runar Bergheim.
 						The number of items to show in the list
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -924,7 +1083,7 @@ for a localhost address in the name of (Stein) Runar Bergheim.
 						The first item to show in the list
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -956,7 +1115,7 @@ for a localhost address in the name of (Stein) Runar Bergheim.
 						Longitude: The longitude that the map will be centered on at startup
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -988,7 +1147,7 @@ for a localhost address in the name of (Stein) Runar Bergheim.
 						Main map object
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1013,7 +1172,7 @@ for a localhost address in the name of (Stein) Runar Bergheim.
 						The icon that will show the current position of an item
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1039,7 +1198,7 @@ for a localhost address in the name of (Stein) Runar Bergheim.
 of the aplplication
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1064,7 +1223,7 @@ of the aplplication
 						The layer that will hold markers
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1089,7 +1248,7 @@ of the aplplication
 						An object holding information about the selected data source.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1121,7 +1280,7 @@ of the aplplication
 						Set default extent in lon-lat.
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1146,7 +1305,7 @@ of the aplplication
 						The built-in WGS 84 Lat/Lon Projection object of OpenLayers
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1171,7 +1330,7 @@ of the aplplication
 						The built-in Google Projection object of OpenLayers
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1196,7 +1355,7 @@ of the aplplication
 						A data source used for ???
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1221,32 +1380,7 @@ of the aplplication
 						
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
-						
-						
-					</div>
-					
-					
-
-						
-						
-						
-						
-
-					<hr />
-				
-					<a name="scriptName"> </a>
-					<div class="fixedFont">
-					
-					<span class="light">{String}</span>
-					<b>scriptName</b>
-					
-					</div>
-					<div class="description">
-						The name of the root script
-						
-							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_jSrb.js.html">jSrb.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1271,7 +1405,7 @@ of the aplplication
 						The layer to hold selection
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1296,7 +1430,7 @@ of the aplplication
 						Name of default source table
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1321,7 +1455,7 @@ of the aplplication
 						Wheter or not to include Bing Maps as backgorund map
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1346,7 +1480,7 @@ of the aplplication
 						Wheter or not to include Google Maps as background map
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1371,7 +1505,7 @@ of the aplplication
 						Wheter or not to include local map tiles as background map
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1396,7 +1530,7 @@ of the aplplication
 						The zoom level of the map at startup
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Main.js.html">Main.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Main.js.html">Main.js</a>.
 						
 						
 					</div>
@@ -1425,6 +1559,43 @@ of the aplplication
 					Method Detail
 				</div>
 				
+					<a name="checkUpgrade"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>checkUpgrade</b>()
+					
+					</div>
+					<div class="description">
+						Show the upgrade button on the header menu if an update is available for
+download. This function is only available for users with a elevated access
+privileges
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ApplicationSetup.js.html">ApplicationSetup.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>void</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name="getErrorMessages"> </a>
 					<div class="fixedFont">
 					
@@ -1436,7 +1607,7 @@ of the aplplication
 						Creates a set of html paragraphs from an array
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Utility.js.html">Utility.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Utility.js.html">Utility.js</a>.
 						
 						
 					</div>
@@ -1483,7 +1654,7 @@ of the aplplication
 form
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
 						
 						
 					</div>
@@ -1507,6 +1678,79 @@ form
 
 					<hr />
 				
+					<a name="handlerBtnNewDatasource"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>handlerBtnNewDatasource</b>()
+					
+					</div>
+					<div class="description">
+						Function that is triggered when the new data source button is pressed. Allows
+the user to upload a file, then parses the file, inserts the contents into the
+database, populates the dropdowns with field names and advances to step 2 in the
+wizard.
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.NewDatasource.js.html">ClickHandlers.NewDatasource.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>void</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="handlerBtnNewDatasourceOk"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>handlerBtnNewDatasourceOk</b>()
+					
+					</div>
+					<div class="description">
+						Insert new data source
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.NewDatasource.js.html">ClickHandlers.NewDatasource.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>void</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name="handlerBtnNextSrc"> </a>
 					<div class="fixedFont">
 					
@@ -1518,7 +1762,7 @@ form
 						Load the next page of data source items
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1553,7 +1797,7 @@ form
 						Load the previous page of data source items
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1589,7 +1833,7 @@ form
 in the geocoding form
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
 						
 						
 					</div>
@@ -1625,7 +1869,7 @@ in the geocoding form
 geocoding form
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
 						
 						
 					</div>
@@ -1660,7 +1904,7 @@ geocoding form
 						Function that is triggered when clicking view image button in geocoding form
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
 						
 						
 					</div>
@@ -1695,7 +1939,7 @@ geocoding form
 						Function that is triggered when clicking visit url button in geocoding form
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
 						
 						
 					</div>
@@ -1730,7 +1974,7 @@ geocoding form
 						Function that is triggered when the user clicks in the map
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Form.js.html">ClickHandlers.Form.js</a>.
 						
 						
 					</div>
@@ -1765,6 +2009,34 @@ geocoding form
 
 					<hr />
 				
+					<a name="handlerDownloadGeoJSONJavaScript"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>handlerDownloadGeoJSONJavaScript</b>()
+					
+					</div>
+					<div class="description">
+						Handler for button to download geocoding as GeoJSON JavaScript
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Header.js.html">ClickHandlers.Header.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+						
+						
+
+					<hr />
+				
 					<a name="handlerSelectDatasource"> </a>
 					<div class="fixedFont">
 					
@@ -1777,7 +2049,7 @@ geocoding form
 panel
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1813,7 +2085,7 @@ panel
 data source panel
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1849,7 +2121,7 @@ data source panel
 data source panel
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1884,7 +2156,7 @@ data source panel
 						Function that is triggered when selecting a category in the data source panel
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1920,7 +2192,7 @@ data source panel
 data source panel
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1956,7 +2228,7 @@ data source panel
 item list on the bottom right hand side of the screen
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ClickHandlers.Source.js.html">ClickHandlers.Source.js</a>.
 						
 						
 					</div>
@@ -1991,7 +2263,7 @@ item list on the bottom right hand side of the screen
 						Load a source items for the specified data source
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Utility.Source.js.html">Utility.Source.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Utility.Source.js.html">Utility.Source.js</a>.
 						
 						
 					</div>
@@ -2032,6 +2304,123 @@ item list on the bottom right hand side of the screen
 
 					<hr />
 				
+					<a name="onDocumentReady"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>onDocumentReady</b>()
+					
+					</div>
+					<div class="description">
+						Once all HTML markup and linked files have been loaded, this
+function is executed
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ApplicationSetup.js.html">ApplicationSetup.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>void</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="reflow"> </a>
+					<div class="fixedFont">
+					
+					
+					<b>reflow</b>()
+					
+					</div>
+					<div class="description">
+						Setup, place and size window panes
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_ApplicationSetup.js.html">ApplicationSetup.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd>void</dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
+					<a name="SetNewDataSourceTab"> </a>
+					<div class="fixedFont">
+					
+					<span class="light">{void}</span>
+					<b>SetNewDataSourceTab</b>(pEnabledTab)
+					
+					</div>
+					<div class="description">
+						Set the currently visible tab in the new datasource wizard dialogs
+						
+							<br />
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Utility.NewDatasource.js.html">Utility.NewDatasource.js</a>.
+						
+						
+					</div>
+					
+					
+					
+						
+							<dl class="detailList">
+							<dt class="heading">Parameters:</dt>
+							
+								<dt>
+									<span class="light fixedFont">{Number}</span> <b>pEnabledTab</b>
+									
+								</dt>
+								<dd>A number between 1 and 3</dd>
+							
+							</dl>
+						
+						
+						
+						
+						
+							<dl class="detailList">
+							<dt class="heading">Returns:</dt>
+							
+								<dd><span class="light fixedFont">{void}</span> </dd>
+							
+							</dl>
+						
+						
+						
+
+					<hr />
+				
 					<a name="showImagePopup"> </a>
 					<div class="fixedFont">
 					
@@ -2043,7 +2432,7 @@ item list on the bottom right hand side of the screen
 						Open a popup window and show a URL
 						
 							<br />
-							<i>Defined in: </i> <a href="../symbols/src/C__GitHub_LoCLoud.Geocoding_js_jSrb_Code_Utility.Form.js.html">Utility.Form.js</a>.
+							<i>Defined in: </i> <a href="../symbols/src/C__Users_runarbe_Documents_Dropbox_70 - Private documents_Projects_Apache Root_locloudgc_js_jSrb_Code_Utility.Form.js.html">Utility.Form.js</a>.
 						
 						
 					</div>
@@ -2090,7 +2479,7 @@ item list on the bottom right hand side of the screen
 <!-- ============================== footer ================================= -->
 		<div class="fineprint" style="clear:both">
 			
-			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Mon Mar 17 2014 12:06:30 GMT+0100 (CET)
+			Documentation generated by <a href="http://code.google.com/p/jsdoc-toolkit/" target="_blank">JsDoc Toolkit</a> 2.4.0 on Sat Dec 21 2013 11:18:59 GMT+0100 (CET)
 		</div>
 	</body>
 </html>

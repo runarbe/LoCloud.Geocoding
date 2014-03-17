@@ -3,8 +3,10 @@
  * the user to upload a file, then parses the file, inserts the contents into the
  * database, populates the dropdowns with field names and advances to step 2 in the
  * wizard.
+ * 
+ * @returns void
  */
-jSrb.Handlers.handlerBtnNewDatasource = function() {
+function handlerBtnNewDatasource() {
 
     var ctlBar = jQuery('.ctlBar');
     var ctlPercent = jQuery('.ctlPercent');
@@ -14,7 +16,7 @@ jSrb.Handlers.handlerBtnNewDatasource = function() {
         jQuery("#dlgNewDatasource").dialog("close");
     });
 
-    jSrb.Utilities.SetNewDataSourceTab(0);
+    SetNewDataSourceTab(0);
     // Get character encodigs
     jQuery.getJSON(WsUrl.getCharacterEncodings,
             {},
@@ -95,7 +97,7 @@ jSrb.Handlers.handlerBtnNewDatasource = function() {
                                 mFNDropDowns.append(mOpt);
                             });
                             jQuery("#ds_table").attr({"value": data.d.table});
-                            jSrb.Utilities.SetNewDataSourceTab(1);
+                            SetNewDataSourceTab(1);
                         } else {
                             showMsgBox(data.m, true);
                         }
@@ -131,7 +133,7 @@ jSrb.Handlers.handlerBtnNewDatasource = function() {
 
                             if (data.v === WsStatus.success) {
 
-                                jSrb.Utilities.SetNewDataSourceTab(2);
+                                SetNewDataSourceTab(2);
                                 loadDatasources(null);
                             } else {
                                 showMsgBox(data.m, true);
@@ -161,11 +163,12 @@ jSrb.Handlers.handlerBtnNewDatasource = function() {
                         width: 640
                     }
             );
-        };
+        }
 
 /**
  * Insert new data source
+ * @returns void
  */
-jSrb.Handlers.handlerBtnNewDatasourceOk = function() {
+function handlerBtnNewDatasourceOk() {
     alert("Not yet implemented");
-};
+}
