@@ -26,26 +26,99 @@ if (typeof(OpenLayers) !== "undefined") {
     /**
      * Setup, place and size window panes
      */
+    /*
+     jSrb.AppSetup.reflow = function() {
+     var appWidth = jQuery(window).width();
+     var appHeight = jQuery(window).height();
+     var hdrHeight = 100;
+     var stbHeight = 30;
+     var srcHeight = appHeight - (hdrHeight + stbHeight);
+     var srcWidth = 250;
+     var schHeight = appHeight - (hdrHeight + stbHeight);
+     var schWidth = 250;
+     var frmHeight = 165;
+     var frmBottom = stbHeight;
+     var mapWidth = (appWidth - (srcWidth + schWidth)) - 4;
+     var mapHeight = (appHeight - (hdrHeight + stbHeight + frmHeight)) - 4;
+     jQuery("#divHeader").css("width", appWidth).css("height", hdrHeight);
+     jQuery("#divSource").css("width", srcWidth).css("height", srcHeight).css("top", hdrHeight).css("left", 0);
+     jQuery("#divSearch").css("width", schWidth).css("height", schHeight).css("top", hdrHeight).css("right", 0);
+     jQuery("#divMap").css("width", mapWidth).css("height", mapHeight).css("top", hdrHeight).css("left", srcWidth);
+     jQuery("#theMap").css("width", mapWidth).css("height", mapHeight);
+     jQuery("#divStatusBar").css("width", appWidth).css("height", stbHeight).css("bottom", 0).css("left", 0);
+     jQuery("#divForm").css("width", mapWidth).css("height", frmHeight).css("bottom", frmBottom).css("left", srcWidth);
+     };
+     */
+
     jSrb.AppSetup.reflow = function() {
+
         var appWidth = jQuery(window).width();
         var appHeight = jQuery(window).height();
-        var hdrHeight = 100;
-        var stbHeight = 30;
-        var srcHeight = appHeight - (hdrHeight + stbHeight);
-        var srcWidth = 250;
-        var schHeight = appHeight - (hdrHeight + stbHeight);
-        var schWidth = 250;
-        var frmHeight = 165;
-        var frmBottom = stbHeight;
-        var mapWidth = (appWidth - (srcWidth + schWidth)) - 4;
-        var mapHeight = (appHeight - (hdrHeight + stbHeight + frmHeight)) - 4;
-        jQuery("#divHeader").css("width", appWidth).css("height", hdrHeight);
-        jQuery("#divSource").css("width", srcWidth).css("height", srcHeight).css("top", hdrHeight).css("left", 0);
-        jQuery("#divSearch").css("width", schWidth).css("height", schHeight).css("top", hdrHeight).css("right", 0);
-        jQuery("#divMap").css("width", mapWidth).css("height", mapHeight).css("top", hdrHeight).css("left", srcWidth);
-        jQuery("#theMap").css("width", mapWidth).css("height", mapHeight);
-        jQuery("#divStatusBar").css("width", appWidth).css("height", stbHeight).css("bottom", 0).css("left", 0);
-        jQuery("#divForm").css("width", mapWidth).css("height", frmHeight).css("bottom", frmBottom).css("left", srcWidth);
+        jQuery("#mainLayout").width(appWidth).height(appHeight);
+
+        var pstyle = 'background-color: #F5F6F7; border: 1px solid #dfdfdf; padding: 5px;';
+
+        jQuery("#mainLayout").w2layout({
+            name: 'jSrb',
+            panels: [
+                {
+                    type: 'top', size: 30, resizable: true, style: pstyle, toolbar:
+                            {
+                                items: [
+                                    {type: 'button', id: 'mnuHome', caption: 'Home', img: 'icon-page'},
+                                    {type: 'break'},
+                                    {type: 'menu', id: 'Admin', caption: 'Admin', img: 'icon-folder',
+                                        items: [
+                                            {text: 'Add new user', id: "mnuAddUsers", img: 'icon-page'},
+                                            {text: 'Manage users', id: "mnuManageUsers", img: 'icon-page'}
+                                        ]
+                                    },
+                                    {type: 'menu', id: 'mnuImport', caption: 'Import', img: 'icon-folder',
+                                        items: [
+                                            {text: 'Import dataset', id: "mnuImportDataSet", img: 'icon-page'},
+                                            {text: 'Manage datasets', id: "mnuManageDataSets", img: 'icon-page'}
+                                        ]
+                                    },
+                                    {type: 'menu', id: 'mnuItemExport', caption: 'Export', img: 'icon-save',
+                                        items: [
+                                            {text: 'Export as GeoJson assigned to variable', id: 'mnuExportAsGeoJsonVar', img: 'icon-save'},
+                                            {text: 'Export as GeoJson', id: 'mnuExportAsGeoJson', img: 'icon-save'},
+                                            {text: 'Export as KML', id: 'mnuExportAsKML', img: 'icon-save'},
+                                            {text: 'Export as RDF', id: 'mnuExportAsRDF', img: 'icon-save'}
+                                        ]
+                                    },
+                                    {type: 'break'},
+                                    {type: 'spacer'},
+                                    {type: 'button', id: 'mnuAbout', caption: 'About', img: 'icon-page'},
+                                    {type: 'button', id: 'mnuHelp', caption: 'Help', img: 'icon-page'},
+                                    {type: 'break'},
+                                    {type: 'button', id: 'mnuCheckForUpdate', caption: 'Upgrade', img: 'icon-page'},
+                                    {type: 'button', id: 'mnuLogout', caption: 'Logout', img: 'icon-page'}
+                                ],
+                                onClick: function(event) {
+                                    jSrb.AppSetup.executedHeaderHandlers(
+                                            (event.subItem !== undefined) ? event.subItem.id : event.target
+                                            );
+                                    return;
+                                }
+                            }
+                    , content: ''},
+                {type: 'left', size: 250, resizable: true, style: pstyle},
+                {type: 'main', style: pstyle},
+                {type: 'preview', size: '25%', resizable: true, style: pstyle},
+                {type: 'right', size: 250, resizable: true, style: pstyle},
+                {type: 'bottom', size: 50, resizable: false, style: pstyle}
+            ]
+        });
+
+        //w2ui['jSrb'].load('left', './mod/mod-left.php');
+        w2ui['jSrb'].html('left', jQuery("#divSource").detach().html());
+        w2ui['jSrb'].html('main', jQuery("#divMap").detach().html());
+        w2ui['jSrb'].html('right', jQuery("#divSearch").detach().html());
+        w2ui['jSrb'].html('preview', jQuery("#divForm").detach().html());
+        w2ui['jSrb'].html('bottom', jQuery("#divStatusBar").detach().html());
+        jQuery("#theMap").width("100%").height("100%");
+
     };
 
     /**
@@ -112,6 +185,7 @@ if (typeof(OpenLayers) !== "undefined") {
 
     /**
      * Attach handlers to interactive elements in the geocoding form
+     * @return {void} description
      */
     jSrb.AppSetup.attachFormHandlers = function() {
 
@@ -177,68 +251,107 @@ if (typeof(OpenLayers) !== "undefined") {
     };
 
     /**
+     * 
+     * @param {String} pKeyWord
+     * @returns {void}
+     */
+    jSrb.AppSetup.executedHeaderHandlers = function(pKeyWord) {
+        switch (pKeyWord) {
+            case "mnuHome":
+                break;
+            case "mnuImportDataSet":
+                jSrb.Handlers.handlerBtnNewDatasource();
+                break;
+            case "mnuHelp":
+                jSrb.Handlers.handlerBtnHelp();
+                break;
+            case "mnuCheckForUpdate":
+                jSrb.Handlers.handlerBtnUpgrade();
+                break;
+            case "mnuAbout":
+                jSrb.Handlers.handlerBtnAbout();
+                break;
+            case "mnuExportAsGeoJson":
+                jSrb.Handlers.handlerDownloadGeoJSON();
+                break;
+            case "mnuExportAsGeoJsonVar":
+                jSrb.Handlers.handlerDownloadGeoJSONJavaScript();
+                break;
+            case "mnuExportAsKML":
+                jSrb.Handlers.handlerDownloadKML();
+                break;
+            case "mnuExportAsRDF":
+                console.log("to be implemented");
+                break;
+            default:
+                console.log("Event not implemented: " + pKeyWord);
+                break;
+        }
+
+    }
+    /**
      * Attach handlers to interactive elements in the page header
      */
-    jSrb.AppSetup.attachHeaderHandlers = function() {
+    //jSrb.AppSetup.attachHeaderHandlers = function() {
 
         /*
          * Add handler function for new datasource button
          */
-        jQuery("#btnNewDatasource").click(function(evt) {
+        /*jQuery("#btnNewDatasource").click(function(evt) {
             evt.preventDefault();
             jSrb.Handlers.handlerBtnNewDatasource();
-        });
+        });*/
 
         /*
          * Declare function for help button in top-menu
          */
-        jQuery("#btnHelp").click(function(evt) {
+        /*jQuery("#btnHelp").click(function(evt) {
             evt.preventDefault();
             jSrb.Handlers.handlerBtnHelp();
-        });
+        });*/
 
         /**
          * Attach handler function to upgrade button in top-menu
          * Hide upgrade button in top-menu by default
          */
-        jQuery("#btnUpgrade").click(function(evt) {
+        /*jQuery("#btnUpgrade").click(function(evt) {
             evt.preventDefault();
             jSrb.Handlers.handlerBtnUpgrade();
-        });
+        });*/
 
         /*
          * Declare function for about button in top-menu
          */
-        jQuery("#btnAbout").click(function(evt) {
+        /*jQuery("#btnAbout").click(function(evt) {
             evt.preventDefault();
             jSrb.Handlers.handlerBtnAbout();
-        });
+        });*/
 
         /*
          * Declare function for download GeoJSON button in top-menu
          */
-        jQuery("#btnDownloadGeoJSON").click(function(evt) {
+        /*jQuery("#btnDownloadGeoJSON").click(function(evt) {
             evt.preventDefault();
             jSrb.Handlers.handlerDownloadGeoJSON();
-        });
+        });*/
 
         /*
          * Declare function for download GeoJSON JavaScript button in top-menu
          */
-        jQuery("#btnDownloadGeoJSONJavaScript").click(function(evt) {
+        /*jQuery("#btnDownloadGeoJSONJavaScript").click(function(evt) {
             evt.preventDefault();
             jSrb.Handlers.handlerDownloadGeoJSONJavaScript();
-        });
+        });*/
 
         /*
          * Declare function for download KML button in top-menu
          */
-        jQuery("#btnDownloadKML").click(function(evt) {
+        /*jQuery("#btnDownloadKML").click(function(evt) {
             evt.preventDefault();
             jSrb.Handlers.handlerDownloadKML();
-        });
+        });*/
 
-    };
+    //};
 
     /**
      * Attach handler functions to interactive elements in the source panel
@@ -296,7 +409,7 @@ if (typeof(OpenLayers) !== "undefined") {
     jSrb.AppSetup.onDocumentReady = function() {
 
         jSrb.AppSetup.styleControls();
-        jSrb.AppSetup.attachHeaderHandlers();
+        //jSrb.AppSetup.attachHeaderHandlers();
         jSrb.AppSetup.attachSourceHandlers();
         jSrb.AppSetup.attachFormHandlers();
 
@@ -515,7 +628,7 @@ if (typeof(OpenLayers) !== "undefined") {
      * When the document is loaded, layout elements
      */
     jQuery("document").ready(function() {
-        jSrb.AppSetup.reflow(); // Setup the applicatin panes
+        jSrb.AppSetup.reflow(); // Setup the application panes, layout
         jSrb.AppSetup.onDocumentReady();
         loadDatasources(null); // Null important not to pass any argument to function
         loadSearchDBs();
@@ -525,7 +638,7 @@ if (typeof(OpenLayers) !== "undefined") {
     /*
      * Whenever the window resizes, reflow elements
      */
-    jQuery(window).resize(function() {
-        jSrb.AppSetup.reflow();
-    });
+    /*jQuery(window).resize(function() {
+     jSrb.AppSetup.reflow();
+     });*/
 }

@@ -32,45 +32,38 @@ if (!isLoggedIn()) {
         <script src="js/jQueryForm/jquery.form.min.js"></script>        
         <script src="js/jQuery.layout/jquery.layout-latest.min.js"></script>        
         <script src="js/w2ui-1.3/w2ui-1.3.min.js"/></script>
-        
-        <!-- Main custom Javascript -->
-        <script src="js/jSrb/jSrb.js" type="text/javascript"></script>
 
-    </head>
-    <body>
-        <div id="divHeader">
-            <div class="innerPadding">
-                <?php include("./mod/mod-header.php"); ?>
-            </div>
+    <!-- Main custom Javascript -->
+    <script src="js/jSrb/jSrb.js" type="text/javascript"></script>
+
+</head>
+<body>
+    <div id="mainLayout"></div>
+    <div id="mainToolBar"></div>
+    <div id="divSource" class="scrollable">
+        <div class="innerPadding">
+            <?php include("./mod/mod-source.php"); ?>
         </div>
-        <div id="divSource" class="scrollable">
-            <div class="innerPadding">
-                <?php include("./mod/mod-source.php"); ?>
-            </div>
+    </div>
+    <div id="divSearch">
+        <div class="innerPadding">
+            <?php include("./mod/mod-search.php"); ?>
         </div>
-        <div id="divSearch">
-            <div class="innerPadding">
-                <?php include("./mod/mod-search.php"); ?>
-            </div>
-        </div>
-        <div id="divMap">
-            <div class="innerPadding">
-                <div id="theMap"></div>
-            </div>            
-        </div>
-        <div id="divForm">
-            <div class="innerPadding">
-                <?php include("./mod/mod-form.php"); ?>
-            </div>            
-        </div>
-        <div id="divStatusBar">
-            <div class="innerPadding">
-                <?php include("./mod/mod-statusbar.php"); ?>
-            </div>
-        </div>
-        <?php include("./mod/mod-dialog.php"); ?>
-        <?php include("./mod/mod-new-datasource.php"); ?>        
-        <?php include("./mod/mod-popup-window.php"); ?>        
-        <?php include("./mod/mod-view-attributes.php"); ?>        
-    </body>
+    </div>
+    <div id="divMap">
+        <div id="theMap"></div>
+    </div>
+    <div id="divForm">
+        <div class="innerPadding">
+            <?php include("./mod/mod-form.php"); ?>
+        </div>            
+    </div>
+    <div id="divStatusBar">
+        <?php include("./mod/mod-statusbar.php"); ?>
+    </div>
+    <?php include("./mod/mod-dialog.php"); ?>
+    <?php include("./mod/mod-new-datasource.php"); ?>        
+    <?php include("./mod/mod-popup-window.php"); ?>        
+    <?php include("./mod/mod-view-attributes.php"); ?>        
+</body>
 </html>

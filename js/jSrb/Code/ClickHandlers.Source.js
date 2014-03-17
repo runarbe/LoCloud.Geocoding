@@ -169,11 +169,11 @@ function handlerSelectSourceItem() {
 
         }
 
-        jQuery(".ui-selected", "#selectable").first().effect("transfer", {
-            to: jQuery("#divForm")
-        }, 500);
-
         showGeocodingForm();
+
+        jQuery(".ui-selected", "#selectable").first().effect("transfer", {
+            to: jQuery("#gcForm")
+        }, 500);
 
     });
 }
