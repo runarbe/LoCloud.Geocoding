@@ -41,14 +41,10 @@ if (!isLoggedIn()) {
     <div id="mainLayout"></div>
     <div id="mainToolBar"></div>
     <div id="divSource" class="scrollable">
-        <div class="innerPadding">
-            <?php include("./mod/mod-source.php"); ?>
-        </div>
+        <?php include("./mod/mod-source.php"); ?>
     </div>
     <div id="divSearch">
-        <div class="innerPadding">
-            <?php include("./mod/mod-search.php"); ?>
-        </div>
+        <?php include("./mod/mod-search.php"); ?>
     </div>
     <div id="divMap">
         <div id="theMap"></div>

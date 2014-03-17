@@ -111,13 +111,53 @@ if (typeof(OpenLayers) !== "undefined") {
             ]
         });
 
-        //w2ui['jSrb'].load('left', './mod/mod-left.php');
-        w2ui['jSrb'].html('left', jQuery("#divSource").detach().html());
+        // Setup nested source layout
+        jQuery().w2layout({
+            name: 'sourceLayout',
+            panels: [
+                {type: 'main', style: pstyle},
+                {type: 'preview', size: '50%', resizable: true, style: pstyle}
+            ]
+        });
+        w2ui['jSrb'].html('left', w2ui['sourceLayout']);
+
+        // Set content of left.main
+        w2ui['sourceLayout'].html('main', jQuery("#divSource").detach().html());
+
+        // Set content of left.preview
+        w2ui['sourceLayout'].content('preview', jQuery().w2grid({
+            name: 'sourceGrid',
+            selectType: 'row',
+            limit: 100,
+            url: 'http://localhost:81/locloudgc/ws/ws-load-source-items3.php?t=ds33&dsID=33&idc=id&nc=namn&xc=null&yc=null&ic=null&uc=&a0_c=null&a0=&p=&a1_c=null&a1=&c_c=null&c=&offset=0&limit=10',
+            columns: [
+                {field: 'probability', caption: 'P?', size: '25px'},
+                {field: 'name', caption: 'Name', size: '100%'}
+            ],
+            records: [
+                {recid: 1, name: 'Runar', object: {test: 'test'}}
+            ]
+        }));
+
+        // Setup nested search layout
+        jQuery().w2layout({
+            name: 'searchLayout',
+            panels: [
+                {type: 'main', style: pstyle},
+                {type: 'preview', size: '50%', resizable: true, style: pstyle}
+            ]
+        });
+        w2ui['jSrb'].html('right', w2ui['searchLayout']);
+
+        // Set content of right.main
+        w2ui['searchLayout'].html('main', jQuery("#divSearch").detach().html());
+
+        // Set content of main
         w2ui['jSrb'].html('main', jQuery("#divMap").detach().html());
-        w2ui['jSrb'].html('right', jQuery("#divSearch").detach().html());
+        jQuery("#theMap").width("100%").height("100%");
+
         w2ui['jSrb'].html('preview', jQuery("#divForm").detach().html());
         w2ui['jSrb'].html('bottom', jQuery("#divStatusBar").detach().html());
-        jQuery("#theMap").width("100%").height("100%");
 
     };
 
@@ -294,62 +334,62 @@ if (typeof(OpenLayers) !== "undefined") {
      */
     //jSrb.AppSetup.attachHeaderHandlers = function() {
 
-        /*
-         * Add handler function for new datasource button
-         */
-        /*jQuery("#btnNewDatasource").click(function(evt) {
-            evt.preventDefault();
-            jSrb.Handlers.handlerBtnNewDatasource();
-        });*/
+    /*
+     * Add handler function for new datasource button
+     */
+    /*jQuery("#btnNewDatasource").click(function(evt) {
+     evt.preventDefault();
+     jSrb.Handlers.handlerBtnNewDatasource();
+     });*/
 
-        /*
-         * Declare function for help button in top-menu
-         */
-        /*jQuery("#btnHelp").click(function(evt) {
-            evt.preventDefault();
-            jSrb.Handlers.handlerBtnHelp();
-        });*/
+    /*
+     * Declare function for help button in top-menu
+     */
+    /*jQuery("#btnHelp").click(function(evt) {
+     evt.preventDefault();
+     jSrb.Handlers.handlerBtnHelp();
+     });*/
 
-        /**
-         * Attach handler function to upgrade button in top-menu
-         * Hide upgrade button in top-menu by default
-         */
-        /*jQuery("#btnUpgrade").click(function(evt) {
-            evt.preventDefault();
-            jSrb.Handlers.handlerBtnUpgrade();
-        });*/
+    /**
+     * Attach handler function to upgrade button in top-menu
+     * Hide upgrade button in top-menu by default
+     */
+    /*jQuery("#btnUpgrade").click(function(evt) {
+     evt.preventDefault();
+     jSrb.Handlers.handlerBtnUpgrade();
+     });*/
 
-        /*
-         * Declare function for about button in top-menu
-         */
-        /*jQuery("#btnAbout").click(function(evt) {
-            evt.preventDefault();
-            jSrb.Handlers.handlerBtnAbout();
-        });*/
+    /*
+     * Declare function for about button in top-menu
+     */
+    /*jQuery("#btnAbout").click(function(evt) {
+     evt.preventDefault();
+     jSrb.Handlers.handlerBtnAbout();
+     });*/
 
-        /*
-         * Declare function for download GeoJSON button in top-menu
-         */
-        /*jQuery("#btnDownloadGeoJSON").click(function(evt) {
-            evt.preventDefault();
-            jSrb.Handlers.handlerDownloadGeoJSON();
-        });*/
+    /*
+     * Declare function for download GeoJSON button in top-menu
+     */
+    /*jQuery("#btnDownloadGeoJSON").click(function(evt) {
+     evt.preventDefault();
+     jSrb.Handlers.handlerDownloadGeoJSON();
+     });*/
 
-        /*
-         * Declare function for download GeoJSON JavaScript button in top-menu
-         */
-        /*jQuery("#btnDownloadGeoJSONJavaScript").click(function(evt) {
-            evt.preventDefault();
-            jSrb.Handlers.handlerDownloadGeoJSONJavaScript();
-        });*/
+    /*
+     * Declare function for download GeoJSON JavaScript button in top-menu
+     */
+    /*jQuery("#btnDownloadGeoJSONJavaScript").click(function(evt) {
+     evt.preventDefault();
+     jSrb.Handlers.handlerDownloadGeoJSONJavaScript();
+     });*/
 
-        /*
-         * Declare function for download KML button in top-menu
-         */
-        /*jQuery("#btnDownloadKML").click(function(evt) {
-            evt.preventDefault();
-            jSrb.Handlers.handlerDownloadKML();
-        });*/
+    /*
+     * Declare function for download KML button in top-menu
+     */
+    /*jQuery("#btnDownloadKML").click(function(evt) {
+     evt.preventDefault();
+     jSrb.Handlers.handlerDownloadKML();
+     });*/
 
     //};
 
