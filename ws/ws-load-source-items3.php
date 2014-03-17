@@ -7,7 +7,6 @@ dieIfSessionExpired();
  * Declare temporary variables to hold accumulated data
  */
 
-
 $m = array(); //Mesages, notices, errors
 $v = WsStatus::success; //Return status 1=success,-1=error
 $d = array(); // To hold data
@@ -111,7 +110,7 @@ if ($v === 1) {
     /*
      * Construct select statement
      */
-    $mSql = sprintf("SELECT COALESCE(gc_name, %s) as _nc, %s as _x, %s as _y, ds.%s as _id, %s as _ic, %s as _uc, ds.*, jt.* FROM %s ds LEFT JOIN %s jt ON jt.fk_ds_id = ds.%s %s %s %s LIMIT %s OFFSET %s;", $mParams["nc"], $mParams["xc"], $mParams["yc"], $mParams["idc"], $mParams["ic"], $mParams["uc"], $mParams["t"], $mJoinTableName, $mParams["idc"], $j, $w, $ob, $mParams["limit"], $mParams["offset"]
+    $mSql = sprintf("SELECT COALESCE(gc_name, %s) as _nc, %s as _x, %s as _y, ds.%s as _id, ds.%s as recid, %s as _ic, %s as _uc, ds.*, jt.* FROM %s ds LEFT JOIN %s jt ON jt.fk_ds_id = ds.%s %s %s %s LIMIT %s OFFSET %s;", $mParams["nc"], $mParams["xc"], $mParams["yc"], $mParams["idc"], $mParams["idc"], $mParams["ic"], $mParams["uc"], $mParams["t"], $mJoinTableName, $mParams["idc"], $j, $w, $ob, $mParams["limit"], $mParams["offset"]
     );
 
     logIt($mSql);
@@ -142,7 +141,7 @@ if ($v === 1) {
                 $mKeys = implode($mKeys, ",");
             }
             $isql = "SELECT fk_ds_id, gc_lat, gc_lon, gc_probability FROM " . $mJoinTableName . " WHERE gc_usr_id != " . $_SESSION["usr_id"] . " AND fk_ds_id in (" . $mKeys . ") ORDER BY gc_probability ASC";
-            logIt($isql);
+            //logIt($isql);
             $iresult = $mDb->query($isql);
             if ($iresult) {
                 logIt("got results");
@@ -188,5 +187,5 @@ if ($v === 1) {
 }
 dbc($mDb);
 
-echo $r->getResult();
+echo $r->getGridJson();
 ?>
