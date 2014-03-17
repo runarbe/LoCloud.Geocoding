@@ -169,6 +169,14 @@ if (typeof(OpenLayers) !== "undefined") {
         });
 
         /*
+         * Declare function for download RDF button in top-menu
+         */
+        jQuery("#btnDownloadRDF").click(function(evt) {
+            evt.preventDefault();
+            handlerDownloadRDF();
+        });
+
+        /*
          * Make source item list selectable
          */
         jQuery("#selectable").selectable({

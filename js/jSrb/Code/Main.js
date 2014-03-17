@@ -157,24 +157,27 @@ if (typeof(OpenLayers) !== 'undefined') {
      * @type Number 
      * @default 15 (Europe)
      */
-//var lon = 56.835; // Oman
-    var lon = 15; // Europe
+    //var lon = 56.835; // Oman
+    //var lon = 15; // Europe
+    var lon = 20; // Norge
 
     /**
      * Latitude: The latitude that the map will be centered on at startup
      * @type Number
      * @default 50 (Europe)
      */
-//var lat = 21.34; // Oman
-    var lat = 50; // Europe
+    //var lat = 21.34; // Oman
+    //var lat = 50; // Europe
+    var lat = 65; // Norge
 
     /**
      * The zoom level of the map at startup
      * @type Double 
      * @default 3 (Europe)
      */
-//var zoom = 5; // Oman
-    var zoom = 3; // Europe
+    //var zoom = 5; // Oman
+    //var zoom = 3; // Europe
+    var zoom = 4; // Europe
 
     /*
      * Initialize default projections that will be available in the applications
@@ -243,7 +246,7 @@ if (typeof(OpenLayers) !== 'undefined') {
          * Create map control
          */
         map = new OpenLayers.Map('theMap', {
-            numZoomLevels: 11,
+            numZoomLevels: 20,
             units: 'm',
             projection: p900913,
             displayProjection: p900913,

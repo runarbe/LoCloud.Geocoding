@@ -10,7 +10,7 @@ function initMapLayers() {
          */
         function mbtilesURL(bounds) {
             var db = "OSMBright.mbtiles";
-            var res = this.map.getResolution(); 
+            var res = this.map.getResolution();
             var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
             var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
             var z = this.map.getZoom();
@@ -35,7 +35,7 @@ function initMapLayers() {
         });
 
         defaultMapLayers.push(localTileLayer);
-        
+
     }
 
     /*
@@ -103,6 +103,20 @@ function initMapLayers() {
         defaultMapLayers.push(baerial);
 
     }
+
+    /*
+     * Kartverket layers
+     */
+    //Statens Kartverk layers
+    var skTopo2 = new OpenLayers.Layer.WMS(
+            "Topografisk norgeskart2", "http://opencache.statkart.no/gatekeeper/gk/gk.open?",
+            {
+                layers: 'topo2',
+                format: 'image/jpeg'
+            }, {
+        attribution: ''
+    });
+    defaultMapLayers.push(skTopo2);
 
     /*
      * Other basemaps

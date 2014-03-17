@@ -75,6 +75,14 @@ function handlerDownloadKML() {
 }
 
 /*
+ * Handler for button to download geocoding as RDF
+ */
+function handlerDownloadRDF() {
+    var mDatasource = getSelectedDatasource();
+    window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=rdf");
+}
+
+/*
  * Handler for button to download geocoding as GeoJSON
  */
 function handlerDownloadGeoJSON() {
