@@ -16,6 +16,7 @@ class MetaDatasources extends MySQLTable {
     public $ds_coord_prec = null;
     public $ds_col_image = null;
     public $ds_col_url = null;
+    public $ds_col_puri = null;
     
     public function __construct($pValues = null) {
         parent::__construct("meta_datasources", "id", $pValues);
