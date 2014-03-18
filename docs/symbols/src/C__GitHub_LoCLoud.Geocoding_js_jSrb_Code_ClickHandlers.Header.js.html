@@ -82,18 +82,26 @@
 <span class='line'> 75</span> </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'> 76</span> 
 <span class='line'> 77</span> </span><span class="COMM">/*
-<span class='line'> 78</span>  * Handler for button to download geocoding as GeoJSON
+<span class='line'> 78</span>  * Handler for button to download geocoding as RDF
 <span class='line'> 79</span>  */</span><span class="WHIT">
-<span class='line'> 80</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerDownloadGeoJSON</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 80</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerDownloadRDF</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'> 81</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mDatasource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">getSelectedDatasource</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 82</span> </span><span class="WHIT">    </span><span class="NAME">window.location.replace</span><span class="PUNC">(</span><span class="STRN">"export.php?ds="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">mDatasource.ds_table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&format=geojson"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 82</span> </span><span class="WHIT">    </span><span class="NAME">window.location.replace</span><span class="PUNC">(</span><span class="STRN">"export.php?ds="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">mDatasource.ds_table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&format=rdf"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'> 83</span> </span><span class="PUNC">}</span><span class="WHIT">
 <span class='line'> 84</span> 
-<span class='line'> 85</span> </span><span class="COMM">/**
-<span class='line'> 86</span>  * Handler for button to download geocoding as GeoJSON JavaScript
+<span class='line'> 85</span> </span><span class="COMM">/*
+<span class='line'> 86</span>  * Handler for button to download geocoding as GeoJSON
 <span class='line'> 87</span>  */</span><span class="WHIT">
-<span class='line'> 88</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerDownloadGeoJSONJavaScript</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 89</span> </span><span class="WHIT">    </span><span class="COMM">// Add logic to define name of JS variable</span><span class="WHIT">
-<span class='line'> 90</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mDatasource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">getSelectedDatasource</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 91</span> </span><span class="WHIT">    </span><span class="NAME">window.location.replace</span><span class="PUNC">(</span><span class="STRN">"export.php?ds="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">mDatasource.ds_table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&format=geojson.js"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 92</span> </span><span class="PUNC">}</span></pre></body></html>
+<span class='line'> 88</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerDownloadGeoJSON</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 89</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mDatasource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">getSelectedDatasource</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 90</span> </span><span class="WHIT">    </span><span class="NAME">window.location.replace</span><span class="PUNC">(</span><span class="STRN">"export.php?ds="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">mDatasource.ds_table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&format=geojson"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 91</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 92</span> 
+<span class='line'> 93</span> </span><span class="COMM">/**
+<span class='line'> 94</span>  * Handler for button to download geocoding as GeoJSON JavaScript
+<span class='line'> 95</span>  */</span><span class="WHIT">
+<span class='line'> 96</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerDownloadGeoJSONJavaScript</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 97</span> </span><span class="WHIT">    </span><span class="COMM">// Add logic to define name of JS variable</span><span class="WHIT">
+<span class='line'> 98</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mDatasource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">getSelectedDatasource</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 99</span> </span><span class="WHIT">    </span><span class="NAME">window.location.replace</span><span class="PUNC">(</span><span class="STRN">"export.php?ds="</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">mDatasource.ds_table</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"&format=geojson.js"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>100</span> </span><span class="PUNC">}</span></pre></body></html>
