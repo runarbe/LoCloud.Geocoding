@@ -58,6 +58,11 @@
                     </div>
 
                     <div class="pure-control-group">                    
+                        <label for="ds_col_puri">Persistent URI</label>
+                        <select title="Field that contains persistent Uniform Resource Identifier" class="pure-input-2-3 FND" id="ds_col_puri" name="ds_col_puri"></select>
+                    </div>
+
+                    <div class="pure-control-group">                    
                         <label for="ds_col_name">Display field</label>
                         <select title="The field that contains a name or title" class="pure-input-2-3 FND" id="ds_col_name" name="ds_col_name" required></select>
                     </div>
