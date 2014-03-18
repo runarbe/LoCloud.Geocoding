@@ -11,6 +11,7 @@ $mParams = array(
     "ds_col_pk" => new WsParamOptions(true),
     "ds_col_name" => new WsParamOptions(true),
     "ds_srs" => new WsParamOptions(true),
+    "ds_col_puri" => new WsParamOptions(false),
     "ds_coord_prec" => new WsParamOptions(false),
     "ds_col_x" => new WsParamOptions(false),
     "ds_col_y" => new WsParamOptions(false),
@@ -41,6 +42,7 @@ if ($r->v == WsStatus::success) {
     $mMDS->ds_col_y = $mParams["ds_col_y"];
     $mMDS->ds_col_image = $mParams["ds_col_image"];
     $mMDS->ds_col_url = $mParams["ds_col_url"];
+    $mMDS->ds_col_puri = $mParams["ds_col_puri"];
 
     $mSql = $mMDS->Insert();
     $mDb = db();
