@@ -2,6 +2,7 @@
 
 require_once("./lib/class.KML.php");
 require_once("./lib/class.GeoJSON.php");
+require_once("./lib/class.RDF.php");
 require_once("functions.php");
 
 $mTstamp = date("Ymd-hi");
@@ -20,9 +21,9 @@ if ((isset($_GET["ds"])) && ($_GET["ds"] != "")) {
     if ($mDb->affected_rows == 1) {
         $mDs = $mResDataset->fetch_object();
     }
-    
+
     if (!$mDs->ds_col_cat === "null") {
-        $mDs->ds_col_cat =  "d.".$mDs->ds_col_cat ;
+        $mDs->ds_col_cat = "d." . $mDs->ds_col_cat;
     }
 
     $mSql = sprintf("SELECT DISTINCT
@@ -43,7 +44,7 @@ if ((isset($_GET["ds"])) && ($_GET["ds"] != "")) {
                     AND 
                         (dm.gc_lon <> 0 OR dm.gc_lat <> 0)", $mDs->ds_col_cat, $mDs->ds_table, $mDs->ds_table, $mDs->ds_col_pk, $mDs->ds_table
     );
-    
+
     $mRes = $mDb->query($mSql);
     if ($mRes) {
 
@@ -93,18 +94,26 @@ if ((isset($_GET["ds"])) && ($_GET["ds"] != "")) {
                 $mProperties = new properties($mArray);
                 $mGeoJSON->createFeature($mGeometry, $mProperties);
             }
-            
+
             // Send content header
             if ($_GET["output"] != "true") {
-                header("Content-Disposition: attachment; filename='" . $mTstamp . "-" . $mDs->ds_title . ".".$mFormat."'");
+                header("Content-Disposition: attachment; filename='" . $mTstamp . "-" . $mDs->ds_title . "." . $mFormat . "'");
             }
-            
+
             // Output json data
             if ($mFormat == "geojson") {
                 echo $mGeoJSON->getGeoJSON();
             } else {
                 echo "var GeoJSONData =" . $mGeoJSON->getGeoJSON() . ";";
             }
+        } elseif ($mFormat == "rdf") {
+            header("Content-Type: application/rdf+xml");
+            header("Content-Disposition: attachment; filename='" . $mTstamp . "-" . $mDs->ds_title . ".rdf'");
+            $mDoc = new RDF();
+            while ($obj = $mRes->fetch_object()) {
+                $mDoc->addDesc("test", round($obj->gc_lon, 6), round($obj->gc_lat, 6));
+            }
+            echo $mDoc->getXml();
         } elseif ($mFormat == "pgsql") {
             
         } elseif ($mFormat == "mysql") {
