@@ -30,6 +30,7 @@
         "Code/Utility.Source.js", 
         "Code/Utility.Form.js", 
         "Code/Utility.NewDatasource.js", 
+        "Code/Utility.Manager.js", 
         "Code/ApplicationSetup.js", 
         "Code/CustomControls.js", 
         "Code/ClickHandlers.Source.js",
@@ -37,6 +38,7 @@
         "Code/ClickHandlers.Form.js",
         "Code/ClickHandlers.Header.js",
         "Code/ClickHandlers.NewDatasource.js",
+        "Code/ClickHandlers.Manager.js",
         "Code/MapLayers.js", 
         "Code/Main.js" //Always at end
     ];
