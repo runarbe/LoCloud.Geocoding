@@ -1,7 +1,69 @@
 function roundCoordinates(mDouble, mNumDigits) {
     var mFact = Math.pow(10, mNumDigits);
-    var mPoint = (Math.round(mDouble * mFact)) / mFact
+    var mPoint = (Math.round(mDouble * mFact)) / mFact;
     return mPoint;
+}
+
+/**
+ * Output a log message
+ * @param {String} pMessage
+ * @param {Boolean} pError If false, outputs a highlighted message, otherwise an error
+ * @returns {void}
+ */
+function logMessage(pMessage, pError) {
+    pError = pError !== undefined ? pError : true;
+    if (pError === false) {
+        jQuery("#lblLog")
+                .text(pMessage)
+                .removeClass("ui-state-error")
+                .addClass("ui-state-highlight");
+    } else {
+        jQuery("#lblLog")
+                .text(pMessage)
+                .removeClass("ui-state-highlight")
+                .addClass("ui-state-error");
+    }
+    return;
+}
+
+/**
+ * Checks if the value of an HTML element is numeric
+ * @param {DOM} pElement jQuery element
+ * @returns {Boolean} True if numeric, false if not
+ */
+function isEVNumeric(pElement) {
+    return jQuery.isNumeric(pElement.val());
+}
+
+/**
+ * Try to get the name of this function
+ * @returns {String} Name of calling function
+ */
+function getThisFunctionName() {
+    var mName = arguments.callee.toString();
+    mName = mName.substr('function '.length);
+    mName = mName.substr(0, mName.indexOf('('));
+    return mName;
+}
+
+/**
+ * Get a W2UI grid record
+ * @param {String} pW2UIGridName
+ * @param {Number} pRecID
+ * @returns {Object} JSON object representing the data values of the W2UI record
+ */
+function getW2UIGridRecByID(pW2UIGridName, pRecID) {
+    var mRecord = null;
+    if (pW2UIGridName in w2ui) {
+        var mRecords = w2ui[pW2UIGridName].records;
+        for (var i = 0; i < mRecords.length; i++) {
+            if (mRecords[i].recid.toString() === pRecID.toString()) {
+                mRecord = mRecords[i];
+                break;
+            }
+        }
+    }
+    return mRecord;
 }
 
 function openPopup(pUrl) {
