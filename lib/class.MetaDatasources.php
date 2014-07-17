@@ -24,9 +24,14 @@ class MetaDatasources extends MySQLTable {
                 $pValues);
         $this->_getMandatory(array("ds_title", "ds_col_pk", "ds_col_name", "ds_srs", "ds_coord_prec"));
 
-        $this->_select = sprintf("SELECT DISTINCT SQL_CALC_FOUND_ROWS t.* FROM meta_datasources t INNER JOIN meta_usr_datasources_acl m ON (m.datasource_id = t.id AND m.usr_id=%s AND m.access >= %s)",
+        $this->_select = sprintf("SELECT DISTINCT SQL_CALC_FOUND_ROWS t.* "
+                . "FROM meta_datasources t INNER JOIN meta_usr_datasources_acl m "
+                . "ON ((m.datasource_id = t.id AND m.usr_id=%s AND m.access <= %s) OR "
+                . "(%s=%s))",
                 cUsr(),
-                cLevel());
+                AccessLevels::Editor,
+                cLevel(),
+                UserLevels::SuperAdmin);
     }
 
     /**
