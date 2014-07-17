@@ -298,3 +298,11 @@ input.attrFormField {
 .scrollable::-webkit-scrollbar-corner {
     background-color: transparent; 
 }
+
+.no-close .ui-dialog-titlebar-close {
+  display: none;
+}
+
+.ui-button {
+    text-align:left!important;
+}
