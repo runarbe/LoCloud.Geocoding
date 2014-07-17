@@ -38,7 +38,7 @@ class Db {
         Db::connect();
         $mRes = mysqli_query(Db::$conn,
                 $pSql);
-        if ($mRes !== false && mysqli_errno(Db::$conn) === 0) {
+        if (!is_bool($mRes) && mysqli_errno(Db::$conn) === 0) {
             $mArray = mysqli_fetch_array($mRes);
             return $mArray[0];
         } else {
