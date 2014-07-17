@@ -1,8 +1,13 @@
 /upload/
 /setup/
 /latest/
-build.xml
 /specifications/
 /tests/
 /docs/
 /nbproject/
+/ws/deprecated/
+/log/
+build.xml
+build_info.properties
+config.php
+.gitignore
