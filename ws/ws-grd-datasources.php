@@ -10,7 +10,7 @@ class WSGridDataSources extends GcWebService implements iWebService {
             "cmd" => new ParamOpt(true,
                     WsDataTypes::mString)
         );
-        
+
         $mParams = $this->_getParams($mCheck);
 
         if ($this->isSuccess()) {
@@ -82,7 +82,7 @@ class WSGridDataSources extends GcWebService implements iWebService {
 
         $mMetaDatasources = new MetaDatasources();
 
-        $mParams2 = array(
+        $mCheck = array(
             "id" => new ParamOpt(false,
                     WsDataTypes::mInteger),
             "offset" => new ParamOpt(false,
@@ -91,13 +91,13 @@ class WSGridDataSources extends GcWebService implements iWebService {
                     WsDataTypes::mInteger)
         );
 
-        if (checkWSParameters($mParams2,
-                        $this->_result) == WsStatus::success) {
+        $mP = $this->_getParams($mCheck);
+        if ($this->isSuccess()) {
 
             if (null !== ($mAclArray = $mMetaDatasources->selectMap(null,
                     "t.ds_title",
-                    $mParams2["limit"],
-                    $mParams2["offset"],
+                    $mP["limit"],
+                    $mP["offset"],
                     $this->_result,
                     null,
                     null,
@@ -123,7 +123,8 @@ class WSGridDataSources extends GcWebService implements iWebService {
             foreach ($mParams2["selected"] as $mSelectedID) {
                 if (MetaAcl::UsrCanDeleteDatasource(cUsr(),
                                 $mSelectedID) || isLoggedIn(UserLevels::SuperAdmin)) {
-                    MetaDatasources::deleteDatasource($mSelectedID, $this->_result);
+                    MetaDatasources::deleteDatasource($mSelectedID,
+                            $this->_result);
 //                    $mMetaDatasources->id = $mSelectedID;
 //                    $mMetaDatasources->delete($this->_result);
                 } else {
