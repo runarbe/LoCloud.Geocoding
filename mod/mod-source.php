@@ -1,12 +1,19 @@
 <div id="dsOptions" class="collapsible">
-    <h3>Select a data source</h3>
+    <h3>Data source</h3>
     <div class="sh">
-        <form id="#frmSelectDatasource">
+        <form id="frmSelectDatasource">
             <p>Please select a data source that you would like to geocode.</p>
             <select id="sbDatasource" name="sbDatasource" class="rounded wide">
                 <option value="">Please select a source</option>
             </select>
         </form>
+        <?php if (isLoggedIn(UserLevels::Editor)) { ?>
+            <a id="btnNewDatasource" class="wide">Add new data source</a>        
+            <a id="btnManageDatasources" class="wide">Manage data sources</a>
+        <?php } ?>
+    </div>
+    <h3>Filter</h3>
+    <div class="sh">
         <form id="frmFilterByArea" class="hidden">
             <p>Filter by area</p>
             <select id="sbFilterAdm0" name="sbFilterAdm0" class="rounded wide hidden">

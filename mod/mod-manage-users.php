@@ -1,112 +1,41 @@
-<?php
-require_once("functions.php");
-?>
-<html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-        <title>Install LoCloud Geocoding Micro Service</title>
-        <link href="css/style.css" rel="stylesheet" type="text/css" title="main"/>
-        <link rel="stylesheet" href="css/cupertino/jquery-ui.css"/>
-        <link rel="stylesheet" href="css/pure/pure.css"/>
-        <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
-        <script src="js/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
-        <script src="js/jSrb/jSrb.js" type="text/javascript"></script>
-        <script>
-            jQuery(document).ready(function() {
-                jQuery("#dlgAuth").dialog({width: 480});
-                jQuery(".ui-dialog-titlebar-close").hide();
-                jQuery("#btnLoadDefaults").click(function(evt) {
-                    evt.preventDefault();
-                    jQuery("#tbAppTitle").val("Geocoding Micro Service");
-                    jQuery("#tbDb").val("locloud_test");
-                    jQuery("#tbDbHost").val("localhost");
-                    jQuery("#tbDbUsr").val("root");
-                    jQuery("#tbDbPwd").val("root");
-                });
-
-                jQuery("#btnConfigure").click(function(evt) {
-                    var app_title = jQuery("#tbAppTitle").val();
-                    var db = jQuery("#tbDb").val();
-                    var db_host = jQuery("#tbDbHost").val();
-                    var db_usr = jQuery("#tbDbUsr").val();
-                    var db_pwd = jQuery("#tbDbPwd").val();
-                    var basedir = jQuery("#tbBaseDir").val();
-                    var overwrite;
-                    if (jQuery("#chkOverwrite").is(":checked")) {
-                        overwrite = 1;
-                    } else {
-                        overwrite = 0;
-                    }
-                    evt.preventDefault();
-                    jQuery.getJSON(WsUrl.createConfig, {
-                        app_title: app_title,
-                        db: db,
-                        db_host: db_host,
-                        db_usr: db_usr,
-                        db_pwd: db_pwd,
-                        basedir: basedir,
-                        overwrite: overwrite
-                    },
-                    /**
-                     * @param {WsRetObj} data
-                     * @ignore
-                     */
-                    function(data) {
-                        if (data.v === WsStatus.success) {
-                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-highlight").html("Success");
-                            //window.location.replace("./index.php");
-                        } else {
-                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-error").html("Error: " + data.m);
-                        }
-                    }).fail(function(data) {
-                        console.log("Failed to connect: " + data);
-                    });
-                });
-            });
-
-        </script>
-    </head>
-    <body>
-        <div id="dlgAuth" title="Initialize Geocoding Microservice">
-            <img src="images/locloud-logo-50px.png"/>
-            <form id="ftmAuth" class="pure-form pure-form-aligned">
-                <p class="pure-form-message">
-                    By filling in the forms below and clicking the "Initialize" button, a new configuration file will be created. If you already have installed the application you should be careful to change these values as it may result in your application becoming unusable.
-                </p>
-                <div class="pure-control-group">
-                    <label>Application title</label>
-                    <input type="text" class="pure-input-2-3" id="tbAppTitle" value="LoCloud Geocoding Microservice" placeholder="Enter desired title for your application" required/>
-                </div>
-                <div class="pure-control-group">
-                    <label>Database</label>
-                    <input type="text" class="pure-input-2-3" id="tbDb" placeholder="Enter name of database (will be created if it doesn't exist)" required/>
-                </div>
-                <div class="pure-control-group">
-                    <label>Host name</label>
-                    <input type="text" class="pure-input-2-3" id="tbDbHost" value="" placeholder="Enter hostname of server running MySQL, typically 'localhost'" required/>
-                </div>
-                <div class="pure-control-group">
-                    <label>Database user name</label>
-                    <input type="text" class="pure-input-2-3" id="tbDbUsr" placeholder="Enter username of existing MySQL database user" required/>
-                </div>
-                <div class="pure-control-group">
-                    <label>Database password</label>
-                    <input class="pure-input-2-3" type="password" placeholder="Enter password of existing MySQL database user" id="tbDbPwd" required/>
-                </div>
-                <div class="pure-control-group">
-                    <label>Installation directory</label>
-                    <input class="pure-input-2-3 pure-" type="text" value="<?php echo dirname(__FILE__); ?>" id="tbBaseDir" disabled/>
-                </div>
-                <div class="pure-controls">
-                    <label class="pure-radio">                   
-                        <input type="checkbox" id="chkOverwrite"/>
-                        Overwrite existing configuration file if it exists
-                    </label>
-                    <button id="btnLoadDefaults" class="pure-button">Load default values</button>
-                    <button id="btnConfigure" class="pure-button pure-button-primary">Initialize</button>
-                </div>
-                <p id="notification"></p>
-            </form>
+<div id="gc-mod" title="Manage users">
+    <div id="dlgManager" class="pure-g" title="Manage users">
+        <div class="pure-u-1-2">
+            <p>1a) Create a new user</p>
+            <button id="btnUsrAdd" class="pure-button pure-button-primary">Add new</button>
+            <p>...or...</p>
+            <p>1b) Select an existing user to edit</p>
+            <div id="grdUsr" style="height:400px;"></div>
         </div>
-    </body>
-</html>
+        <div class="pure-u-1-2">
+            <form id="meta_usr" class="pure-form pure-form-aligned">
+                <p>2. Add or modify user data</p>
+                <fieldset>
+                    <div class="pure-control-group">
+                        <label>User name</label>
+                        <input type="text" id="usr" class="pure-input-1-2" value="" placeholder="Username" required  />
+                    </div>
+                    <div class="pure-control-group">
+                        <label>Password</label>
+                        <input type="password" id="pwd" class="pure-input-1-2" placeholder="Password" required/>
+                    </div>
+                    <div class="pure-control-group">
+                        <label>Level</label>
+                        <select id="level" value="2" class="pure-input-1-2" placeholder="User level" required>
+                            <?php echo getOptions("WsUserLevel", array(UserLevels::SuperAdmin)); ?>                        
+                        </select>
+                    </div>
+                    <div class="pure-controls">
+                        <button id="btnUsrDelete" class="pure-button">Delete</button>
+                        <button id="btnUsrInsertUpdate" class="pure-button pure-button-primary">Create</button>
+                    </div>
+                </fieldset>
+                <input type="hidden" id="hdSelectedUsrID"/>
+                <input type="hidden" id="hdCmd"/>
+            </form>                
+        </div>
+        <div class="pure-u-1">
+            <div id="lblLog"></div>
+        </div>
+    </div>
+</div>

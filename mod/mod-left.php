@@ -137,7 +137,7 @@
 <div id="dsOptions" class="collapsible">
     <h3>Select a data source</h3>
     <div class="sh">
-        <form id="#frmSelectDatasource">
+        <form id="frmSelectDatasource">
             <p>Please select a data source that you would like to geocode.</p>
             <select id="sbDatasource" name="sbDatasource" class="rounded wide">
                 <option value="">Please select a source</option>

@@ -48,6 +48,7 @@
             <input type="hidden" id="hdnImage" name="ds_image" class="resetable" value=""/>
             <input type="hidden" id="hdnUrl" name="ds_url" class="resetable" value=""/>
             <input type="hidden" id="hdnTableId" name="id" class="resetable" value=""/>
+            <input type="hidden" id="hdnAutoPkId" name="id" class="resetable" value=""/>
             <input type="hidden" id="hdnFieldChanges" name="fieldChanges" class="resetable" value=""/>
             <input type="hidden" id="hdnTableName" name="table" class="resetable" value=""/>
         </form>

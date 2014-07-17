@@ -9,36 +9,37 @@
             <form id="frmNewDataSourceWizardStep1" class="pure-form pure-form-aligned" action="ws/ws-upload-textfile.php" method="post">
                 <p class="pure-form-message">You can upload any CSV text files including files created in Microsoft Excel by choosing "File-->Save as..." and then select one of the formats starting with "CSV..." in the dropdown box "Save as type".</p>
                 <fieldset>
-
+                    <div class="pure-controls">
+                        <label id="lbl_ds_file" for="ds_file" class="pure-button">Select file to upload...</label>
+                        <input id="ds_file" accept=".csv,text/csv" style="display: none;" type="file" name="files[]"/>
+                    </div>
                     <div class="pure-control-group">
                         <label for="ds_sepchar">Delimiter character</label>
                         <select class="pure-input-2-3" title="Please select the delimiter character used in the text file" id="ds_sepchar" name="ds_sepchar">
                             <option value="comma">Comma</option>
-                            <option value="semicolon">Semicolon</option>
+                            <option value="semicolon" selected="selected">Semicolon</option>
                             <option value="tab">Tabulator</option>
                         </select>
                     </div>
-
                     <div class="pure-control-group">
                         <label for="ds_encoding">Character encoding</label>
                         <select class="pure-input-2-3" title="Please select the character encoding of the uploaded file" id="ds_encoding" name="ds_encoding">
                         </select>
                     </div>
-
-
                     <div class="pure-controls">
-                        <label id="lbl_ds_file" for="ds_file" class="pure-button">Select file to upload...</label>
-                        <input id="ds_file" style="display:none;" type="file" name="files[]"/>
                         <label for="ds_fnfirstrow" class="pure-radio" >
                             <input type="checkbox" id="ds_fnfirstrow" name="ds_fnfirstrow" checked="checked"/> Field names in first row
                         </label>
 
-                        <p id="ctlStatus" class="pure-form-message"></p>
+                    </div>
+                    <div class="pure-controls">
                         <div class="ctlProgress">
                             <div class="ctlBar"></div >
                             <div class="ctlPercent">0%</div >
                         </div>
-
+                    </div>
+                    <div class="pure-controls">
+                        <p id="ctlStatus" class="pure-form-message"></p>
                         <button id="btnNdzwNext1" type="submit" class="pure-button pure-button-primary">Next</button>
                     </div>
                 </fieldset>
