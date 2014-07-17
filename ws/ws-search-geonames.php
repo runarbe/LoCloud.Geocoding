@@ -35,7 +35,6 @@ if ($v == 1) {
     $mDb = db();
 
     $mSql = "SELECT * FROM ".$_GET["t"]." WHERE".implode(" AND ", $whereExp)."ORDER BY name ASC LIMIT 10";
-    logIt($mSql);
 
     if ($result = $mDb->query($mSql)) {
 

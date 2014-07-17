@@ -30,28 +30,28 @@ $includeOrderByClause = false;
 $mDb = db();
 
 $mParams = array(
-    "t" => new WsParamOptions(true),
-    "dsID" => new WsParamOptions(true),
-    "idc" => new WsParamOptions(true),
-    "nc" => new WsParamOptions(true),
-    "xc" => new WsParamOptions(false, WsDataTypes::mNull, "null"),
-    "yc" => new WsParamOptions(false, WsDataTypes::mNull, "null"),
-    "uc" => new WsParamOptions(false, WsDataTypes::mNull, "null"),
-    "ic" => new WsParamOptions(false, WsDataTypes::mNull, "null"),
-    "limit" => new WsParamOptions(false, WsDataTypes::mNull, "10"),
-    "offset" => new WsParamOptions(false, WsDataTypes::mNull, "0"),
-    "a0_c" => new WsParamOptions(false, WsDataTypes::mNull, "null"),
-    "a0" => new WsParamOptions(false, WsDataTypes::mNull, null),
-    "a1_c" => new WsParamOptions(false, WsDataTypes::mNull, "null"),
-    "a1" => new WsParamOptions(false, WsDataTypes::mNull, null),
-    "c_c" => new WsParamOptions(false, WsDataTypes::mNull, null),
-    "c" => new WsParamOptions(false, WsDataTypes::mNull, null),
-    "p" => new WsParamOptions(false, WsDataTypes::mNull, null)
+    "t" => new ParamOpt(true),
+    "dsID" => new ParamOpt(true),
+    "idc" => new ParamOpt(true),
+    "nc" => new ParamOpt(true),
+    "xc" => new ParamOpt(false, WsDataTypes::mNull, "null"),
+    "yc" => new ParamOpt(false, WsDataTypes::mNull, "null"),
+    "uc" => new ParamOpt(false, WsDataTypes::mNull, "null"),
+    "ic" => new ParamOpt(false, WsDataTypes::mNull, "null"),
+    "limit" => new ParamOpt(false, WsDataTypes::mNull, "10"),
+    "offset" => new ParamOpt(false, WsDataTypes::mNull, "0"),
+    "a0_c" => new ParamOpt(false, WsDataTypes::mNull, "null"),
+    "a0" => new ParamOpt(false, WsDataTypes::mNull, null),
+    "a1_c" => new ParamOpt(false, WsDataTypes::mNull, "null"),
+    "a1" => new ParamOpt(false, WsDataTypes::mNull, null),
+    "c_c" => new ParamOpt(false, WsDataTypes::mNull, null),
+    "c" => new ParamOpt(false, WsDataTypes::mNull, null),
+    "p" => new ParamOpt(false, WsDataTypes::mNull, null)
 );
 
 
 // Check if parameters are set
-checkWsParameters($mParams, $r);
+checkWSParameters($mParams, $r);
 
 if (isset($mParams["a0_c"]) && $mParams["a0"] != "") {
     $includeWhereClause = true;
@@ -114,11 +114,9 @@ if ($v === 1) {
     $mSql = sprintf("SELECT COALESCE(gc_name, %s) as _nc, %s as _x, %s as _y, ds.%s as _id, %s as _ic, %s as _uc, ds.*, jt.* FROM %s ds LEFT JOIN %s jt ON jt.fk_ds_id = ds.%s %s %s %s LIMIT %s OFFSET %s;", $mParams["nc"], $mParams["xc"], $mParams["yc"], $mParams["idc"], $mParams["ic"], $mParams["uc"], $mParams["t"], $mJoinTableName, $mParams["idc"], $j, $w, $ob, $mParams["limit"], $mParams["offset"]
     );
 
-    logIt($mSql);
-
     $result = $mDb->query($mSql);
     if ($result) {
-        $r->setSuccess(WsErrors::success);
+        $r->setSuccess(ErrorMsgs::success);
         while ($obj = $result->fetch_object()) {
             $obj->gc_alternates = array();
             $d[(string) $obj->_id] = $obj;
@@ -142,10 +140,8 @@ if ($v === 1) {
                 $mKeys = implode($mKeys, ",");
             }
             $isql = "SELECT fk_ds_id, gc_lat, gc_lon, gc_probability FROM " . $mJoinTableName . " WHERE gc_usr_id != " . $_SESSION["usr_id"] . " AND fk_ds_id in (" . $mKeys . ") ORDER BY gc_probability ASC";
-            logIt($isql);
             $iresult = $mDb->query($isql);
             if ($iresult) {
-                logIt("got results");
                 while ($obj2 = $iresult->fetch_object()) {
                     $d[(string) $obj2->fk_ds_id]->gc_alternates[] = $obj2;
 
@@ -168,23 +164,23 @@ if ($v === 1) {
                  * If something went wrong during the SQL query for additional
                  * geocoded points from other users
                  */
-                $r->setFailure(WsErrors::sqlError . mysqli_error($mDb), WsErrors::sqlStatement . $isql);
+                $r->setFailure(ErrorMsgs::sqlError . mysqli_error($mDb), ErrorMsgs::sqlStatement . $isql);
             }
         } else {
-            $r->setSuccess(WsErrors::noResults);
+            $r->setSuccess(ErrorMsgs::noResults);
         }
     } else {
         /*
          * If there was an error loading the first set of items
          */
-        $r->setFailure(WsErrors::failure, WsErrors::sqlError . mysqli_error($mDb));
-        $r->addMsg(WsErrors::sqlStatement . $mSql);
+        $r->setFailure(ErrorMsgs::failure, ErrorMsgs::sqlError . mysqli_error($mDb));
+        $r->addMsg(ErrorMsgs::sqlStatement . $mSql);
     }
 } else {
     /*
      * If the query could noe be executed add status code and return errors
      */
-    $r->setFailure(WsErrors::summary);
+    $r->setFailure(ErrorMsgs::summary);
 }
 dbc($mDb);
 

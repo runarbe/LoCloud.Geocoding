@@ -1,4 +1,10 @@
 <?php
+
+require_once("../functions.php");
+
+dieIfSessionExpired();
+dieIfInsufficientElevation(UserLevels::Editor);
+
 /*
  * jQuery File Upload Plugin PHP Example 5.14
  * https://github.com/blueimp/jQuery-File-Upload
@@ -14,8 +20,6 @@ error_reporting(E_ALL | E_STRICT);
 require('../lib/class.UploadHandler.php');
 
 $upload_handler = new UploadHandler(array(
-    "upload_dir"=>"../upload/",
-    "upload_url"=>"upload/",
-));
-
-?>
+    "upload_dir" => "../upload/",
+    "upload_url" => "upload/",
+        ));

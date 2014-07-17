@@ -2,16 +2,19 @@
 
 require('../functions.php');
 
+dieIfSessionExpired();
+dieIfInsufficientElevation(UserLevels::Editor);
+
 $r = new WsRetObj();
 
 $mParams = array(
-    "fn" => new WsParamOptions(true),
-    "delimiter" => new WsParamOptions(true),
-    "fnfirstrow" => new WsParamOptions(true),
-    "encoding" => new WsParamOptions(true)
+    "fn" => new ParamOpt(true),
+    "delimiter" => new ParamOpt(true),
+    "fnfirstrow" => new ParamOpt(true),
+    "encoding" => new ParamOpt(true)
 );
 
-checkWsParameters($mParams, $r);
+checkWSParameters($mParams, $r);
 
 // Add upload path to filename
 $mParams["fn"] = "../upload/" . $mParams["fn"];
@@ -43,7 +46,6 @@ if ($r->v == WsStatus::failure) {
 
     // Parse data
     $mCsvParser->parseData();
-
     // 
     if (count($mCsvParser->fields) < 2) {
         $r->setFailure("There is less than two fields in your table, have you specified the correct delimiter character?", $mParams["delimiter"]);
@@ -62,7 +64,9 @@ if ($r->v == WsStatus::failure) {
         if (!$mCsvParser->createTable()) {
             $r->setFailure("Could not create table");
         }
-        while ($mCsvParser->insertChunk());
+        while ($mCsvParser->insertChunk()) {
+        };
+        
         $r->addData($mCsvParser->fields, "fields");
         $r->addData($mCsvParser->tmpName, "table");
     }
@@ -70,4 +74,3 @@ if ($r->v == WsStatus::failure) {
     unlink($mParams["fn"]);
     echo $r->getResult();
 }
-?>

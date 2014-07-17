@@ -6,15 +6,14 @@ dieIfSessionExpired();
 $r = new WsRetObj();
 
 $mParams = array(
-    "t" => new WsParamOptions(true)
+    "t" => new ParamOpt(true)
 );
 
-checkWsParameters($mParams, $r);
+checkWSParameters($mParams, $r);
 
 if ($r->v === WsStatus::success) {
     $mDb = db();
     $mSql = "SELECT category, minx, miny, maxx, maxy FROM " . $_GET["t"] . " ORDER BY category ASC";
-    logIt($mSql);
     if (false !== ($result = $mDb->query($mSql))) {
         $i = 0;
         while ($obj = $result->fetch_object()) {

@@ -49,8 +49,6 @@ if (!isset($_GET["bbox"])) {
     $bbox = explode(",", $_GET["bbox"]);
 }
 
-logIt(var_export($_GET, true));
-
 $json = new jSrbGeoJson();
 if ($v == 1) {
     $mDb = db();
@@ -73,4 +71,3 @@ if ($v == 1) {
     dbc($mDb);
 }
 echo json_encode($json);
-?>

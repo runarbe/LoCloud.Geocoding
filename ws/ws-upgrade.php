@@ -19,13 +19,13 @@ function WsUpgrade($pVersion = null) {
         return $mWsRetObj;
     }
 
-    if (!isLoggedIn(WsUserLevel::Admin)) {
-        $mWsRetObj->setFailure(WsErrors::adminRequired, getFn(__FILE__));
+    if (!isLoggedIn(UserLevels::Admin)) {
+        $mWsRetObj->setFailure(ErrorMsgs::adminRequired, getFn(__FILE__));
         return $mWsRetObj;
     }
 
     if ($pVersion === null) {
-        $mWsRetObj->setFailure(WsErrors::reqParamMissing, getFn(__FILE__));
+        $mWsRetObj->setFailure(ErrorMsgs::reqParamMissing, getFn(__FILE__));
         return $mWsRetObj;
     }
 
@@ -39,13 +39,13 @@ function WsUpgrade($pVersion = null) {
     $s = file_put_contents($mZipFile, fopen(sprintf("%s/locloudgc-%s.zip", LgmsConfig::updateurl, $pVersion), 'r'));
     if ($s !== false) {
         $mWsRetObj->setSuccess(sprintf("Downloaded new zip archive to temporary folder, wrote %s bytes", $s));
-    };
+    }
 
     $zipArchive = new ZipArchive();
 
-    $s = $zipArchive->open($mZipFile);
+    $s2 = $zipArchive->open($mZipFile);
 
-    if ($s === true) {
+    if ($s2 === true) {
         $mWsRetObj->setSuccess("Successfully opened zip archive.");
 
         /**
@@ -53,9 +53,9 @@ function WsUpgrade($pVersion = null) {
          * Close the archive
          */
         //$s = $zipArchive->extractTo($conf["basepath"]);
-        $s = $zipArchive->extractTo("../");
+        $s3 = $zipArchive->extractTo("../");
 
-        if ($s === false) {
+        if ($s3 === false) {
             $mWsRetObj->setFailure("Failed to extract files from zip archive", getFn(__FILE__));
         } else {
             $mWsRetObj->setSuccess("Successfully unpacked the archive");
@@ -69,23 +69,21 @@ function WsUpgrade($pVersion = null) {
             if ($mData !== false) {
                 $mWsRetObj->setSuccess("Successfully opened configuration template");
                 $mData = preg_replace('/const app_version = ".*"/', 'const app_version = "' . $pVersion . '"', $mData);
-                logIt($mData);
-
-                $s = file_put_contents($mConfigPHPFile, $mData);
-                if ($s !== false) {
-                    $mWsRetObj->setSuccess(WsErrors::success, getFn(__FILE__));
+                $s4 = file_put_contents($mConfigPHPFile, $mData);
+                if ($s4 !== false) {
+                    $mWsRetObj->setSuccess(ErrorMsgs::success, getFn(__FILE__));
                 } else {
-                    $mWsRetObj->setFailure(WsErrors::couldNotWriteToFile, getFn(__FILE__));
+                    $mWsRetObj->setFailure(ErrorMsgs::couldNotWriteToFile, getFn(__FILE__));
                     $mWsRetObj->addMsg($mConfigPHPFile);
                 }
             } else {
-                $mWsRetObj->setFailure(WsErrors::fileMissingOrInaccessible, getFn(__FILE__));
+                $mWsRetObj->setFailure(ErrorMsgs::fileMissingOrInaccessible, getFn(__FILE__));
             }
         }
 
         $zipArchive->close();
     } else {
-        $mWsRetObj->setFailure(WsErrors::fileMissingOrInaccessible, getFn(__FILE__));
+        $mWsRetObj->setFailure(ErrorMsgs::fileMissingOrInaccessible, getFn(__FILE__));
         $mWsRetObj->addMsg($mZipFile);
     }
 
@@ -96,4 +94,3 @@ $pVersion = inp("pVersion");
 $mWs = WsUpgrade($pVersion);
 
 $mWs->outputResult();
-?>

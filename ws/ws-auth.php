@@ -2,48 +2,47 @@
 
 require_once("../functions.php");
 
-$m = array(); //Messages, notices, errors
-$v = 1; //Return status 1=success,-1=error
-$r = array();
-$d = array();
-if (!isset($_GET["u"])) {
-    $v = -1;
-    $m[] = "Error: no username specified.";
-}
+class WsAuth extends GcWebService implements iWebService {
 
-if (!isset($_GET["p"])) {
-    $v = -1;
-    $m[] = "Error: no password specified.";
-}
-
-if ($v == 1) {
-    $mDb = db();
-    $mSql = "SELECT * FROM meta_usr WHERE usr = '" . $_GET["u"] . "' AND pwd = '" . $_GET["p"] . "'";
-    if ($result = $mDb->query($mSql)) {
-        if ($obj = $result->fetch_object()) {
-            $d = $obj;
+    public function execute() {
+        switch ($this->_operation) {
+            case "auth":
+            default:
+                $this->authenticate();
+                break;
         }
-        if (count($d) == 0) {
-            $v = -1;
-            $m[] = "Error: wrong username/password.";
-        } else {
-            $v = 1;
-            $m[] = "Notice: success.";
-            session_start();
-            $_SESSION["usr_id"] = $obj->id;
-            $_SESSION["usr_level"] = $obj->level;
-        };
-        $result->close();
-    } else {
-        $v = -1;
-        $r["m"] = "Error: during execution of query " . mysqli_error($mDb);
+        $this->_result->echoJson();
     }
 
-    dbc($mDb);
+    private function authenticate() {
+        $mCheck = array(
+            "u" => new ParamOpt(true,
+                    WsDataTypes::mString),
+            "p" => new ParamOpt(true,
+                    WsDataTypes::mString)
+        );
+
+        $p = $this->_getParams($mCheck);
+
+        if ($this->isSuccess()) {
+            if (false !== ($mUsr = MetaUsr::GetUsr($p["u"],
+                            $p["p"]))) {
+                session_start();
+                $_SESSION ["usr_id"] = $mUsr->id;
+                $_SESSION ["usr_level"] = $mUsr->level;
+                $_SESSION ["usr_usr"] = $mUsr->usr;
+                
+                $this->_result->setSuccess(ErrorMsgs::authSuccess);
+            } else {
+                $this->_result->setFailure(ErrorMsgs::noSuchUserOrWrongAuth);
+            }
+        }
+    }
+
+    public static function getInstance() {
+        return new WsAuth();
+    }
+
 }
 
-$r["s"] = $v;
-$r["m"] = $m;
-$r["d"] = $d;
-echo json_encode($r);
-?>
+WsAuth::getInstance()->run();

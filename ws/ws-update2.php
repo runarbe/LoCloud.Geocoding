@@ -107,4 +107,3 @@ $r["s"] = $v;
 $r["m"] = $m;
 
 echo json_encode($r);
-?>

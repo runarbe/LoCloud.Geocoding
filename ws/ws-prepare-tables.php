@@ -3,15 +3,15 @@
 require_once("../functions.php");
 
 dieIfSessionExpired();
-dieIfInsufficientElevation(1);
+dieIfInsufficientElevation(UserLevels::Editor);
 
 $r = new WsRetObj();
 
 $mParams = array(
-    "t" => new WsParamOptions("t"),
+    "t" => new ParamOpt("t"),
 );
 
-checkWsParameters($mParams, $r);
+checkWSParameters($mParams, $r);
 
 if ($r->v === WsStatus::success) {
     /*
