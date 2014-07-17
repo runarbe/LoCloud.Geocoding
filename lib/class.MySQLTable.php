@@ -8,35 +8,43 @@
 class MySQLTable {
 
     /**
+     * The SQL select statement including any external joins etc.
+     * @var string 
+     */
+    protected $_select = null;
+
+    /**
      * The name of the table column that is the primary key of the dataset
      * @var string 
      */
-    public $_pk = null;
+    protected $_pk = null;
 
     /**
      * The name of the table
-     * @var string
+     * @var string  
      */
-    public $_table = null;
+    protected $_table = null;
+
+    /**
+     * An array of where clause elements
+     * @var Array 
+     */
+    protected $_where = array();
 
     /**
      * An array that contains names of mandatory fields
      * @var array 
      */
-    public $_mandatory = array();
-
-    /**
-     * Database connection
-     * @var mysqli_connection
-     */
-    private $_dbconn;
+    protected $_mandatory = array();
 
     /**
      * Creates a new table object
      * @param array $pValues An associative array with fieldnames as keys and
      * field values as entries.
      */
-    public function __construct($pTable, $pPk, $pDbConn = null, $pValues = null) {
+    public function __construct($pTable,
+            $pPk,
+            $pValues = null) {
 
         // Assign the primary key column
         $this->_pk = $pPk;
@@ -44,20 +52,23 @@ class MySQLTable {
         // Assign the table name
         $this->_table = $pTable;
 
-        // If a database connection is present in the parameters, set it
-        if ($pDbConn !== null) {
-            $this->_dbconn = $pDbConn;
-        }
-
         // If values are supplied, initialize the object values
         if ($pValues !== null) {
-            $mFields = $this->getFields();
+            $mFields = $this->_getFieldsAssoc();
             foreach ($pValues as $mKey => $mVal) {
-                if (array_key_exists($mKey, $mFields)) {
+                if (array_key_exists($mKey,
+                                $mFields)) {
                     $this->$mKey = $mVal;
                 }
             }
         }
+
+        // Setup thet basic SQL select statement
+        $this->_select = sprintf("SELECT SQL_CALC_FOUND_ROWS %s FROM %s",
+                "t." . implode(", t.",
+                        $this->_getFieldNames()),
+                $this->_table . " t"
+        );
     }
 
     /**
@@ -67,45 +78,207 @@ class MySQLTable {
      * @param string|array $pFieldNames
      * @return void
      */
-    public function setMandatory($pFieldNames) {
+    public function _getMandatory($pFieldNames) {
         if (is_string($pFieldNames)) {
             $this->_mandatory[] = $pFieldNames;
         } elseif (is_array($pFieldNames)) {
-            $this->_mandatory = array_merge($this->_mandatory, $pFieldNames);
+            $this->_mandatory = array_merge($this->_mandatory,
+                    $pFieldNames);
         }
         return;
     }
 
     /**
-     * This method returns an SQL insert statement
-     * @return String
+     * Select a set of objects and remap names for recid, label and value to
+     * work smoothly with jQuery.autocomplete and w2ui grids
+     * @param string $pWhere
+     * @param string $pOrderBy
+     * @param int $pLimit
+     * @param int $pOffset
+     * @param W2UIRetObj $pRetObj
+     * @return bool True on sucess, false on error
      */
-    public function Insert() {
-        if ($this->checkMandatory()) {
-            $mVars = $this->getFields();
+    public function selectMap($pWhere = null,
+            $pOrderBy = null,
+            $pLimit = null,
+            $pOffset = null,
+            &$pRetObj = null,
+            $pLabelField = null,
+            $pValueField = null,
+            $pRecIDField = null
+    ) {
+
+        $mRes = $this->select($pWhere,
+                $pOrderBy,
+                $pLimit,
+                $pOffset,
+                $pRetObj);
+        $mReturn = array();
+        while ($mRes !== false && $mObj = mysqli_fetch_object($mRes)) {
+            if (isset($mObj->$pLabelField)) {
+                $mObj->label = $mObj->$pLabelField;
+            }
+            if (isset($mObj->$pValueField)) {
+                $mObj->value = $mObj->$pValueField;
+            }
+            if (isset($mObj->$pRecIDField)) {
+                $mObj->recid = $mObj->$pRecIDField;
+            }
+            $mReturn[] = $mObj;
+        }
+        $pRetObj->records = $mReturn;
+        return $pRetObj->status;
+    }
+
+    /**
+     * Select from the table
+     * @param String $pWhere Only the attr=value and logical operators, e.g. id=1 OR id=2
+     * @param String $pOrderBy Field name to sort by
+     * @param Number $pLimit Number of rows to retrieve
+     * @param Number $pOffset Offset from start
+     * @param W2UIRetObj $pRetObj Offset from start
+     * @return Array An array of objects retrieved from the search
+     */
+    public function select($pWhere = null,
+            $pOrderBy = null,
+            $pLimit = null,
+            $pOffset = null,
+            &$pRetObj = null) {
+
+        $mSql = $this->_select;
+
+        if ($pWhere != null) {
+            $mSql .= " WHERE $pWhere";
+        }
+
+        if ($pOrderBy != null) {
+            $mSql .= " ORDER BY $pOrderBy";
+        }
+
+        if (!is_null($pOffset) && !is_null($pLimit)) {
+            $mSql .= " LIMIT $pLimit OFFSET $pOffset";
+        }
+
+        $mReturn = Db::query($mSql);
+        if (!$pRetObj == null) {
+
+            $mCount = Db::getLastCount();
+
+            $pRetObj->total = $mCount;
+
+            $pRetObj->addMsg($mSql);
+            if ($mReturn) {
+                $pRetObj->setSuccess();
+            } else {
+                $pRetObj->setFailure();
+            }
+        }
+
+        return $mReturn;
+    }
+
+    /**
+     * This method returns an SQL insert statement
+     * @param iRetObj $pRetObj Return object
+     * @return boolean True on success, false on error
+     */
+    public function insert(&$pRetObj = null) {
+
+        if ($this->_checkMandatory()) {
+            $mVars = $this->_getFieldsAssoc();
             $mFields = array();
             $mValues = array();
+
             foreach ($mVars as $mKey => $mVal) {
-                if ($mVal !== null) {
+                if ($mVal != null) {
                     if ($mKey != $this->_pk) {
                         $mFields[] = $mKey;
                         $mValues[] = "'" . $mVal . "'";
                     }
                 }
             }
-            $mSql = sprintf("INSERT INTO %s (%s) VALUES (%s);", $this->_table, implode(",", $mFields), implode(",", $mValues));
-            return $this->execDb($mSql);
+
+            $mSql = sprintf("INSERT INTO %s (%s) VALUES (%s);",
+                    $this->_table,
+                    implode(",",
+                            $mFields),
+                    implode(",",
+                            $mValues));
+
+            $mReturn = Db::query($mSql);
+            if ($pRetObj !== null) {
+                if (!$mReturn) {
+                    $pRetObj->setFailure("Insert failed");
+                } else {
+                    $pRetObj->setSuccess();
+                }
+            }
         } else {
-            return false;
+            $mReturn = false;
         }
+
+        if (!$pRetObj == null) {
+            if ($mReturn) {
+                $pRetObj->setSuccess();
+            } else {
+                $pRetObj->setFailure();
+            }
+        }
+        return $mReturn;
+    }
+
+    /**
+     * This method returns an SQL insert statement
+     * @return boolean True on success, false on error
+     */
+    public function upsert(&$pRetObj = null) {
+        if ($this->_checkMandatory()) {
+            $mVars = $this->_getFieldsAssoc();
+            $mFields = array();
+            $mValues = array();
+            $mUpdateClause = array();
+
+            foreach ($mVars as $mKey => $mVal) {
+                if ($mVal != null) {
+                    if ($mKey != $this->_pk) {
+                        $mFields[] = $mKey;
+                        $mValues[] = "'" . $mVal . "'";
+                        $mUpdateClause[] = $mKey . "='" . $mVal . "'";
+                    }
+                }
+            }
+
+            $mSql = sprintf("INSERT INTO %s (%s) VALUES (%s) ON DUPLICATE KEY UPDATE %s",
+                    $this->_table,
+                    implode(",",
+                            $mFields),
+                    implode(",",
+                            $mValues),
+                    implode(",",
+                            $mUpdateClause));
+
+            $mReturn = Db::query($mSql);
+        } else {
+            $mReturn = false;
+        }
+
+        if (!$pRetObj == null) {
+            if ($mReturn) {
+                $pRetObj->setSuccess();
+            } else {
+                $pRetObj->setFailure();
+            }
+        }
+        return $mReturn;
     }
 
     /**
      * Get the SQL required to perform an update on an object
-     * @return string SQL statement
+     * @param W2UIRetObj $pRetObj Description
+     * @return void
      */
-    function Update() {
-        $mVars = $this->getFields();
+    function update($pRetObj = null) {
+        $mVars = $this->_getFieldsAssoc();
         $mUpdateSets = array();
         $mPKValue = null;
         foreach ($mVars as $mKey => $mVal) {
@@ -117,28 +290,72 @@ class MySQLTable {
                 }
             }
         }
-        $mSQL = sprintf("UPDATE %s SET (%s) WHERE %s = '%s';", $this->_table, implode(",", $mUpdateSets), $this->_pk, $mPKValue);
-        return $this->execDb($mSQL);
+        if (count($mUpdateSets) >= 1) {
+            $mSQL = sprintf("UPDATE %s SET %s WHERE %s = '%s';",
+                    $this->_table,
+                    implode(",",
+                            $mUpdateSets),
+                    $this->_pk,
+                    $mPKValue);
+            $mReturn = Db::query($mSQL);
+            if (!$pRetObj == null) {
+                if ($mReturn) {
+                    $pRetObj->setSuccess();
+                } else {
+                    $pRetObj->setFailure("Database error, check log file.");
+                }
+            }
+        } else {
+            $pRetObj->setFailure("Error, no input fields specified");
+        }
+        return $mReturn;
     }
 
     /**
      * Get the SQL required to delete an object
-     * @return string SQL Statement
+     * @param W2UIRetObj $pRetObj
+     * @return bool|mysqli SQL Statement
      */
-    function Delete() {
-        $mVars = $this->getFields();
-        $mSql = sprintf("DELETE FROM %s WHERE %s = '%s';", $this->_table, $this->_pk, $mVars[$this->_pk]);
-        return $this->execDb($mSql);
+    function delete($pRetObj = null) {
+        $mVars = $this->_getFieldsAssoc();
+        $mSql = sprintf("DELETE FROM %s WHERE %s = '%s';",
+                $this->_table,
+                $this->_pk,
+                $mVars[$this->_pk]);
+        $mReturn = Db::query($mSql);
+        if (!$pRetObj == null) {
+            if ($mReturn === false) {
+                $pRetObj->setFailure("SQL error, please refer to log for details.");
+            }
+        }
+        return $mReturn;
     }
 
     /**
-     * Get the fields in the current table
+     * Return the field names of the current class
+     * @return array
+     */
+    public function _getFieldNames() {
+        $mReturn = array();
+        $mFields = $this->_getFieldsAssoc();
+        foreach ($mFields as $mFieldName => $mFieldValue) {
+            if ($mFieldName === "recid") {
+                $mFieldName = $this->_pk . " " . $mFieldName;
+            }
+            $mReturn[] = $mFieldName;
+        }
+        return $mReturn;
+    }
+
+    /**
+     * Get the fields in the current table excluding internal fields
      * @return array Array of field names (string)
      */
-    public function getFields() {
+    public function _getFieldsAssoc() {
         $mFields = array();
         foreach (get_object_vars($this) as $mKey => $mVal) {
-            if (substr($mKey, 0, 1) !== "_") {
+            if (!startsWith($mKey,
+                            "_")) {
                 $mFields[$mKey] = $mVal;
             }
         }
@@ -146,29 +363,11 @@ class MySQLTable {
     }
 
     /**
-     * Execute an SQL statement
-     * @param string $pSql
-     * @return boolean|string True on success, false on error, string if dbconn is not set.
-     */
-    private function execDb($pSql) {
-        if ($this->_dbconn !== null) {
-            mysqli_query($this->_dbconn, $pSql);
-            if (mysqli_errno($this->_dbconn)) {
-                return false;
-            } else {
-                return true;
-            }
-        } else {
-            return $pSql;
-        }
-    }
-
-    /**
      * Check if all mandatory fields are specified
      * @return boolean True if all mandatory fields are set, false otherwise
      */
-    public function checkMandatory() {
-        $mFields = $this->getFields();
+    public function _checkMandatory() {
+        $mFields = $this->_getFieldsAssoc();
         foreach ($this->_mandatory as $mMField) {
             if ($mFields[$mMField] === null) {
                 return false;
@@ -178,5 +377,3 @@ class MySQLTable {
     }
 
 }
-
-?>

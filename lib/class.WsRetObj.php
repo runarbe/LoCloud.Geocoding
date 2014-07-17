@@ -3,7 +3,7 @@
  * Object to return from web service
  * @author (Stein) Runar Bergheim
  */
-class WsRetObj {
+class WsRetObj implements iRetObj {
 
     /**
      * Result status
@@ -32,8 +32,8 @@ class WsRetObj {
      * @param String $pMsg An error message. Typically a constant from <wsErrors> concatenated with information specific to the operation that is being executed.
      */
     public function addMsg
-    ($pMsg, $pAdditional = false) {
-        if (!$pAdditional) {
+    ($pMsg, $pAdditional = null) {
+        if ($pAdditional === null) {
             $this->m[
                     ] = $pMsg;
         } else {
@@ -90,27 +90,42 @@ class WsRetObj {
     /**
      * When called, this function sets the state of the result object to success
      * 
-     * @param WsErrors $pMsg
+     * @param ErrorMsgs $pMsg
+     * @return void
      */
     public function setSuccess($pMsg = null, $pAddMsg = null) {
         $this->v = WsStatus::success;
         if ($pMsg != null) {
             $this->addMsg($pMsg, $pAddMsg);
         }
+        return;
     }
 
     /**
      * When called, this function sets the state of the result object to failure
-     * 
-     * @param WsErrors $pMsg
+     * @param ErrorMsgs $pMsg
+     * @param String $pAddMsg
+     * @return void
      */
     public function setFailure($pMsg = null, $pAddMsg = null) {
         $this->v = WsStatus::failure;
         if ($pMsg != null) {
             $this->addMsg($pMsg, $pAddMsg);
         }
+        return;
+    }
+
+    public function echoJson() {
+        header("Content-Type: application/json;");
+        echo $this->getResult();
+    }
+
+    public function getStatus() {
+        if ($this->v === WsStatus::success) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
-
-?>

@@ -18,10 +18,8 @@ class MetaDbSearch extends MySQLTable {
     public function __construct($pValues = null) {
         $this->_table = "meta_dbsearch";
         $this->_pk = "id";
-        $this->setMandatory(array("sch_title", "sch_table"));
+        $this->_getMandatory(array("sch_title", "sch_table"));
         parent::__construct("meta_dbsearch", "id", $pValues);
     }
     
 }
-
-?>

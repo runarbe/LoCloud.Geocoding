@@ -3,7 +3,7 @@
 /**
  * User levels
  */
-class WsUserLevel {
+class UserLevels {
 
     const SuperAdmin = 1;
     const Admin = 2;
@@ -12,4 +12,3 @@ class WsUserLevel {
     const GuestUser = 99;
 
 }
-?>

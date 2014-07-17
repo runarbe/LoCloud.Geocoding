@@ -8,7 +8,7 @@ class MetaUploads extends MySQLTable {
 
     public function __construct($pValues = null) {
         parent::__construct("meta_uploads", "id", $pValues);
-        $this->setMandatory(array("id", "fk_meta_usr_id", "fname"));
+        $this->_getMandatory(array("id", "fk_meta_usr_id", "fname"));
     }
 
 }
