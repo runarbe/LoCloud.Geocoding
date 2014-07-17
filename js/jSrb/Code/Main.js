@@ -1,4 +1,4 @@
-if (typeof(OpenLayers) !== 'undefined') {
+if (typeof (OpenLayers) !== 'undefined') {
 
     /*
      * JavaScript datatypes
@@ -281,100 +281,31 @@ if (typeof(OpenLayers) !== 'undefined') {
          * Define marker-layer to hold temporary points
          */
         markers = new OpenLayers.Layer.Markers("Geocoding markers");
+        var mPolygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
+        var mPointLayer = new OpenLayers.Layer.Vector("Point Layer");
+        var mLineLayer = new OpenLayers.Layer.Vector("Line Layer");
 
         /*
          * Add markers to default map layers
          */
         defaultMapLayers.push(markers);
+        defaultMapLayers.push(mPolygonLayer);
+        defaultMapLayers.push(mPointLayer);
+        defaultMapLayers.push(mLineLayer);
 
-        /*
-         * Define layer to show already geocoded accommodation items
-         */
-        /*var accommodation_layer = new OpenLayers.Layer.Vector("Geocoded accommodation", {
-         visibility: false,
-         styleMap: new OpenLayers.StyleMap({
-         "default": new OpenLayers.Style({
-         pointRadius: 6,
-         fillColor: "#0000ff",
-         fillOpacity: 0.5,
-         strokeColor: "#00ff00",
-         strokeWidth: 1,
-         strokeOpacity: 1//,
-         //labelYOffset:-13,
-         //label:"${gc_name}"
-         }),
-         "select": {
-         fillColor: "#8aeeef",
-         strokeColor: "#32a8a9",
-         labelYOffset: 13,
-         label: "${name}"
-         }
-         }),
-         projection: new OpenLayers.Projection("EPSG:4326"),
-         strategies: [
-         new OpenLayers.Strategy.Cluster({
-         distance: "25",
-         threshold: "2"
-         }),
-         new OpenLayers.Strategy.BBOX({
-         resFactor: "1",
-         ratio: "1"
-         })
-         ],
-         protocol: new OpenLayers.Protocol.HTTP({
-         url: "./ws/ws-geojson.php",
-         params: {
-         dsID: "4"
-         },
-         format: new OpenLayers.Format.GeoJSON()
-         })
-         });
-         defaultMapLayers.push(accommodation_layer);
-         */
-        /*
-         * Define layer to show already geocoded accommodation items
-         */
-        /*var attraction_layer = new OpenLayers.Layer.Vector("Geocoded attractions", {
-         visibility: false,
-         styleMap: new OpenLayers.StyleMap({
-         "default": new OpenLayers.Style({
-         pointRadius: 6,
-         fillColor: "#ff0000",
-         fillOpacity: 0.5,
-         strokeColor: "#000000",
-         strokeWidth: 1,
-         strokeOpacity: 1//,
-         //labelYOffset:-13,
-         //label:"${gc_name}"
-         }),
-         "select": {
-         fillColor: "#8aeeef",
-         strokeColor: "#32a8a9",
-         labelYOffset: 13,
-         label: "${name}"
-         }
-         }),
-         projection: new OpenLayers.Projection("EPSG:4326"),
-         strategies: [
-         new OpenLayers.Strategy.Cluster({
-         distance: "25",
-         threshold: "2"
-         }),
-         new OpenLayers.Strategy.BBOX({
-         resFactor: "1",
-         ratio: "1"
-         })
-         ],
-         protocol: new OpenLayers.Protocol.HTTP({
-         url: "./ws/ws-geojson.php",
-         params: {
-         dsID: "5"
-         },
-         format: new OpenLayers.Format.GeoJSON()
-         })
-         });
-         defaultMapLayers.push(attraction_layer);
-         */
+        mDrawControls = {
+            point: new OpenLayers.Control.DrawFeature(mPointLayer,
+                    OpenLayers.Handler.Point),
+            line: new OpenLayers.Control.DrawFeature(mLineLayer,
+                    OpenLayers.Handler.Path),
+            polygon: new OpenLayers.Control.DrawFeature(mPolygonLayer,
+                    OpenLayers.Handler.Polygon)
+        };
+        
+        for (var key in mDrawControls) {
+            map.addControl(mDrawControls[key]);
+        }
+        
         /*
          * Add local tile layer to the start of default map layers, making it the default basemap
          */
