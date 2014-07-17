@@ -1,18 +1,3 @@
-function handlerBtnUpgrade() {
-    showMsgBox("Please wait while upgrade commences. This operation may take several minutes");
-    jQuery.getJSON("./ws/ws-upgrade.php", {
-        pVersion: jQuery("#btnUpgrade").data("version")
-    }, function(pData) {
-        if (pData.v === 1) {
-            showMsgBox(pData.m, false);
-            jQuery("#btnUpgrade").hide();
-        } else {
-            showMsgBox(pData.m, true);
-        }
-    }).fail(function() {
-        showMsgBox("Web service request failed", true);
-    });
-}
 
 function handlerBtnHelp() {
     jQuery.ajax({
@@ -71,7 +56,9 @@ function handlerBtnAbout() {
  */
 function handlerDownloadKML() {
     var mDatasource = getSelectedDatasource();
-    window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=kml");
+    if (mDatasource !== undefined) {
+        window.location.href = "export.php?ds=" + mDatasource.ds_table + "&format=kml";
+    }
 }
 
 /*
@@ -79,7 +66,19 @@ function handlerDownloadKML() {
  */
 function handlerDownloadRDF() {
     var mDatasource = getSelectedDatasource();
-    window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=rdf");
+    if (mDatasource !== undefined) {
+        window.location.href = "export.php?ds=" + mDatasource.ds_table + "&format=rdf";
+    }
+}
+
+/*
+ * Handler for button to download geocoding as RDF
+ */
+function handlerDownloadCSV() {
+    var mDatasource = getSelectedDatasource();
+    if (mDatasource !== undefined) {
+        window.location.href = "export.php?ds=" + mDatasource.ds_table + "&format=csv";
+    }
 }
 
 /*
@@ -87,14 +86,17 @@ function handlerDownloadRDF() {
  */
 function handlerDownloadGeoJSON() {
     var mDatasource = getSelectedDatasource();
-    window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=geojson");
+    if (mDatasource !== undefined) {
+        window.location.href = "export.php?ds=" + mDatasource.ds_table + "&format=geojson";
+    }
 }
 
 /**
  * Handler for button to download geocoding as GeoJSON JavaScript
  */
 function handlerDownloadGeoJSONJavaScript() {
-    // Add logic to define name of JS variable
     var mDatasource = getSelectedDatasource();
-    window.location.replace("export.php?ds=" + mDatasource.ds_table + "&format=geojson.js");
+    if (mDatasource !== undefined) {
+        window.location.href = "export.php?ds=" + mDatasource.ds_table + "&format=geojson.js";
+    }
 }
