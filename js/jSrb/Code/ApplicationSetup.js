@@ -1,5 +1,5 @@
-if (typeof(OpenLayers) !== "undefined") {
-    
+if (typeof (OpenLayers) !== "undefined") {
+
     /*
      * Variable naming conventions
      * sb[Name] = select/combo box control
@@ -13,13 +13,11 @@ if (typeof(OpenLayers) !== "undefined") {
      * @type Object
      */
     var ctlNewDataSourceWizard;
-
     /**
      * The search form
      * @type Object
      */
     var ctlSearchForm;
-
     /**
      * Setup, place and size window panes
      *
@@ -47,14 +45,8 @@ if (typeof(OpenLayers) !== "undefined") {
         jQuery("#divForm").css("width", mapWidth).css("height", frmHeight).css("bottom", frmBottom).css("left", srcWidth);
     }
 
-    /**
-     * Once all HTML markup and linked files have been loaded, this
-     * function is executed 
-     * 
-     * @returns void
-     */
-    function onDocumentReady() {
 
+    function setupGeneral() {
         /*
          * Add collapsible sections
          */
@@ -68,7 +60,6 @@ if (typeof(OpenLayers) !== "undefined") {
                         activeHeader: "ui-icon-circle-arrow-s"
                     }
                 });
-
         /*
          * Add widget sections to search and source item lists
          */
@@ -77,12 +68,25 @@ if (typeof(OpenLayers) !== "undefined") {
                     heightStyle: "content",
                     collapsible: false
                 });
-
         /*
          * Add styling to form elements
          */
         jQuery('.rounded').addClass("ui-corner-all");
 
+        /*
+         * Add button formatting to top-menu buttons
+         */
+        jQuery(".topMenuBtn.nav").button();
+
+        /**
+         * Add button formatting for user interface buttons
+         */
+        jQuery(".uxBtn.act").button();
+
+
+    }
+
+    function setupSource() {
         /*
          * Add zoom level slider
          */
@@ -98,99 +102,11 @@ if (typeof(OpenLayers) !== "undefined") {
                 });
 
         /*
-         * Add navigation buttons to topMenu
-         */
-        jQuery(".topMenuBtn.nav").button();
-
-        /*
-         * Add download buttons to topMenu
-         */
-        jQuery(".topMenuBtn.download").button({
-            icons: {
-                primary: 'ui-icon-disk'
-            }
-        });
-
-        /*
-         * Add buttons to attribute edit form
-         */
-        jQuery(".attribFormBtn").button();
-
-        /*
-         * Declare function for help button in top-menu
-         */
-
-        jQuery("#btnHelp").click(function(evt) {
-            evt.preventDefault();
-            handlerBtnHelp();
-        });
-
-        /**
-         * Attach handler function to upgrade button in top-menu
-         * Hide upgrade button in top-menu by default
-         */
-        jQuery("#btnUpgrade").click(function(evt) {
-            evt.preventDefault();
-            handlerBtnUpgrade();
-        });
-        jQuery("#btnUpgrade").hide();
-
-
-        /*
-         * Declare function for about button in top-menu
-         */
-        jQuery("#btnAbout").click(function(evt) {
-            evt.preventDefault();
-            handlerBtnAbout();
-        });
-
-        /*
-         * Declare function for download GeoJSON button in top-menu
-         */
-        jQuery("#btnDownloadGeoJSON").click(function(evt) {
-            evt.preventDefault();
-            handlerDownloadGeoJSON();
-        });
-
-        /*
-         * Declare function for download GeoJSON JavaScript button in top-menu
-         */
-        jQuery("#btnDownloadGeoJSONJavaScript").click(function(evt) {
-            evt.preventDefault();
-            handlerDownloadGeoJSONJavaScript();
-        });
-
-        /*
-         * Declare function for download KML button in top-menu
-         */
-        jQuery("#btnDownloadKML").click(function(evt) {
-            evt.preventDefault();
-            handlerDownloadKML();
-        });
-
-        /*
-         * Declare function for download RDF button in top-menu
-         */
-        jQuery("#btnDownloadRDF").click(function(evt) {
-            evt.preventDefault();
-            handlerDownloadRDF();
-        });
-
-        /*
          * Make source item list selectable
          */
         jQuery("#selectable").selectable({
             stop: function() {
                 handlerSelectSourceItem();
-            }
-        }).css("cursor", "pointer");
-
-        /*
-         * Make search result list selectable
-         */
-        jQuery("#listSearchResults").selectable({
-            stop: function() {
-                handlerSelectSearchResultItem();
             }
         }).css("cursor", "pointer");
 
@@ -216,9 +132,105 @@ if (typeof(OpenLayers) !== "undefined") {
             }
         }).click(function(evt) {
             evt.preventDefault();
-            handlerBtnNextSrc()
+            handlerBtnNextSrc();
+        });
+        /*
+         * Select datasource control
+         */
+        jQuery("#sbDatasource").change(function() {
+            handlerSelectDatasource();
+        });
+        /*
+         * Select probability filter
+         */
+        jQuery("#sbFilterProbability").change(function() {
+            handlerSelectFilterProbability();
+        });
+        /*
+         * Select adm0 filter
+         */
+        jQuery("#sbFilterAdm0").change(function() {
+            handlerSelectFilterAdm0();
+        });
+        /*
+         * Select adm1 filter
+         */
+        jQuery("#sbFilterAdm1").change(function() {
+            handlerSelectFilterAdm1();
+        });
+        /*
+         * Select category filter
+         */
+        jQuery("#sbFilterCategory").change(function() {
+            handlerSelectFilterCategory();
+        });
+        /*
+         * Add new datasource button
+         */
+        jQuery("#btnNewDatasource").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-document'
+                    }
+                }).click(function(pEvent) {
+            handlerBtnNewDatasource();
         });
 
+        /**
+         * Attach handler to manage data sources button
+         */
+        jQuery("#btnManageDatasources").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-folder-open'
+                    }}).click(function(pEvent) {
+            handlerManageDatasources();
+        });
+
+    }
+
+    function setupForm() {
+        /*
+         * View all attributes
+         */
+        jQuery("#btnViewAttributes").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-info'
+                    }
+                }).click(function(evt) {
+            evt.preventDefault();
+            handlerBtnViewAttributes();
+        });
+        /*
+         * View image if present
+         */
+        jQuery("#btnViewImage").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-image'
+                    }
+                }).click(function(evt) {
+            evt.preventDefault();
+            handlerBtnViewImage();
+        });
+        /*
+         * View URL link if present
+         */
+        jQuery("#btnViewUrl").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-extlink'
+                    }
+                }).click(function(evt) {
+            evt.preventDefault();
+            handlerBtnViewUrl();
+        });
+
+        /*
+         * Add buttons to attribute edit form
+         */
+        jQuery(".attribFormBtn").button();
         /*
          * Cancel changes
          */
@@ -229,8 +241,7 @@ if (typeof(OpenLayers) !== "undefined") {
         }).click(function(evt) {
             evt.preventDefault();
             handlerBtnCancel();
-        })
-
+        });
         /**
          * Save changes button
          */
@@ -241,9 +252,7 @@ if (typeof(OpenLayers) !== "undefined") {
         }).click(function(evt) {
             evt.preventDefault();
             handlerBtnSaveGeocoding();
-        })
-
-
+        });
         /*
          * Save attribute edits button
          */
@@ -255,7 +264,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnSaveAttrEdits();
         });
-
         /*
          * Cancel attribute edits, close form button
          */
@@ -267,12 +275,14 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnCancelEditsClose();
         });
-
         /*
          * Setup toggle list
          */
         jQuery("#radio").buttonset();
 
+    }
+
+    function setupSearch() {
         /*
          * Search button
          */
@@ -284,7 +294,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnSearch();
         });
-
         /*
          * Open Wikimapia button
          */
@@ -296,7 +305,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnOpenWikimapia();
         });
-
         /*
          * Open Geonames button
          */
@@ -308,7 +316,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnOpenGeonames();
         });
-
         /*
          * Open Google Map Maker button
          */
@@ -320,7 +327,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnOpenGoogleMapmaker();
         });
-
         /*
          * Open Panoramio button
          */
@@ -332,7 +338,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnOpenPanoramio();
         });
-
         /*
          * Open Booking.com button
          */
@@ -345,7 +350,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnOpenBookingCom();
         });
-
         /*
          * Open Nokia HERE button
          */
@@ -358,7 +362,6 @@ if (typeof(OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnOpenNokiaHere();
         });
-
         /*
          * Open Nokia HERE button
          */
@@ -373,94 +376,6 @@ if (typeof(OpenLayers) !== "undefined") {
         });
 
         /*
-         * Select datasource control
-         */
-        jQuery("#sbDatasource").change(function() {
-            handlerSelectDatasource();
-        });
-
-        /*
-         * Select probability filter
-         */
-        jQuery("#sbFilterProbability").change(function() {
-            handlerSelectFilterProbability();
-        });
-
-        /*
-         * Select adm0 filter
-         */
-        jQuery("#sbFilterAdm0").change(function() {
-            handlerSelectFilterAdm0();
-        });
-
-        /*
-         * Select adm1 filter
-         */
-        jQuery("#sbFilterAdm1").change(function() {
-            handlerSelectFilterAdm1();
-        });
-
-
-        /*
-         * Select category filter
-         */
-        jQuery("#sbFilterCategory").change(function() {
-            handlerSelectFilterCategory();
-        });
-
-        /*
-         * Add new datasource button
-         */
-        jQuery("#btnNewDatasource").button(
-                {
-                    icons: {
-                        primary: 'ui-icon-circle-plus'
-                    }
-                }).click(function(evt) {
-            evt.preventDefault();
-            handlerBtnNewDatasource();
-        });
-
-        /*
-         * View all attributes
-         */
-        jQuery("#btnViewAttributes").button(
-                {
-                    icons: {
-                        primary: 'ui-icon-circle-plus'
-                    }
-                }).click(function(evt) {
-            evt.preventDefault();
-            handlerBtnViewAttributes();
-        });
-
-        /*
-         * View image if present
-         */
-        jQuery("#btnViewImage").button(
-                {
-                    icons: {
-                        primary: 'ui-icon-folder-open'
-                    }
-                }).click(function(evt) {
-            evt.preventDefault();
-            handlerBtnViewImage();
-        });
-
-        /*
-         * View URL link if present
-         */
-        jQuery("#btnViewUrl").button(
-                {
-                    icons: {
-                        primary: 'ui-icon-folder-open'
-                    }
-                }).click(function(evt) {
-            evt.preventDefault();
-            handlerBtnViewUrl();
-        });
-
-        /*
          * Select search database
          */
         jQuery("#sbSelectSearchDB").change(function() {
@@ -468,10 +383,127 @@ if (typeof(OpenLayers) !== "undefined") {
         });
 
         /**
+         * Attach handler function to upgrade button in top-menu
+         * Hide upgrade button in top-menu by default
+         */
+        jQuery("#btnUpgrade").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-refresh'
+                    }
+                }).click(function(evt) {
+            evt.preventDefault();
+            handlerBtnUpgrade();
+        }).hide();
+
+        /**
+         * Attach handler to manage users button
+         */
+        jQuery("#btnManageUsers").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-person'
+                    }
+                }).click(function(evt) {
+            evt.preventDefault();
+            handlerManageUsers();
+            return false;
+        });
+
+        /**
+         * Add formatting and add icon to logout button
+         */
+        jQuery("#btnLogout").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-power'
+                    }
+                });
+        /*
+         * Make search result list selectable
+         */
+        jQuery("#listSearchResults").selectable({
+            stop: function() {
+                handlerSelectSearchResultItem();
+            }
+        }).css("cursor", "pointer");
+
+    }
+
+    function setupHeader() {
+        /*
+         * Add download buttons to topMenu
+         */
+        jQuery(".topMenuBtn.download").button({
+            icons: {
+                primary: 'ui-icon-disk'
+            }
+        });
+        /*
+         * Declare function for help button in top-menu
+         */
+        jQuery("#btnHelp").click(function(evt) {
+            evt.preventDefault();
+            handlerBtnHelp();
+        });
+        /*
+         * Declare function for about button in top-menu
+         */
+        jQuery("#btnAbout").click(function(evt) {
+            evt.preventDefault();
+            handlerBtnAbout();
+        });
+
+        /*
+         * Declare function for download GeoJSON button in top-menu
+         */
+        jQuery("#btnDownloadGeoJSON").click(function(evt) {
+            evt.preventDefault();
+            handlerDownloadGeoJSON();
+            return false;
+        });
+
+        /*
+         * Declare function for download GeoJSON JavaScript button in top-menu
+         */
+        jQuery("#btnDownloadGeoJSONJavaScript").click(function(evt) {
+            evt.preventDefault();
+            handlerDownloadGeoJSONJavaScript();
+        });
+
+        /*
+         * Declare function for download KML button in top-menu
+         */
+        jQuery("#btnDownloadKML").click(function(evt) {
+            evt.preventDefault();
+            handlerDownloadKML();
+        });
+
+        /*
+         * Declare function for download RDF button in top-menu
+         */
+        jQuery("#btnDownloadRDF").click(function(evt) {
+            evt.preventDefault();
+            handlerDownloadRDF();
+            return false;
+        });
+
+        /*
+         * Declare function for download RDF button in top-menu
+         */
+        jQuery("#btnDownloadCSV").click(function(evt) {
+            evt.preventDefault();
+            handlerDownloadCSV();
+            return false;
+        });
+
+    }
+
+    function setupNewDatasource() {
+        /**
          * Make tabs in file upload wizard
          */
         ctlNewDataSourceWizard = jQuery("div.tabs").tabs();
-
         /**
          * Set options for file upload wizard
          */
@@ -481,9 +513,23 @@ if (typeof(OpenLayers) !== "undefined") {
             heightStyle: "fill"
         });
 
+    }
+
+    /**
+     * Once all HTML markup and linked files have been loaded, this
+     * function is executed 
+     * 
+     * @returns void
+     */
+    function onDocumentReady() {
+        setupGeneral();
+        setupHeader();
+        setupSource();
+        setupForm();
+        setupSearch();
+        setupNewDatasource();
 
     }
-    ;
 
     /**
      * Show the upgrade button on the header menu if an update is available for
@@ -494,9 +540,11 @@ if (typeof(OpenLayers) !== "undefined") {
      */
     function checkUpgrade() {
         jQuery.getJSON("./ws/ws-check-updates.php", null, function(pData) {
-            if (pData.v === -1) {
+            if (pData.v === WsStatus.failure) {
                 jQuery("#btnUpgrade").show().button('option', 'label', 'Upgrade to v' + pData.d);
-                jQuery("#btnUpgrade").data("version", pData.d[0]);
+                if (pData.d !== undefined) {
+                    jQuery("#btnUpgrade").data("version", pData.d[0]);
+                }
             }
         });
     }
