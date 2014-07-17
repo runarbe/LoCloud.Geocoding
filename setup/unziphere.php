@@ -20,4 +20,3 @@ if ($result === TRUE) {
 } else {
     echo "Error";
 }
-?>
