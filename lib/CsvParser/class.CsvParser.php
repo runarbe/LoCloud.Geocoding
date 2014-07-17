@@ -9,7 +9,6 @@ class CsvParser {
     /**
      * Data are formatted in rows. Field names are located in the first row
      */
-
     const dataInRows = 1;
 
     /**
@@ -140,7 +139,8 @@ class CsvParser {
      * 
      * @param String $pFilename The filename of a CSV file
      */
-    public function __construct($pFilename, $pDbConn = null) {
+    public function __construct($pFilename,
+            $pDbConn = null) {
         $this->filename = $pFilename;
         $this->tmpName = $this->getRandomName();
         if ($pDbConn !== null) {
@@ -157,10 +157,14 @@ class CsvParser {
     public function convert($pStrArray) {
 
         if (!is_array($pStrArray)) {
-            return $pStrArray = iconv($this->sourceEncoding, $this->targetEncoding, $pStrArray);
+            return $pStrArray = iconv($this->sourceEncoding,
+                    $this->targetEncoding,
+                    $pStrArray);
         } else {
             for ($i = 0; $i < count($pStrArray); $i++) {
-                $pStrArray[$i] = iconv($this->sourceEncoding, $this->targetEncoding, $pStrArray[$i]);
+                $pStrArray[$i] = iconv($this->sourceEncoding,
+                        $this->targetEncoding,
+                        $pStrArray[$i]);
             }
             return $pStrArray;
         }
@@ -173,7 +177,10 @@ class CsvParser {
      * @return Array|false
      */
     private function getCsv($pFileHandle) {
-        $mRow = fgetcsv($pFileHandle, 0, $this->delimiter, $this->enclosure);
+        $mRow = fgetcsv($pFileHandle,
+                0,
+                $this->delimiter,
+                $this->enclosure);
         return $mRow;
     }
 
@@ -182,12 +189,19 @@ class CsvParser {
      * @return void
      */
     public function parseData() {
+
+        setLocale(LC_ALL,
+                "nb_NO" . $this->sourceEncoding);
+
         if ($this->dataMode === CsvParser::dataInRows) {
             return $this->parseDataInRows();
         } else {
 //Not implemented yet
             return;
         }
+
+        setLocale(LC_ALL,
+                "");
     }
 
     /**
@@ -196,11 +210,12 @@ class CsvParser {
      * @return void Loads the data into the fields and rows arrays
      */
     private function parseDataInRows() {
-        $mFileHandle = fopen($this->filename, "r");
-        
+        $mFileHandle = fopen($this->filename,
+                "r");
+
         // Get the first line of the file as a raw string
         $this->firstLineRaw = fgets($mFileHandle);
-        
+
         // Rewind file pointer
         rewind($mFileHandle);
 
@@ -209,7 +224,8 @@ class CsvParser {
         while (false !== ($mLine = $this->getCsv($mFileHandle))) {
             if (is_array($mLine) && count($mLine) > 1) {
                 if ($mRowNum === 1 && $this->firstRowFieldNames === true) {
-                    $this->fields = $this->normalize($mLine, true);
+                    $this->fields = $this->normalize($mLine,
+                            true);
                 } else
                 if ($mRowNum === 1 && $this->firstRowFieldNames === true) {
                     $this->rows[] = $mLine;
@@ -241,14 +257,20 @@ class CsvParser {
         $mFieldDefs = array();
 
 // Add system generated primary key to file
-        $mFieldDefs[] = sprintf("%s int(11) NOT NULL AUTO_INCREMENT", $this->autoPkName);
+        $mFieldDefs[] = sprintf("%s int(11) NOT NULL AUTO_INCREMENT",
+                $this->autoPkName);
 
 // Add fields to table
         foreach ($this->fields as $mField) {
-            $mFieldDefs[] = sprintf("%s varchar(255)", $mField);
+            $mFieldDefs[] = sprintf("%s varchar(255)",
+                    $mField);
         }
-        $mFieldDefs[] = sprintf("PRIMARY KEY (%s)", $this->autoPkName);
-        $mSql = sprintf("CREATE TABLE %s (%s) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;", $this->tmpName, implode(",", $mFieldDefs));
+        $mFieldDefs[] = sprintf("PRIMARY KEY (%s)",
+                $this->autoPkName);
+        $mSql = sprintf("CREATE TABLE %s (%s) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;",
+                $this->tmpName,
+                implode(",",
+                        $mFieldDefs));
 
         return $this->dbExec($mSql);
     }
@@ -286,13 +308,21 @@ class CsvParser {
             foreach ($mRow as $mFieldNameIndex => $mField) {
                 $mFieldNames[] = $this->fields[$mFieldNameIndex];
                 if ($this->dbconn !== null) {
-                    $mFieldValues[] = sprintf("'%s'", mysqli_escape_string($this->dbconn, $mField));
+                    $mFieldValues[] = sprintf("'%s'",
+                            mysqli_escape_string($this->dbconn,
+                                    $mField));
                 } else {
-                    $mFieldValues[] = sprintf("'%s'", addslashes($mField));
+                    $mFieldValues[] = sprintf("'%s'",
+                            addslashes($mField));
                 }
             }
 
-            $mSql[] = sprintf("INSERT INTO %s (%s) VALUES (%s);", $this->tmpName, implode(", ", $mFieldNames), implode(", ", $mFieldValues));
+            $mSql[] = sprintf("INSERT INTO %s (%s) VALUES (%s);",
+                    $this->tmpName,
+                    implode(", ",
+                            $mFieldNames),
+                    implode(", ",
+                            $mFieldValues));
             $this->currentOffset++;
         }
 
@@ -308,7 +338,8 @@ class CsvParser {
      * @return Boolean True on success, false on error
      */
     public function dropTable() {
-        return $this->dbExec(sprintf("DROP TABLE %s;", $this->tmpName));
+        return $this->dbExec(sprintf("DROP TABLE %s;",
+                                $this->tmpName));
     }
 
     /**
@@ -327,7 +358,8 @@ class CsvParser {
      * @param boolean $pUnique Set whether the array should be unique
      * @return array|string
      */
-    public function normalize($pInput, $pUnique = false) {
+    public function normalize($pInput,
+            $pUnique = false) {
         /*
          * Set the replace elements, keys = search, values = replacement
          */
@@ -339,7 +371,10 @@ class CsvParser {
             "\t",
             "æ",
             "å",
-            "ø"
+            "ø",
+            "-",
+            '"',
+            "'"
         );
 
         $mTo = array(
@@ -350,18 +385,26 @@ class CsvParser {
             "",
             "ae",
             "aa",
-            "oe"
+            "oe",
+            "_",
+            "",
+            ""
         );
 
         if (is_array($pInput) === true) {
 
             foreach ($pInput as $mKey => $mVal) {
-                $mVal = str_replace($mFrom, $mTo, strtolower($mVal));
-                if (!array_search($mVal, $pInput)) {
+                $mVal = str_replace($mFrom,
+                        $mTo,
+                        strtolower($mVal));
+
+                if (array_search($mVal,
+                                $pInput) !== false) {
                     $pInput[$mKey] = $mVal;
                 } else {
                     $mNumberSuffix = 1;
-                    while (array_search($mVal . "_" . $mNumberSuffix, $pInput)) {
+                    while (array_search($mVal . "_" . $mNumberSuffix,
+                            $pInput)) {
                         $mNumberSuffix++;
                     };
                     $pInput[$mKey] = $mVal . "_" . $mNumberSuffix;
@@ -370,7 +413,9 @@ class CsvParser {
             return $pInput;
         } else {
             // do something
-            $pInput = str_replace($mFrom, $mTo, strtolower($pInput));
+            $pInput = str_replace($mFrom,
+                    $mTo,
+                    strtolower($pInput));
             return $pInput;
         }
     }
@@ -392,18 +437,25 @@ class CsvParser {
         if ($this->dbconn !== null) {
 
             $s = true;
-            mysqli_query($this->dbconn, "SET NAMES 'utf8';");
+            mysqli_query($this->dbconn,
+                    "SET NAMES 'utf8';");
             foreach ($pSql as $mSqlStatement) {
-                mysqli_query($this->dbconn, $mSqlStatement);
+                if (trim($mSqlStatement) !== "" && trim($mSqlStatement) !== ";") {
+                    mysqli_query($this->dbconn,
+                            $mSqlStatement);
 
-                if (mysqli_errno($this->dbconn)) {
-                    echo mysqli_error($this->dbconn);
-                    $s = false;
+                    if (mysqli_errno($this->dbconn)) {
+                        //echo mysqli_error($this->dbconn);
+                        $s = false;
+                    }
+                } else {
+                    logIt("Empty SQL-statement line on input: " . $mSqlStatement);
                 }
             }
             return $s;
         } else {
-            return implode("\n", $pSql);
+            return implode("\n",
+                    $pSql);
         }
     }
 
