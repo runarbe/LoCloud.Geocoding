@@ -86,6 +86,21 @@ function handlerBtnNextSrc() {
 }
 
 /**
+ * Handler to open the metadata source module
+ * @returns {void}
+ */
+function handlerManageDatasources() {
+    var mDatasource = getSelectedDatasource();
+    console.log(mDatasource);
+    if (mDatasource !== undefined) {
+        window.location.href = GcMods.manageDatasources + "id=" + mDatasource.id;
+    } else {
+        window.location.href = GcMods.manageDatasources;
+    }
+    return;
+}
+
+/**
  * Function that is triggered when the users selects a source item from the
  * item list on the bottom right hand side of the screen
  * 
@@ -95,87 +110,92 @@ function handlerSelectSourceItem() {
     jQuery("#selectable li").removeClass("ui-state-highlight");
     getSelectedSourceItem().addClass("ui-state-highlight")
             .each(function() {
-        var data = getSelectedSourceItem().data("attributes");
-        //console.log(data);
+                var data = getSelectedSourceItem().data("attributes");
+                //console.log(data);
 
-        jQuery("#tbItemName").val(data._nc);
-        jQuery("#hdnTableId").val(data._id);
-        jQuery("#hdnTableName").val(mDatasource.ds_table);
+                jQuery("#tbItemName").val(data._nc);
+                jQuery("#hdnTableId").val(data._id);
+                if (data.autopk_id !== undefined) {
+                    jQuery("#hdnAutoPkId").val(data.autopk_id);
+                } else {
+                    jQuery("#hdnAutoPkId").val(data._id);                    
+                }
+                jQuery("#hdnTableName").val(mDatasource.ds_table);
 
-        jQuery("#hdnFieldChanges").val(data.gc_fieldchanges);
-        
-        jQuery("#tbLongitude").val(null);
-        jQuery("#tbLatitude").val(null);
+                jQuery("#hdnFieldChanges").val(data.gc_fieldchanges);
 
-        // Initialize button to show URL
-        if (data._uc === null) {
-            jQuery("#btnViewUrl").hide();
-        } else {
-            jQuery("#hdnUrl").val(data._uc);
-            jQuery("#btnViewUrl").show();
-        }
+                jQuery("#tbLongitude").val(null);
+                jQuery("#tbLatitude").val(null);
 
-        // Initialize button to show image
-        if (data._ic === null) {
-            jQuery("#btnViewImage").hide();
-        } else {
-            jQuery("#hdnImage").val(data._ic);
-            jQuery("#btnViewImage").show();
-        }
+                // Initialize button to show URL
+                if (data._uc === null) {
+                    jQuery("#btnViewUrl").hide();
+                } else {
+                    jQuery("#hdnUrl").val(data._uc);
+                    jQuery("#btnViewUrl").show();
+                }
 
-        clearIcons();
+                // Initialize button to show image
+                if (data._ic === null) {
+                    jQuery("#btnViewImage").hide();
+                } else {
+                    jQuery("#hdnImage").val(data._ic);
+                    jQuery("#btnViewImage").show();
+                }
 
-        if (data.gc_probability != null) {
-            jQuery("#radio input:radio[value=" + data.gc_probability + "]").prop("checked", true).button("refresh");
-        }
+                clearIcons();
 
-        /*
-         * Remove alternate markers from map
-         */
-        jQuery.each(alternateMarkers, function(key2, val2) {
-            markers.removeMarker(val2);
-        });
+                if (data.gc_probability != null) {
+                    jQuery("#radio input:radio[value=" + data.gc_probability + "]").prop("checked", true).button("refresh");
+                }
 
-        /*
-         * Add alternate markers to map
-         */
-        jQuery.each(data.gc_alternates, function(key3, val3) {
-            var mLonLat = new OpenLayers.LonLat(val3.gc_lon, val3.gc_lat).transform(p4326, p900913);
-            addAlternateIcons(mLonLat.clone());
-            mLonLat = null;
-        });
+                /*
+                 * Remove alternate markers from map
+                 */
+                jQuery.each(alternateMarkers, function(key2, val2) {
+                    markers.removeMarker(val2);
+                });
 
-        if (data.gc_lon != null && data.gc_lat != null) {
-            var mLonLat2 = new OpenLayers.LonLat(data.gc_lon, data.gc_lat).transform(p4326, pDatasource);
-            jQuery("#tbLongitude").val(roundCoordinates(mLonLat2.lon, mDatasource.ds_coord_prec));
-            jQuery("#tbLatitude").val(roundCoordinates(mLonLat2.lat, mDatasource.ds_coord_prec));
+                /*
+                 * Add alternate markers to map
+                 */
+                jQuery.each(data.gc_alternates, function(key3, val3) {
+                    var mLonLat = new OpenLayers.LonLat(val3.gc_lon, val3.gc_lat).transform(p4326, p900913);
+                    addAlternateIcons(mLonLat.clone());
+                    mLonLat = null;
+                });
 
-            var mLonLat = new OpenLayers.LonLat(data.gc_lon, data.gc_lat).transform(p4326, p900913);
-            addProposedIcon(mLonLat.clone());
-            map.setCenter(mLonLat, defaultZoomTo);
+                if (data.gc_lon != null && data.gc_lat != null) {
+                    var mLonLat2 = new OpenLayers.LonLat(data.gc_lon, data.gc_lat).transform(p4326, pDatasource);
+                    jQuery("#tbLongitude").val(roundCoordinates(mLonLat2.lon, mDatasource.ds_coord_prec));
+                    jQuery("#tbLatitude").val(roundCoordinates(mLonLat2.lat, mDatasource.ds_coord_prec));
 
-        }
+                    var mLonLat = new OpenLayers.LonLat(data.gc_lon, data.gc_lat).transform(p4326, p900913);
+                    addProposedIcon(mLonLat.clone());
+                    map.setCenter(mLonLat, defaultZoomTo);
 
-        if (data._x != null && data._y != null) {
-            //console.log('add original coordinates');
-            mLonLat = new OpenLayers.LonLat(data._x, data._y).transform(pDatasource, p900913);
-            addExistingIcon(mLonLat.clone());
+                }
 
-            if (jQuery("#tbLongitude").val() == "" || (data.gc_lon == null || data.gc_lat == null)) {
-                jQuery("#tbLongitude").val(data._x);
-                jQuery("#tbLatitude").val(data._y);
-                map.setCenter(mLonLat, defaultZoomTo);
-            }
+                if (data._x != null && data._y != null) {
+                    //console.log('add original coordinates');
+                    mLonLat = new OpenLayers.LonLat(data._x, data._y).transform(pDatasource, p900913);
+                    addExistingIcon(mLonLat.clone());
 
-        }
+                    if (jQuery("#tbLongitude").val() == "" || (data.gc_lon == null || data.gc_lat == null)) {
+                        jQuery("#tbLongitude").val(data._x);
+                        jQuery("#tbLatitude").val(data._y);
+                        map.setCenter(mLonLat, defaultZoomTo);
+                    }
 
-        jQuery(".ui-selected", "#selectable").first().effect("transfer", {
-            to: jQuery("#divForm")
-        }, 500);
+                }
 
-        showGeocodingForm();
+                jQuery(".ui-selected", "#selectable").first().effect("transfer", {
+                    to: jQuery("#divForm")
+                }, 500);
 
-    });
+                showGeocodingForm();
+
+            });
 }
 
 /**
