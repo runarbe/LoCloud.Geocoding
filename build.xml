@@ -14,10 +14,10 @@
     <taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" classpath="${jar}/jsdoc-toolkit-ant-task-1.1.2.jar;${jar}/jsdoc_toolkit-2.4.0/jsdoc-toolkit/java/classes/js.jar;${jar}/rhino1_7R4/rhino1_7R4/js.jar"/>
 
     <target name="build-docs">
-        <jsdoctoolkit jsdochome="${jar}/jsdoc_toolkit-2.4.0/jsdoc-toolkit/" template="jsdoc" outputdir="${docs}">
+        <!--jsdoctoolkit jsdochome="${jar}/jsdoc_toolkit-2.4.0/jsdoc-toolkit/" template="jsdoc" outputdir="${docs}">
             <fileset dir="${root}/js/jSrb/Code" />
             <fileset dir="${root}/js/jSrb" />
-        </jsdoctoolkit>
+        </jsdoctoolkit-->
     </target>
 
     <target name="revision">
