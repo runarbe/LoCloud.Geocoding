@@ -9,6 +9,7 @@ if ($_GET["action"] == "logout" || $_GET["action"] == "login") {
     session_start();
     unset($_SESSION["usr_id"]);
     unset($_SESSION["usr_level"]);
+    unset($_SESSION["usr_usr"]);
 }
 ?>
 <html>
@@ -20,36 +21,58 @@ if ($_GET["action"] == "logout" || $_GET["action"] == "login") {
         <link rel="stylesheet" href="css/pure/pure.css"/>
         <script src="js/jquery-1.10.2.min.js" type="text/javascript"></script>
         <script src="js/jquery-ui-1.10.2.custom.min.js" type="text/javascript"></script>
+        <script src="js/jSrb/jSrb.js" type="text/javascript"></script>
         <script>
+
+            function setAuthSuccess(pMessage) {
+                jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-highlight").html(pMessage);
+                return;
+            }
+
+            function setAuthError(pMessage) {
+                jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-error").html(pMessage);
+                return;
+            }
+
             jQuery(document).ready(function() {
                 jQuery("#dlgAuth").dialog();
 
                 jQuery("#btnRemind").click(function(evt) {
                     evt.preventDefault();
+                    return false;
+                });
+
+                jQuery("#btnUsrRegisterNew").click(function(pEvent) {
+                    pEvent.preventDefault();
+                    window.location.href = GcMods.registerUser;
+                    return false;
                 });
 
                 jQuery("#btnLogin").click(function(evt) {
                     var u = jQuery("#tbUsr").val();
                     var p = jQuery("#pwPwd").val();
                     evt.preventDefault();
-                    jQuery.getJSON("./ws/ws-auth.php",
+                    jQuery.post(WsUrl.doLogin,
                             {
+                                cmd: 'auth',
                                 u: u,
                                 p: p
                             },
-                    function(data) {
-                        if (data.s == 1) {
-                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-highlight").html("Success");
-                            window.location.replace("./index.php");
+                    function(pResponse) {
+                        if (pResponse.status === "success") {
+                            setAuthSuccess(pResponse.message);
+                            setTimeout(function() {                              
+                                window.location.replace(GcMods.mainWindow);
+                            }, 1000);
                         } else {
-                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-error").html("Error: " + data.m);
+                            setAuthError(pResponse.message);
                         }
-                    }).fail(function(data) {
-                        console.log("Failed to connect: " + data);
+                    }, 'json').fail(function(pResponse) {
+                        setAuthError("Authentication request error.");
+                        console.log("Request error: " + pResponse.responseText);
                     });
                 });
             });
-
 
         </script>
     </head>
@@ -69,8 +92,11 @@ if ($_GET["action"] == "logout" || $_GET["action"] == "login") {
 
                     <div class="pure-controls">
                         <p id="notification" class="pure-form-message"></p>
-                        <button id="btnRemind" class="pure-button">Forgot</button>
                         <button id="btnLogin" class="pure-button pure-button-primary">Log in</button>
+                    </div>
+                    <div class="pure-controls">
+                        <button id="btnRemind" class="pure-button">Forgot...</button>
+                        <button id="btnUsrRegisterNew" class="pure-button pure-button">Register</button>
                     </div>
                 </fieldset>
             </form>
