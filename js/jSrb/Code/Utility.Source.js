@@ -141,14 +141,16 @@ function loadDatasources(pDatasourceId) {
      */
     function(data) {
         if (data.v === 1) {
-            if (data.d.length === 0) {
+            if (data.d !== undefined && data.d.length === 0) {
                 //console.log(data);
             } else {
                 jQuery("#sbDatasource").empty();
                 jQuery("#sbDatasource").append(jQuery("<option/>").val("").text("Please select a data source"));
-                jQuery.each(data.d, function(key, val) {
-                    jQuery("#sbDatasource").append(jQuery("<option/>").val(val.id).text(val.ds_title).data("attributes", val));
-                });
+                if (data.d !== undefined) {
+                    jQuery.each(data.d, function(key, val) {
+                        jQuery("#sbDatasource").append(jQuery("<option/>").val(val.id).text(val.ds_title).data("attributes", val));
+                    });
+                }
             }
         } else {
             console.log(data.m);
