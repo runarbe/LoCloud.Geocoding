@@ -24,6 +24,16 @@ require_once("functions.php");
                     jQuery("#tbDbPwd").val("root");
                 });
 
+<?php
+if (file_exists("config.php")) {
+    echo 'jQuery("#tbAppTitle").val("' . LgmsConfig::app_title . '");';
+    echo 'jQuery("#tbDb").val("' . LgmsConfig::db . '");';
+    echo 'jQuery("#tbDbHost").val("' . LgmsConfig::db_host . '");';
+    echo 'jQuery("#tbDbUsr").val("' . LgmsConfig::db_usr . '");';
+    echo 'jQuery("#tbDbPwd").val("' . LgmsConfig::db_pwd . '");';
+    echo 'jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-highlight").html("Config file exists, database not initialized");';
+}
+?>
                 jQuery("#btnConfigure").click(function(evt) {
                     var app_title = jQuery("#tbAppTitle").val();
                     var db = jQuery("#tbDb").val();
@@ -53,17 +63,28 @@ require_once("functions.php");
                      */
                     function(data) {
                         if (data.v === WsStatus.success) {
-                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-highlight").html("Success");
-                            //window.location.replace("./index.php");
+                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-highlight").html("Successfully created config file");
+
+                            jQuery.getJSON(WsUrl.initDb, {}, function(data) {
+                                if (data.v === WsStatus.success) {
+                                    jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-highlight").html("Successfully initialized database");
+                                    window.location.replace("./index.php");
+                                } else {
+                                    jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-error").html("Error initializing database: " + data.m);
+                                }
+                            }).fail(function(data) {
+                                jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-error").html("An error occured while invoking database initialization web service: " + data);
+                            });
+
                         } else {
-                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-error").html("Error: " + data.m);
+                            jQuery("#notification").removeClass("ui-state-error ui-state-highlight").addClass("ui-state-error").html("Error creating config file: " + data.m);
                         }
+
                     }).fail(function(data) {
-                        console.log("Failed to connect: " + data);
+                        console.log("An error occured while trying to invoke the create config file web service" + data);
                     });
                 });
             });
-
         </script>
     </head>
     <body>
@@ -97,11 +118,19 @@ require_once("functions.php");
                     <label>Installation directory</label>
                     <input class="pure-input-2-3 pure-" type="text" value="<?php echo dirname(__FILE__); ?>" id="tbBaseDir" disabled/>
                 </div>
+                <?php
+                if (file_exists("config.php")) {
+                    ?>
+                    <div class="pure-controls">
+                        <label class="pure-radio">                   
+                            <input type="checkbox" id="chkOverwrite"/>
+                            Overwrite existing configuration file
+                        </label>
+                    </div>
+                    <?php
+                }
+                ?>
                 <div class="pure-controls">
-                    <label class="pure-radio">                   
-                        <input type="checkbox" id="chkOverwrite"/>
-                        Overwrite existing configuration file if it exists
-                    </label>
                     <button id="btnLoadDefaults" class="pure-button">Load default values</button>
                     <button id="btnConfigure" class="pure-button pure-button-primary">Initialize</button>
                 </div>
