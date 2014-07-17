@@ -2,6 +2,30 @@ function handlerBtnSearch() {
     loadSearchResults();
 }
 
+/**
+ * Loads the user management form
+ * @returns {void}
+ */
+function handlerManageUsers() {
+    document.location.href = GcMods.manageUsers;
+}
+
+function handlerBtnUpgrade() {
+    showMsgBox("Please wait while upgrade commences. This operation may take several minutes");
+    jQuery.getJSON("./ws/ws-upgrade.php", {
+        pVersion: jQuery("#btnUpgrade").data("version")
+    }, function(pData) {
+        if (pData.v === 1) {
+            showMsgBox(pData.m, false);
+            jQuery("#btnUpgrade").hide();
+        } else {
+            showMsgBox(pData.m, true);
+        }
+    }).fail(function() {
+        showMsgBox("Web service request failed", true);
+    });
+}
+
 function handlerSelectSearchResultItem() {
     /*
      * No function implemented yet
