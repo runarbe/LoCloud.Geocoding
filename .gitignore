@@ -7,6 +7,7 @@
 /nbproject/
 /ws/deprecated/
 /log/
+/tiles/
 build.xml
 build_info.properties
 config.php
