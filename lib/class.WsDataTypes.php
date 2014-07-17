@@ -10,7 +10,9 @@ class WsDataTypes {
     const mDate = 3;
     const mBool = 4;
     const mDouble = 5;
+    const mArray = 6;
+    const mEmail = 7;
+    const mUrl = 8;
     const mNull = null;
-
+    
 }
-?>
