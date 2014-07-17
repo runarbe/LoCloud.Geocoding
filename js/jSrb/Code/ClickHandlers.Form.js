@@ -150,7 +150,7 @@ function handlerClickMap(pPoint) {
  */
 function handlerBtnSaveGeocoding() {
     var mId = jQuery("#hdnTableId").val();
-    var mTable = jQuery("#hdnTableName").val();
+    var mTable = jQuery("#hdnAutoPkId").val();
     var mLon = jQuery("#tbLongitude").val();
     var mLat = jQuery("#tbLatitude").val();
     var mLonLat = new OpenLayers.LonLat(mLon, mLat).transform(pDatasource, p4326);
