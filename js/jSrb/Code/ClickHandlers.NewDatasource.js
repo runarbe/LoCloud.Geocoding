@@ -39,6 +39,7 @@ function handlerBtnNewDatasource() {
                     }).fail(function() {
                 showMsgBox("Error loading character encodings");
             });
+            
             //jQuery("select#ds_encoding").val("ISO-8859-1");
             jQuery("select#ds_encoding option:contains('ISO-8859-1')").attr("selected", "selected");
 
@@ -51,12 +52,12 @@ function handlerBtnNewDatasource() {
                     ctlStatus.empty();
                     ctlStatus.html("Please wait while uploading file...");
                     var percentVal = '0%';
-                    ctlBar.width(percentVal)
+                    ctlBar.width(percentVal);
                     ctlPercent.html(percentVal);
                 },
                 uploadProgress: function(event, position, total, percentComplete) {
                     var percentVal = percentComplete + '%';
-                    ctlBar.width(percentVal)
+                    ctlBar.width(percentVal);
                     ctlPercent.html(percentVal);
                 },
                 success: function(data) {
@@ -90,7 +91,7 @@ function handlerBtnNewDatasource() {
                             /*
                              * Add blank option to the top of the dropdowns
                              */
-                            mFNDropDowns.append(jQuery("<option/>").attr({"value": ""}).text("<not applicable>"));
+                            mFNDropDowns.append(jQuery("<option/>").attr({"value": ""}).text("<not set>"));
                             mFNDropDowns.append(jQuery("<option/>").attr({"value": "autopk_id"}).text("<system generated number>"));
                             jQuery.each(data.d.fields, function(pIdx, pVal) {
                                 mOpt = jQuery("<option/>").attr({"value": pVal}).text(pVal);
@@ -101,8 +102,8 @@ function handlerBtnNewDatasource() {
                         } else {
                             showMsgBox(data.m, true);
                         }
-                    }).fail(function() {
-                        showMsgBox("Could not parse text file");
+                    }).fail(function(pResponse) {
+                        showMsgBox(pResponse.responseText);
                     });
                 }
 
@@ -120,7 +121,7 @@ function handlerBtnNewDatasource() {
                 success: function(data) {
                     if (data.v === WsStatus.success) {
 
-// Call prepare tables web service
+                        // Call prepare tables web service
                         jQuery.getJSON(WsUrl.prepareTables,
                                 {
                                     t: data.d.table
@@ -143,7 +144,7 @@ function handlerBtnNewDatasource() {
                             showMsgBox("Error preparing tables");
                         });
                     } else {
-// Show error message
+                    // Show error message
                         showMsgBox(data.m, true);
                     }
                 }
