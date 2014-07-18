@@ -62,42 +62,11 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
         return new WsSearchGeonamesAPI();
     }
 
-    private function callGeonamesAPI($pUrl,
-            $pData = null) {
-
-        $mCurl = curl_init();
-
-        if ($pData !== null) {
-            $pUrl = sprintf("%s?%s",
-                    $pUrl,
-                    http_build_query($pData));
-        }
-
-        curl_setopt($mCurl,
-                CURLOPT_URL,
-                $pUrl);
-        curl_setopt($mCurl,
-                CURLOPT_RETURNTRANSFER,
-                true);
-
-        curl_setopt($mCurl,
-                CURLOPT_HEADER,
-                "Content-type: application/json");
-        curl_setopt($mCurl,
-                CURLOPT_HEADER,
-                "Accept: application/json");
-        curl_setopt($mCurl,
-                CURLOPT_POSTFIELDS,
-                "{}");
-
-        return curl_exec($mCurl);
-    }
-
     private function searchJSON() {
-        $mJson = json_decode($this->callGeonamesAPI(
+        $mJson = json_decode($this->curlHttpGetJSON(
                         sprintf(
                                 'http://api.geonames.org/searchJSON?q=%s&maxRows=10&lang=en&username=%s',
-                                $this->_q,
+                                urlencode($this->_q),
                                 $this->_apiKey)
                 )
         );
@@ -116,10 +85,10 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
     private function wikipediaSearchJSON() {
 
         $mJson = json_decode(
-                $this->callGeonamesAPI(
+                $this->curlHttpGetJSON(
                         sprintf(
                                 'http://api.geonames.org/wikipediaSearchJSON?q=%s&maxRows=10&username=%s',
-                                $this->_q,
+                                urlencode($this->_q),
                                 $this->_apiKey)));
 
         if (isset($mJson->geonames)) {
