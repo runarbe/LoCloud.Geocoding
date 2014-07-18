@@ -539,13 +539,16 @@ if (typeof (OpenLayers) !== "undefined") {
      * @return void
      */
     function checkUpgrade() {
-        jQuery.getJSON("./ws/ws-check-updates.php", null, function(pData) {
-            if (pData.v === WsStatus.failure) {
-                jQuery("#btnUpgrade").show().button('option', 'label', 'Upgrade to v' + pData.d);
-                if (pData.d !== undefined) {
-                    jQuery("#btnUpgrade").data("version", pData.d[0]);
-                }
+        jQuery.post("./ws/ws-check-updates.php", null, function(pData) {
+            if (pData.status === 'error' && pData.records !== undefined) {
+                jQuery("#btnUpgrade").show().button('option', 'label', 'Upgrade to v' + pData.records[0]);
+                jQuery("#btnUpgrade").data("version", pData.records[0]);
+            } else {
+                console.log(jSrb.ErrMsg.installationUpToDate);
             }
+        },'json').fail(function(pResponse) {
+            showMsgBox(jSrb.ErrMsg.ajaxRequestError, true);
+            console.log(pResponse.responseText);
         });
     }
 
