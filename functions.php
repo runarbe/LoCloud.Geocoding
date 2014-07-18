@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Load configuration file if it exists
  */
@@ -32,6 +31,7 @@ $mDependencies = array(
     "/lib/class.MsgSessionExpired.php",
     "/lib/class.WsDataTypes.php",
     "/lib/class.ErrorMsgs.php",
+    "/lib/class.SearchMatch.php",
     "/lib/class.ParamOpt.php",
     "/lib/class.WsRetObj.php",
     "/lib/class.WsStatus.php",
