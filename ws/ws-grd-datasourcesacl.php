@@ -4,7 +4,7 @@ require_once("../functions.php");
 
 class WsDatasourcesAcl extends GcWebService implements iWebService {
 
-    public function execute() {
+    public function _execute() {
 
         switch ($this->_operation) {
             case "get-records":
@@ -17,7 +17,7 @@ class WsDatasourcesAcl extends GcWebService implements iWebService {
                 $this->addRecord();
                 break;
             default:
-                $this->_operationNotSupported();
+                $this->_notSupported();
                 break;
         }
         $this->_result->echoJson();

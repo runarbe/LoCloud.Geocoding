@@ -24,7 +24,7 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
     /**
      * Main function body
      */
-    protected function execute() {
+    protected function _execute() {
 
         $mCheck = array(
             "q" => new ParamOpt(true,
@@ -51,7 +51,7 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
                     $this->wikipediaSearchJSON();
                     break;
                 default:
-                    $this->_operationNotSupported();
+                    $this->_notSupported();
                     break;
             }
         }

@@ -4,7 +4,7 @@ require_once("../functions.php");
 
 class WsSearchGeonames extends GcWebService implements iWebService {
 
-    protected function execute() {
+    protected function _execute() {
 
         $mCheck = array(
             "t" => new ParamOpt(true,

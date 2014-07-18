@@ -4,7 +4,7 @@ require_once("../functions.php");
 
 class WSGridDataSources extends GcWebService implements iWebService {
 
-    public function execute() {
+    public function _execute() {
 
         $mCheck = array(
             "cmd" => new ParamOpt(true,
@@ -29,7 +29,7 @@ class WSGridDataSources extends GcWebService implements iWebService {
                     $this->getDataSourceFieldNames();
                     break;
                 default:
-                    $this->_operationNotSupported();
+                    $this->_notSupported();
                     break;
             }
         }
@@ -156,4 +156,4 @@ class WSGridDataSources extends GcWebService implements iWebService {
 
 }
 
-WSGridDataSources::getInstance()->execute();
+WSGridDataSources::getInstance()->_execute();

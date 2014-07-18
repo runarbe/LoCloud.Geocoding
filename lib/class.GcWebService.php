@@ -21,7 +21,7 @@ abstract class GcWebService {
     /**
      * Main function body - will be executed if operation parameter is present
      */
-    abstract protected function execute();
+    abstract protected function _execute();
 
     /**
      * Default constructor - called if not implemented on child objects
@@ -69,7 +69,7 @@ abstract class GcWebService {
      * Returns error when operation is not supported
      * @return void
      */
-    protected function _operationNotSupported() {
+    protected function _notSupported() {
         $this->_result->setFailure(ErrorMsgs::operationNotSupported($this->_operation));
         return;
     }
@@ -84,7 +84,7 @@ abstract class GcWebService {
 
     public function run($pIgnoreOperation = false) {
         if ($this->_isSuccess() || $pIgnoreOperation) {
-            $this->execute();
+            $this->_execute();
         } else {
             $this->_result->echoJson();
         }

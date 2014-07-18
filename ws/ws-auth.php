@@ -4,7 +4,7 @@ require_once("../functions.php");
 
 class WsAuth extends GcWebService implements iWebService {
 
-    public function execute() {
+    public function _execute() {
         switch ($this->_operation) {
             case "auth":
             default:

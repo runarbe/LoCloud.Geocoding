@@ -12,7 +12,7 @@ class WsSearchLoGeo extends GcWebService implements iWebService {
     private $_apiKey;
     private $_q;
 
-    protected function execute() {
+    protected function _execute() {
 
         $mCheck = array(
             "q" => new ParamOpt(true,
@@ -39,7 +39,7 @@ class WsSearchLoGeo extends GcWebService implements iWebService {
                     $this->searchService("Google");
                     break;
                 default:
-                    $this->_operationNotSupported();
+                    $this->_notSupported();
                     break;
             }
         }
