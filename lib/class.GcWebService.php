@@ -190,7 +190,17 @@ abstract class GcWebService {
                 $pUrl);
         curl_setopt($mCurl,
                 CURLOPT_RETURNTRANSFER,
-                1);
+                true);
+
+        curl_setopt($mCurl,
+                CURLOPT_HEADER,
+                "Content-type: application/json");
+        curl_setopt($mCurl,
+                CURLOPT_HEADER,
+                "Accept: application/json");
+        curl_setopt($mCurl,
+                CURLOPT_POSTFIELDS,
+                "{}");
 
         return curl_exec($mCurl);
     }
