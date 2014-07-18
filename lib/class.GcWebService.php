@@ -174,4 +174,25 @@ abstract class GcWebService {
         return $mReturn;
     }
 
+    protected function curlHttpGetJSON($pUrl,
+            $pData = null) {
+
+        $mCurl = curl_init();
+
+        if ($pData !== null) {
+            $pUrl = sprintf("%s?%s",
+                    $pUrl,
+                    http_build_query($pData));
+        }
+
+        curl_setopt($mCurl,
+                CURLOPT_URL,
+                $pUrl);
+        curl_setopt($mCurl,
+                CURLOPT_RETURNTRANSFER,
+                1);
+
+        return curl_exec($mCurl);
+    }
+
 }
