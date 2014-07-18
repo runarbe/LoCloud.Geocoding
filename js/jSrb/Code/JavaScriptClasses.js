@@ -143,5 +143,7 @@ jSrb.AccessLevels = {
 };
 
 jSrb.ErrMsg =  {
-    "selectDatabaseFirst": "You must select a database before you can do a search."
+    "selectDatabaseFirst": "You must select a database before you can do a search.",
+    "noResults": "No results returned",
+    "ajaxRequestError": "Error during Ajax request, check JavaScript console for details."
 };
