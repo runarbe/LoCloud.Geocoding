@@ -1,3 +1,7 @@
+var jSrb = jSrb || {};
+
+jSrb.search = jSrb.search || {};
+
 function getSelectedSearchDB() {
     return jQuery("#sbSelectSearchDB option:selected");
 }
@@ -26,43 +30,62 @@ function loadSearchDBs() {
     });
 }
 
-function loadSearchResults() {
-    var mSearchDB = getSelectedSearchDB();
-    
-    if (mSearchDB.data("attributes") === undefined) {
+/**
+ * Unselect any other items from the search list, highlight the current search
+ * result, construct a OpenLayers.LonLat object and zoom the map
+ * @returns {void}
+ */
+jSrb.search.selectSearchResultItem = function() {
+    jQuery("#listSearchResults li").removeClass("ui-state-highlight");
+    getSelectedSearchResultItem().addClass("ui-state-highlight");
+    var mData = getSelectedSearchResultItem().data("attributes");
+    var mLonLat = new OpenLayers.LonLat(mData.lon, mData.lat).transform(p4326, p900913);
+    map.setCenter(mLonLat, defaultZoomTo);
+    return;
+};
+
+/**
+ * Load search results from the server using the selected search
+ * database
+ * @returns {void}
+ */
+jSrb.search.loadSearchResults = function() {
+    var mSearchDB = getSelectedSearchDB().data('attributes');
+    if (mSearchDB === undefined) {
         showMsgBox(jSrb.ErrMsg.selectDatabaseFirst);
         return;
     }
+    
     var bbox = null;
-    if (jQuery("#cbLimitToBbox").prop("checked")) {
+    if (jQuery('#cbLimitToBbox').prop('checked')) {
         bbox = map.getExtent().transform(p900913, p4326).toBBOX();
     }
-
-    var mWebService = mSearchDB.data("attributes").sch_webservice;
-    var mTable = mSearchDB.data("attributes").sch_table;
-    var mSearchTerm = jQuery("#tbSearchTerm").val();
-    jQuery.post("./ws/" + mWebService + ".php",
+    
+    var mWebService = mSearchDB.sch_webservice;
+    var mTable = mSearchDB.sch_table;
+    var mSearchTerm = jQuery('#tbSearchTerm').val();
+    
+    jQuery.post('./ws/' + mWebService + '.php',
             {
                 q: mSearchTerm,
                 bbox: bbox,
                 t: mTable
             },
     function(pResponse) {
-        /*
-         * Empty search result list
-         */
         jQuery('#listSearchResults').empty();
         jQuery('#txtSearchHint').empty();
 
         if (pResponse.status === 'success') {
+        
             if (pResponse.records.length > 0) {
                 /*
                  * Add options to adm0
                  */
                 jQuery.each(pResponse.records, function(key, val) {
-                    var mLi = jQuery('<li class=\"ui-state-default\"></li>')
-                            .html(val.asciiname)
-                            .val(val.geonameid)
+                    var t = jSrb.SearchMatch();
+                    var mLi = jQuery('<li class="ui-state-default"></li>')
+                            .html(val.displayName)
+                            .val(val.id)
                             .data('attributes', val);
                     jQuery('#listSearchResults').append(mLi);
                 });
@@ -77,4 +100,5 @@ function loadSearchResults() {
         console.log(pResponse.responseText);
     });
 
+    return;
 }
