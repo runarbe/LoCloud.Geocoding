@@ -339,18 +339,6 @@ if (typeof (OpenLayers) !== "undefined") {
             handlerBtnOpenPanoramio();
         });
         /*
-         * Open Booking.com button
-         */
-
-        jQuery("#btnOpenBookingCom").button({
-            icons: {
-                secondary: 'ui-icon-link'
-            }
-        }).click(function(evt) {
-            evt.preventDefault();
-            handlerBtnOpenBookingCom();
-        });
-        /*
          * Open Nokia HERE button
          */
 
