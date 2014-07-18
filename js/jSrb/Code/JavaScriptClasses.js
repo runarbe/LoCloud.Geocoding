@@ -5,6 +5,56 @@
 var jSrb = jSrb || {};
 
 /**
+ * Search match object
+ * @returns {jSrb.SearchMatch}
+ */
+jSrb.SearchMatch = function() {
+    return {
+        /**
+         * Unique identifier of the name within the source
+         * @var String 
+         */
+        id: null,
+        /**
+         * The name to be displayed in the result list
+         * @var String 
+         */
+        displayName: null,
+        /**
+         * The actual name (may be shorter, longer)
+         * @var String
+         */
+        name: null,
+        /**
+         * The longitude of the name in WGS84 geographical coordinates
+         * @var type 
+         */
+        lng: null,
+        /**
+         * The latitude of the name in WGS84 geographical coordinates
+         * @var type 
+         */
+        lat: null,
+        /**
+         * Optionally a WKT geometry string that can contain a more complex geometry
+         * @var String (WKT)
+         */
+        wkt: null,
+        /**
+         * A floating point number between 0 and 100 that expresses the confidence of
+         * the search result
+         * @var Float 
+         */
+        confidence: null,
+        /**
+         * Persistent URI of the name
+         * @var String 
+         */
+        pUri: null
+    };
+}
+
+/**
  * Enumeration for named modules
  * @class GcMods
  */
