@@ -1,66 +1,67 @@
 <?php
-
 require_once("../functions.php");
-dieIfSessionExpired();
 
-$m = array(); //Mesages, notices, errors
-$v = 1; //Return status 1=success,-1=error
-$r = array();
-$whereExp = array();
+class WsSearchGeonames extends GcWebService implements iWebService {
 
-// Test if bbox is present in request (not mandatory)
-if ($_GET["bbox"] != "") {
-    $bbox = explode(",", $_GET["bbox"]);
-    $whereExp[] = "(longitude BETWEEN " . $bbox[0] . " AND " . $bbox[2] . ") AND (latitude BETWEEN " . $bbox[1] . " AND " . $bbox[3] . ")";
-}
+    protected function execute() {
 
-// Test if table name is present in request
-if ($_GET["t"] == "") {
-    $m[] = "Error: no table name was specified.";
-    $v = -1;
-}
+        $mCheck = array(
+            "bbox" => new ParamOpt(false,
+                    WsDataTypes::mString, null),
+            "t" => new ParamOpt(true,
+                    WsDataTypes::mString),
+            "q" => new ParamOpt(true,
+                    WsDataTypes::mString,
+                    "%")
+        );
 
-// Test if query expression is present
-if ($_GET["q"] == "" ) {
-    $m[] = "Notice: no search expression supplied. Using default value %.";
-    $_GET["q"] = "%";
-    $v = 1;
-} else {
-    $_GET["q"] = strtolower($_GET["q"]);
-    $whereExp[] = "(name LIKE '" . $_GET["q"] . "%' OR asciiname LIKE '" . $_GET["q"] . "%' OR alternatenames LIKE '%" . $_GET["q"] . "%')";
-}
+        $mP = $this->_getParams($mCheck);
 
-if ($v == 1) {
+        if ($this->isSuccess()) {
 
-    $mDb = db();
+            $mWhere = array();
+            
+            logIt($mP);
 
-    $mSql = "SELECT * FROM ".$_GET["t"]." WHERE".implode(" AND ", $whereExp)."ORDER BY name ASC LIMIT 10";
+            // Test if bbox is present in request (not mandatory)
+            if (isset($mP["bbox"]) && $mP['bbox'] !== '' && $mP['bbox'] !== null) {
+                $bbox = explode(",",
+                        $_GET["bbox"]);
+                $mWhere[] = "(longitude BETWEEN " . $bbox[0] . " AND " . $bbox[2] . ") AND (latitude BETWEEN " . $bbox[1] . " AND " . $bbox[3] . ")";
+            }
 
-    if ($result = $mDb->query($mSql)) {
+            $mP["q"] = strtolower($mP["q"]);
 
-        $i = 0;
-        $r["d"] = array();
-        while ($obj = $result->fetch_object()) {
-            $r["d"][] = $obj;
-            $i++;
-        };
-        $result->close();
-        if ($i == 0) {
-            $r["s"] = 1;
-            $m[] = "Query did not yield results";
-        } else {
-            $r["s"] = 1;
-            $m[] = "Query successful";
+            $mWhere[] = "(name LIKE '" . $mP["q"] . "%' OR asciiname LIKE '" . $mP["q"] . "%' OR alternatenames LIKE '%" . $mP["q"] . "%')";
+
+            $mSql = "SELECT * FROM " . $mP["t"] . " WHERE" . implode(" AND ",
+                            $mWhere) . "ORDER BY name ASC LIMIT 10";
+
+            if (false !== ($mRes = Db::query($mSql))) {
+                $i = 0;
+
+                while (null != ($mObj = $mRes->fetch_object())) {
+                    $this->_result->addData($mObj);
+                    $i++;
+                }
+
+                if ($i === 0) {
+                    $this->_result->setSuccess(ErrorMsgs::noResults);
+                } else {
+                    $this->_result->setSuccess();
+                }
+            } else {
+                $this->_result->setFailure(ErrorMsgs::database);
+            }
         }
-    } else {
-        $r["s"] = -1;
-        $r["sql"] = $mSql;
-        $m[] = mysqli_error($mysqli);
+        
+        $this->_result->echoJson();
     }
-} else {
-    $r["s"] = $v;
+
+    public static function getInstance() {
+        return new WsSearchGeonames();
+    }
+
 }
 
-$r["m"] = $m;
-echo json_encode($r);
-?>
+WsSearchGeonames::getInstance()->run(true);
