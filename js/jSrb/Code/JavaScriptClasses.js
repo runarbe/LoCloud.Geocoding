@@ -6,7 +6,7 @@ var jSrb = jSrb || {};
 
 /**
  * Search match object
- * @returns {jSrb.SearchMatch}
+ * @class jSrb.SearchMatch
  */
 jSrb.SearchMatch = function() {
     return {
