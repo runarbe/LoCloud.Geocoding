@@ -1,4 +1,5 @@
 <?php
+
 require_once("../functions.php");
 
 class WsSearchGeonames extends GcWebService implements iWebService {
@@ -6,13 +7,14 @@ class WsSearchGeonames extends GcWebService implements iWebService {
     protected function execute() {
 
         $mCheck = array(
-            "bbox" => new ParamOpt(false,
-                    WsDataTypes::mString, null),
             "t" => new ParamOpt(true,
                     WsDataTypes::mString),
             "q" => new ParamOpt(true,
                     WsDataTypes::mString,
-                    "%")
+                    "%"),
+            "bbox" => new ParamOpt(false,
+                    WsDataTypes::mString,
+                    null)
         );
 
         $mP = $this->_getParams($mCheck);
@@ -20,8 +22,6 @@ class WsSearchGeonames extends GcWebService implements iWebService {
         if ($this->isSuccess()) {
 
             $mWhere = array();
-            
-            logIt($mP);
 
             // Test if bbox is present in request (not mandatory)
             if (isset($mP["bbox"]) && $mP['bbox'] !== '' && $mP['bbox'] !== null) {
@@ -39,22 +39,26 @@ class WsSearchGeonames extends GcWebService implements iWebService {
 
             if (false !== ($mRes = Db::query($mSql))) {
                 $i = 0;
-
-                while (null != ($mObj = $mRes->fetch_object())) {
-                    $this->_result->addData($mObj);
+                while (null != ($mRow = $mRes->fetch_assoc())) {
+                    
+                    $this->_result->addData(SearchMatch::get($mRow['geonameid'],
+                                    $mRow['longitude'],
+                                    $mRow['latitude'],
+                                    $mRow['name']));
                     $i++;
                 }
 
                 if ($i === 0) {
                     $this->_result->setSuccess(ErrorMsgs::noResults);
                 } else {
+                    $this->_result->total = count($this->_result->records);
                     $this->_result->setSuccess();
                 }
             } else {
                 $this->_result->setFailure(ErrorMsgs::database);
             }
         }
-        
+
         $this->_result->echoJson();
     }
 
