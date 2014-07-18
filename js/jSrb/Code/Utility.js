@@ -130,6 +130,10 @@ function loadSearchDBs() {
 }
 
 function loadSearchResults() {
+    if (getSelectedSearchDB().data("attributes") === undefined) {
+        showMsgBox(jSrb.ErrMsg.selectDatabaseFirst);
+        return;
+    }
     var bbox = null;
     if (jQuery("#cbLimitToBbox").prop("checked")) {
         var bbox = map.getExtent().transform(p900913, p4326).toBBOX();
@@ -172,6 +176,7 @@ function loadSearchResults() {
     }).fail(function() {
         showMsgBox("Error while loading search results", true);
     });
+
 }
 
 function saveGeocoding(pTable, pId, pLon, pLat, pProbability, pItemName, pFieldChanges) {
