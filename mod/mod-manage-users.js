@@ -52,7 +52,7 @@ function handlerBtnUsrDelete(evt) {
 
 function resetUsr() {
     jQuery("#meta_usr *").filter(":input").val("");
-    jQuery("#meta_usr #level").val(UsrLevel.Editor);
+    jQuery("#meta_usr #level").val(jSrb.UsrLevel.Editor);
     jQuery("#hdCmd").val("add-record");
 }
 

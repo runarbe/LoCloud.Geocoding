@@ -1,4 +1,10 @@
 /**
+ * Declar main namespace
+ * @type Object
+ */
+var jSrb = jSrb || {};
+
+/**
  * Enumeration for named modules
  * @class GcMods
  */
@@ -94,7 +100,7 @@ function WsRetObj() {
  * User levels
  * @class UsrLevel
  */
-var UsrLevel = {
+jSrb.UsrLevel = {
     /**
      * The super administrator can upgrade the application, change and delete all
      * data sources and change and delete all users
@@ -130,8 +136,12 @@ var UsrLevel = {
  * Access control list levels
  * @class AccessLevels
  */
-var AccessLevels = {
+jSrb.AccessLevels = {
     "Owner": 10,
     "Editor": 20,
     "Contributor": 30
+};
+
+jSrb.ErrMsg =  {
+    "selectDatabaseFirst": "You must select a database before you can do a search."
 };

@@ -3,13 +3,13 @@ function handlerBtnUsrRegister() {
         cmd: "add-record",
         usr: jQuery("#meta_usr #usr").val(),
         pwd: jQuery("#meta_usr #pwd").val(),
-        level: UsrLevel.User
+        level: jSrb.UsrLevel.User
     }, function(pResponse) {
         if (pResponse.status === "success") {
             logMessage("Successfully added user.", false);
             setTimeout(function() {
-               window.location.href = GcMods.login;
-            },1000);
+                window.location.href = GcMods.login;
+            }, 1000);
         } else {
             logMessage("Error adding user.");
             console.log(pResponse);
