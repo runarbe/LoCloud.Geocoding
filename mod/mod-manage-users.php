@@ -22,7 +22,7 @@
                     <div class="pure-control-group">
                         <label>Level</label>
                         <select id="level" value="2" class="pure-input-1-2" placeholder="User level" required>
-                            <?php echo getOptions("WsUserLevel", array(UserLevels::SuperAdmin)); ?>                        
+                            <?php echo getOptions("UserLevels", array(UserLevels::SuperAdmin)); ?>                        
                         </select>
                     </div>
                     <div class="pure-controls">
