@@ -57,7 +57,7 @@ class WsSearchLoGeo extends GcWebService implements iWebService {
      */
     private function searchService($pServiceKeyword) {
         $mJson = json_decode(
-                $this->curlHttpGetJSON(
+                $this->_curlGetJSON(
                         sprintf('http://locloudgeo.eculturelab.eu/LoGeo_1_0/loGeo.aspx?'
                                 . 'Place=%s&ContextPlace=Norway&MaxOutput=10'
                                 . '&PreferableSource=%s&Key=%s',

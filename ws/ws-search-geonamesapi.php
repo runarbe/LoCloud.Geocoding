@@ -63,7 +63,7 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
     }
 
     private function searchJSON() {
-        $mJson = json_decode($this->curlHttpGetJSON(
+        $mJson = json_decode($this->_curlGetJSON(
                         sprintf(
                                 'http://api.geonames.org/searchJSON?q=%s&maxRows=10&lang=en&username=%s',
                                 urlencode($this->_q),
@@ -85,7 +85,7 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
     private function wikipediaSearchJSON() {
 
         $mJson = json_decode(
-                $this->curlHttpGetJSON(
+                $this->_curlGetJSON(
                         sprintf(
                                 'http://api.geonames.org/wikipediaSearchJSON?q=%s&maxRows=10&username=%s',
                                 urlencode($this->_q),

@@ -174,7 +174,7 @@ abstract class GcWebService {
         return $mReturn;
     }
 
-    protected function curlHttpGetJSON($pUrl,
+    protected function _curlGetJSON($pUrl,
             $pData = null) {
 
         $mCurl = curl_init();
