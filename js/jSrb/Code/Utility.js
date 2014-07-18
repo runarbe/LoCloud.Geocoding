@@ -142,39 +142,40 @@ function loadSearchResults() {
     var mWebService = getSelectedSearchDB().data("attributes").sch_webservice;
     var mTable = getSelectedSearchDB().data("attributes").sch_table;
     var mSearchTerm = jQuery("#tbSearchTerm").val();
-    jQuery.getJSON("./ws/" + mWebService + ".php",
+    jQuery.post("./ws/" + mWebService + ".php",
             {
                 q: mSearchTerm,
                 bbox: bbox,
                 t: mTable
             },
-    function(data) {
+    function(pResponse) {
         /*
          * Empty search result list
          */
-        jQuery("#listSearchResults").empty();
-        jQuery("#txtSearchHint").empty();
+        jQuery('#listSearchResults').empty();
+        jQuery('#txtSearchHint').empty();
 
-        if (data.s == 1) {
-            if (data.d.length > 0) {
+        if (pResponse.status === 'success') {
+            if (pResponse.records.length > 0) {
                 /*
                  * Add options to adm0
                  */
-                jQuery.each(data.d, function(key, val) {
-                    var li = jQuery("<li class=\"ui-state-default\"></option>");
-                    li.html(val.asciiname);
-                    li.val(val.geonameid);
-                    li.data("attributes", val);
-                    jQuery("#listSearchResults").append(li);
+                jQuery.each(pResponse.records, function(key, val) {
+                    var mLi = jQuery('<li class=\"ui-state-default\"></li>')
+                            .html(val.asciiname)
+                            .val(val.geonameid)
+                            .data('attributes', val);
+                    jQuery('#listSearchResults').append(mLi);
                 });
             } else {
-                jQuery("#txtSearchHint").empty().html("No hits...");
+                jQuery('#txtSearchHint').empty().html(jSrb.ErrMsg.noResults);
             }
         } else {
-            showMsgBox(data.m, true);
+            showMsgBox(pResponse.message, true);
         }
-    }).fail(function() {
-        showMsgBox("Error while loading search results", true);
+    }).fail(function(pResponse) {
+        showMsgBox(jSrb.ErrMsg.ajaxRequestError, true);
+        console.log(pResponse.responseText);
     });
 
 }
