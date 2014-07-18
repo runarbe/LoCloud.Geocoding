@@ -107,7 +107,6 @@ jSrb.UsrLevel = {
      * @type Number
      */
     "SuperAdmin": 1,
-    
     /**
      * The can delete all data sources that he or she
      * has access to regardless 
@@ -142,8 +141,9 @@ jSrb.AccessLevels = {
     "Contributor": 30
 };
 
-jSrb.ErrMsg =  {
+jSrb.ErrMsg = {
     "selectDatabaseFirst": "You must select a database before you can do a search.",
     "noResults": "No results returned",
-    "ajaxRequestError": "Error during Ajax request, check JavaScript console for details."
+    "ajaxRequestError": "Error during Ajax request, check JavaScript console for details.",
+    "installationUpToDate": "Installation is up-to-date."
 };
