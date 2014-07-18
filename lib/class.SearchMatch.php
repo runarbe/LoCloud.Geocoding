@@ -29,7 +29,7 @@ class SearchMatch {
      * The longitude of the name in WGS84 geographical coordinates
      * @var type 
      */
-    public $lng;
+    public $lon;
 
     /**
      * The latitude of the name in WGS84 geographical coordinates
@@ -87,7 +87,7 @@ class SearchMatch {
         $mSearchMatch->id = $pID;
 
         if (is_numeric($pLng) && is_numeric($pLat)) {
-            $mSearchMatch->lng = $pLng;
+            $mSearchMatch->lon = $pLng;
             $mSearchMatch->lat = $pLat;
         }
 

@@ -27,12 +27,12 @@ jSrb.SearchMatch = function() {
         name: null,
         /**
          * The longitude of the name in WGS84 geographical coordinates
-         * @var type 
+         * @var Number 
          */
-        lng: null,
+        lon: null,
         /**
          * The latitude of the name in WGS84 geographical coordinates
-         * @var type 
+         * @var Number 
          */
         lat: null,
         /**
@@ -43,7 +43,7 @@ jSrb.SearchMatch = function() {
         /**
          * A floating point number between 0 and 100 that expresses the confidence of
          * the search result
-         * @var Float 
+         * @var Number 
          */
         confidence: null,
         /**
