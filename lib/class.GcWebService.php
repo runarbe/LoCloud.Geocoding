@@ -78,12 +78,12 @@ abstract class GcWebService {
      * Checks the current state of the web serviec
      * @return bool True if success, false if error
      */
-    protected function isSuccess() {
+    protected function _isSuccess() {
         return $this->_result->getStatus();
     }
 
     public function run($pIgnoreOperation = false) {
-        if ($this->isSuccess() || $pIgnoreOperation) {
+        if ($this->_isSuccess() || $pIgnoreOperation) {
             $this->execute();
         } else {
             $this->_result->echoJson();

@@ -38,7 +38,7 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
 
         $mP = $this->_getParams($mCheck);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
 
             $this->_apiKey = $mP["apiKey"];
             $this->_q = $mP["q"];

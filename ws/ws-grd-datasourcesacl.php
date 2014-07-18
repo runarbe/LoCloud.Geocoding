@@ -42,7 +42,7 @@ class WsDatasourcesAcl extends GcWebService implements iWebService {
 
         $mP = $this->_getParams($mCheck);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
 
             if (null !== ($mAclArray = $mMetaAcl->selectMap(
                     sprintf("tgt_type='meta_datasources' AND tgt_id=%s",
@@ -73,7 +73,7 @@ class WsDatasourcesAcl extends GcWebService implements iWebService {
         );
         $mP = $this->_getParams($mCheck);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
             foreach ($mP["selected"] as $mAclID) {
                 if (MetaAcl::UsrCanManageDatasourcesAcl(cUsr(),
                                 $mP["datasourceid"])) {
@@ -104,7 +104,7 @@ class WsDatasourcesAcl extends GcWebService implements iWebService {
 
         $mP = $this->_getParams($mCheck);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
             $mMetaAcl->src_type = $mP["src_type"];
             $mMetaAcl->src_id = $mP["src_id"];
             $mMetaAcl->tgt_type = $mP["tgt_type"];

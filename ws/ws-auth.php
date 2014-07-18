@@ -24,7 +24,7 @@ class WsAuth extends GcWebService implements iWebService {
 
         $p = $this->_getParams($mCheck);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
             if (false !== ($mUsr = MetaUsr::GetUsr($p["u"],
                             $p["p"]))) {
                 session_start();

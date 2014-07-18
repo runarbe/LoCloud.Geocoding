@@ -19,7 +19,7 @@ class WsSearchGeonames extends GcWebService implements iWebService {
 
         $mP = $this->_getParams($mCheck);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
 
             $mWhere = array();
 

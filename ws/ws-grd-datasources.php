@@ -13,7 +13,7 @@ class WSGridDataSources extends GcWebService implements iWebService {
 
         $mParams = $this->_getParams($mCheck);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
 
             switch ($mParams["cmd"]) {
                 case "get-records":
@@ -47,7 +47,7 @@ class WSGridDataSources extends GcWebService implements iWebService {
 
         $mP = $this->_getParams($mCheck2);
 
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
             foreach ($mP["changed"] as $mChange) {
                 if (MetaAcl::UsrCanEditDatasource(cUsr(),
                                 $mChange["id"]) || isLoggedIn(UserLevels::SuperAdmin)) {
@@ -92,7 +92,7 @@ class WSGridDataSources extends GcWebService implements iWebService {
         );
 
         $mP = $this->_getParams($mCheck);
-        if ($this->isSuccess()) {
+        if ($this->_isSuccess()) {
 
             if (null !== ($mAclArray = $mMetaDatasources->selectMap(null,
                     "t.ds_title",
