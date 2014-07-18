@@ -93,10 +93,10 @@ class SearchMatch {
 
         $mSearchMatch->name = $pName;
 
-        if ($pDisplayName !== null) {
+        if ($pDisplayName === null) {
+            $mSearchMatch->displayName = $pName;
+        } else {
             $mSearchMatch->displayName = $pDisplayName;
-        } else if ($pDisplayName === null && $pName !== null) {
-            $mSearchMatch->name = $pName;
         }
 
         if ($pWkt !== null) {
