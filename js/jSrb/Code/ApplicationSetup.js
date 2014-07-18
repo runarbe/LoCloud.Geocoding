@@ -547,7 +547,7 @@ if (typeof (OpenLayers) !== "undefined") {
         reflow(); // Setup the applicatin panes
         onDocumentReady();
         loadDatasources(null); // Null important not to pass any argument to function
-        loadSearchDBs();
+        jSrb.search.loadSearchDBs();
         checkUpgrade();
     });
 

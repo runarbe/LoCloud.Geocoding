@@ -2,15 +2,15 @@ var jSrb = jSrb || {};
 
 jSrb.search = jSrb.search || {};
 
-function getSelectedSearchDB() {
+jSrb.search.getSelectedSearchDB = function() {
     return jQuery("#sbSelectSearchDB option:selected");
 }
 
-function getSelectedSearchResultItem() {
+jSrb.search.getSelectedSearchResultItem = function() {
     return jQuery("#listSearchResults li.ui-selected").first();
 }
 
-function loadSearchDBs() {
+jSrb.search.loadSearchDBs = function() {
     jQuery.getJSON("./ws/ws-load-search-dbs.php",
             {
             },
@@ -37,9 +37,12 @@ function loadSearchDBs() {
  */
 jSrb.search.selectSearchResultItem = function() {
     jQuery("#listSearchResults li").removeClass("ui-state-highlight");
-    getSelectedSearchResultItem().addClass("ui-state-highlight");
-    var mData = getSelectedSearchResultItem().data("attributes");
+    var mSelectedItem = jSrb.search.getSelectedSearchResultItem();
+    mSelectedItem.addClass("ui-state-highlight");
+    var mData = mSelectedItem.data("attributes");
+    console.log(mData);
     var mLonLat = new OpenLayers.LonLat(mData.lon, mData.lat).transform(p4326, p900913);
+    console.log(mLonLat);
     map.setCenter(mLonLat, defaultZoomTo);
     return;
 };
@@ -50,21 +53,21 @@ jSrb.search.selectSearchResultItem = function() {
  * @returns {void}
  */
 jSrb.search.loadSearchResults = function() {
-    var mSearchDB = getSelectedSearchDB().data('attributes');
+    var mSearchDB = jSrb.search.getSelectedSearchDB().data('attributes');
     if (mSearchDB === undefined) {
         showMsgBox(jSrb.ErrMsg.selectDatabaseFirst);
         return;
     }
-    
+
     var bbox = null;
     if (jQuery('#cbLimitToBbox').prop('checked')) {
         bbox = map.getExtent().transform(p900913, p4326).toBBOX();
     }
-    
+
     var mWebService = mSearchDB.sch_webservice;
     var mTable = mSearchDB.sch_table;
     var mSearchTerm = jQuery('#tbSearchTerm').val();
-    
+
     jQuery.post('./ws/' + mWebService + '.php',
             {
                 q: mSearchTerm,
@@ -76,7 +79,7 @@ jSrb.search.loadSearchResults = function() {
         jQuery('#txtSearchHint').empty();
 
         if (pResponse.status === 'success') {
-        
+
             if (pResponse.records.length > 0) {
                 /*
                  * Add options to adm0
