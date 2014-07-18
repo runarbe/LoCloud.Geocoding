@@ -28,6 +28,7 @@
         "Code/Utility.js", 
         "Code/Utility.Map.js", 
         "Code/Utility.Source.js", 
+        "Code/Utility.Search.js", 
         "Code/Utility.Form.js", 
         "Code/Utility.NewDatasource.js", 
         "Code/ApplicationSetup.js", 
