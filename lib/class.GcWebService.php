@@ -82,6 +82,10 @@ abstract class GcWebService {
         return $this->_result->getStatus();
     }
 
+    /**
+     * Runs the web service, optionally ignoring the command parameter
+     * @param bool $pIgnoreOperation
+     */
     public function run($pIgnoreOperation = false) {
         if ($this->_isSuccess() || $pIgnoreOperation) {
             $this->_execute();
@@ -174,6 +178,13 @@ abstract class GcWebService {
         return $mReturn;
     }
 
+    /**
+     * Execute a HttpGet request towards the specified URI adding the values
+     * contained in $pData to the QueryString
+     * @param String $pUrl URI, if contains query string, please omit $pData
+     * @param String $pData Key/value pairs formatted as key=value&key2=value2
+     * @return String JSON string
+     */
     protected function _curlGetJSON($pUrl,
             $pData = null) {
 
