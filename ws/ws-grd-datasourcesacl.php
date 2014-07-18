@@ -17,7 +17,7 @@ class WsDatasourcesAcl extends GcWebService implements iWebService {
                 $this->addRecord();
                 break;
             default:
-                $this->operationNotSupported();
+                $this->_operationNotSupported();
                 break;
         }
         $this->_result->echoJson();

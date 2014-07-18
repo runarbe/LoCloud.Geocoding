@@ -39,7 +39,7 @@ class WsSearchLoGeo extends GcWebService implements iWebService {
                     $this->searchService("Google");
                     break;
                 default:
-                    $this->operationNotSupported();
+                    $this->_operationNotSupported();
                     break;
             }
         }

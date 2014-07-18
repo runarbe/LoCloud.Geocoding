@@ -29,7 +29,7 @@ class WSGridDataSources extends GcWebService implements iWebService {
                     $this->getDataSourceFieldNames();
                     break;
                 default:
-                    $this->operationNotSupported();
+                    $this->_operationNotSupported();
                     break;
             }
         }

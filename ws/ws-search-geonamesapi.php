@@ -51,7 +51,7 @@ class WsSearchGeonamesAPI extends GcWebService implements iWebService {
                     $this->wikipediaSearchJSON();
                     break;
                 default:
-                    $this->operationNotSupported();
+                    $this->_operationNotSupported();
                     break;
             }
         }

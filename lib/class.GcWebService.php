@@ -69,7 +69,7 @@ abstract class GcWebService {
      * Returns error when operation is not supported
      * @return void
      */
-    protected function operationNotSupported() {
+    protected function _operationNotSupported() {
         $this->_result->setFailure(ErrorMsgs::operationNotSupported($this->_operation));
         return;
     }
