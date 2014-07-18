@@ -9,34 +9,75 @@ require_once("../functions.php");
  */
 class WsSearchLoGeo extends GcWebService implements iWebService {
 
+    private $_apiKey;
+    private $_q;
+
     protected function execute() {
-        var_export($this->callLogeoApi('http://locloudgeo.eculturelab.eu/LoGeo_1_0/loGeo.aspx?Place=Brussels&ContextPlace=Belgium&MaxOutput=10&PreferableSource=Geonames&Key=xxxxxxxx'));
-        //$this->_result->echoJson();
+
+        $mCheck = array(
+            "q" => new ParamOpt(true,
+                    WsDataTypes::mString),
+            "t" => new ParamOpt(true,
+                    WsDataTypes::mString),
+            "apiKey" => new ParamOpt(true,
+                    WsDataTypes::mString,
+                    "xxxxxxxx")
+        );
+
+        $mP = $this->_getParams($mCheck);
+
+        if ($this->isSuccess()) {
+
+            $this->_apiKey = $mP["apiKey"];
+            $this->_q = $mP["q"];
+
+            switch ($mP["t"]) {
+                case "Geonames":
+                    $this->searchService("Geonames");
+                    break;
+                case "Google":
+                    $this->searchService("Google");
+                    break;
+                default:
+                    $this->operationNotSupported();
+                    break;
+            }
+        }
+
+        $this->_result->echoJson();
     }
 
     public static function getInstance() {
         return new WsSearchLoGeo();
     }
 
-    private function callLogeoApi($pUrl,
-            $pData = false) {
-        
-        $mCurl = curl_init();
-        
-        if ($pData !== null) {
-            $pUrl = sprintf("%s?%s",
-                    $pUrl,
-                    http_build_query($pData));
+    /**
+     * Execute a search towards the LoCloud Geocoding API
+     * @param String $pServiceKeyword One of "Google", "Geonames" or "LoOnto"
+     */
+    private function searchService($pServiceKeyword) {
+        $mJson = json_decode(
+                $this->curlHttpGetJSON(
+                        sprintf('http://locloudgeo.eculturelab.eu/LoGeo_1_0/loGeo.aspx?'
+                                . 'Place=%s&ContextPlace=Norway&MaxOutput=10'
+                                . '&PreferableSource=%s&Key=%s',
+                                $this->_q,
+                                $pServiceKeyword,
+                                $this->_apiKey
+                        )
+                )
+        );
+
+        $mID = 0;
+        foreach ($mJson as $mRecords) {
+            foreach ($mRecords as $mRecord) {
+                $this->_result->addData(SearchMatch::get($mID,
+                                $mRecord->PlaceX,
+                                $mRecord->PlaceY,
+                                $mRecord->PlaceName));
+                $mID++;
+            }
         }
-
-        curl_setopt($mCurl,
-                CURLOPT_URL,
-                $pUrl);
-        curl_setopt($mCurl,
-                CURLOPT_RETURNTRANSFER,
-                1);
-
-        return curl_exec($mCurl);
     }
 
 }
