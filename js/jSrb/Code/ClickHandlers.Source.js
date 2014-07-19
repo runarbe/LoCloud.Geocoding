@@ -18,8 +18,12 @@ function handlerSelectFilterCategory() {
  * @returns {void}
  */
 function handlerSelectFilterAdm0() {
-    var mSbDatasourceId = jQuery("#sbDatasource").val();
-    var mThisVal = jQuery("#sbFilterAdm0").val();
+    var mSbDatasourceId = jQuery('#sbDatasource').val();
+    var mThisVal = jQuery('#sbFilterAdm0').val();
+    console.log(mThisVal);
+    if (mThisVal === null || mThisVal === undefined || mThisVal === '') {
+        jQuery('#sbFilterAdm1').val(null).hide();
+    }
     loadAdm1(mSbDatasourceId, mThisVal);
     listSrcDataStartItem = 0;
     loadSourceItems2(listSrcDataStartItem, listSrcDataNumItems);
@@ -118,7 +122,7 @@ function handlerSelectSourceItem() {
                 if (data.autopk_id !== undefined) {
                     jQuery("#hdnAutoPkId").val(data.autopk_id);
                 } else {
-                    jQuery("#hdnAutoPkId").val(data._id);                    
+                    jQuery("#hdnAutoPkId").val(data._id);
                 }
                 jQuery("#hdnTableName").val(mDatasource.ds_table);
 
