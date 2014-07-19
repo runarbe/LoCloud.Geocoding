@@ -46,11 +46,11 @@ function loadCategories(pDatasourceId) {
 
 function loadAdm0(pDatasourceId) {
     var currentAdm0Table = "ds" + pDatasourceId + "_adm0";
-    jQuery.getJSON("./ws/ws-adm0.php",
+    jQuery.post(WsUrl.getDsAdm0Areas,
             {
                 t: currentAdm0Table
             },
-    function(data) {
+    function(pData) {
         /*
          * Reset adm1 filter
          */
@@ -60,16 +60,16 @@ function loadAdm0(pDatasourceId) {
         opt.val("");
         jQuery("#sbFilterAdm0").append(opt);
 
-        if (data.s == 1) {
-            if (data.d.length == 0) {
-                console.log("No adm1 areas: " + data);
+        if (pData.status === 'success') {
+            if (pData.records.length === 0) {
+                console.log(pData.message);
             } else {
                 jQuery("#frmFilterByArea").show();
                 jQuery("#sbFilterAdm0").show();
                 /*
                  * Add options to adm0
                  */
-                jQuery.each(data.d, function(key, val) {
+                jQuery.each(pData.records, function(key, val) {
                     var opt = jQuery("<option></option>");
                     opt.html(val.adm0);
                     opt.val(val.adm0);
@@ -78,8 +78,10 @@ function loadAdm0(pDatasourceId) {
                 });
             }
         } else {
-            console.log("Error loading adm0 areas: " + data.m);
+            console.log(pData.message);
         }
+    }).fail(function(pResponse) {
+        showMsgBox(pResponse.responseText);
     });
 }
 
@@ -92,40 +94,36 @@ function loadAdm1(pDatasourceId, pCurrentAdm0) {
     /*
      * Issue ajax request
      */
-    jQuery.getJSON("./ws/ws-adm1.php",
+    jQuery.post(WsUrl.getDsAdm1Areas,
             {
                 t: currentAdm0Table,
                 a0: pCurrentAdm0
             },
-    function(data) {
+    function(pData) {
         /*
          * Reset adm1 filter
          */
-        jQuery("#sbFilterAdm1").empty();
-        var opt = jQuery("<option></option>");
-        opt.html("all areas");
-        opt.val("");
+        jQuery('#sbFilterAdm1').empty();
+        var opt = jQuery('<option></option>');
+        opt.html('all areas');
+        opt.val('');
         jQuery("#sbFilterAdm1").append(opt);
+        if (pData.status === 'success') {
+            if (pData.records.length > 0) {
 
-        if (data.s == 1) {
-            if (data.d.length == 0) {
-                console.log("Notice no adm1 areas: " + data);
-            } else {
-                jQuery("#sbFilterAdm1").show();
-
-                /*
-                 * Add options to adm1 dropdown
-                 */
-                jQuery.each(data.d, function(key, val) {
+                var mFilterAdm1 = jQuery("#sbFilterAdm1");
+                mFilterAdm1.show();
+                
+                jQuery.each(pData.records, function(key, val) {
                     var opt = jQuery("<option></option>");
                     opt.html(val.adm1);
                     opt.val(val.adm1);
                     opt.data("attributes", val);
-                    jQuery("#sbFilterAdm1").append(opt);
+                    mFilterAdm1.append(opt);
                 });
             }
         } else {
-            console.log("Error loading adm1 areas: " + data.m);
+            console.log(pData.message);
         }
     });
 }
