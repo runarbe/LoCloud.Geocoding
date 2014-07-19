@@ -1,53 +1,50 @@
 <?php
 
 require_once("../functions.php");
-dieIfSessionExpired();
 
-$m = array(); //Messages, notices, errors
-$v = 1; //Return status 1=success,-1=error
-$r = array();
+class WsGetAdm1Areas extends GcWebService implements iWebService {
 
-$mDb = db();
+    protected function _execute() {
 
-if (!isset($_GET["t"])) {
-    $v = -1;
-    $m[] = "Error: No adm1 table supplied";
-}
+        $mCheck = array(
+            't' => new ParamOpt(true,
+                    WsDataTypes::mString),
+            'a0' => new ParamOpt(true,
+                    WsDataTypes::mString)
+        );
 
-if (!isset($_GET["a0"])) {
-    $v = -1;
-    $m[] = "Error: No adm0 argument supplied";
-} else {
-    if (!isEscaped($_GET["a0"])) {
-        $_GET["a0"] = $mDb->real_escape_string($_GET["a0"]);
-    }
-}
+        $mP = $this->_getParams($mCheck);
+        if ($this->_isSuccess()) {
 
-if ($v == 1) {
-    $mSql = "SELECT adm1, minx, miny, maxx, maxy FROM " . $_GET["t"] . " WHERE adm0='" . $_GET["a0"] . "' ORDER BY adm1 ASC";
-    if ($result = $mDb->query($mSql)) {
-        $r["d"] = array();
-        $i = 0;
-        while ($obj = $result->fetch_object()) {
-            $r["d"][] = $obj;
-            $i++;
+            if (!isEscaped($mP['a0'])) {
+                $mP['a0'] = Db::esc($mP['a0']);
+            }
+
+            $mSql = sprintf('SELECT adm1, minx, miny, maxx, maxy FROM %s WHERE adm0=\'%s\' ORDER BY adm1 ASC',
+                    $mP["t"],
+                    $mP["a0"]);
+            if (false !== ($result = Db::query($mSql))) {
+                $mResCount = 0;
+                while ($mArea1 = $result->fetch_object()) {
+                    $this->_result->addData($mArea1);
+                    $mResCount++;
+                }
+
+                if ($mResCount === 0) {
+                    $this->_result->setFailure(ErrorMsgs::noResults);
+                }
+            } else {
+                $this->_result->setFailure(ErrorMsgs::dbErrorSelectCheckLog);
+            }
         }
-        if ($i == 0) {
-            $v = -1;
-            $m[] = "Error: No data in table";
-            $m[] = $mSql;
-        } else {
-            $v = 1;
-            $m[] = "Notice: Successfully loaded data";
-        };
-        $result->close();
-    } else {
-        $v = -1;
-        $r["m"] = "Error: " . mysqli_error($mDb);
-    }
-}
-dbc($mDb);
 
-$r["s"] = $v;
-$r["m"] = $m;
-echo json_encode($r);
+        $this->_result->echoJson();
+    }
+
+    public static function getInstance() {
+        return new WsGetAdm1Areas();
+    }
+
+}
+
+WsGetAdm1Areas::getInstance()->run(true);

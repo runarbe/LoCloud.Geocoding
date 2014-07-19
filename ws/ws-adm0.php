@@ -1,48 +1,50 @@
 <?php
+
 /*
  * Web service to load adm0 areas
  * @author: Runar Bergheim
  * @date: 02.07.2013
  */
 require_once("../functions.php");
-dieIfSessionExpired();
 
-$m = array(); //Messages, notices, errors
-$v = 1; //Return status 1=success,-1=error
-$r = array();
+class WsGetAdm0Areas extends GcWebService implements iWebService {
 
-if (!isset($_GET["t"])) {
-    $v = -1;
-    $m[] = "No table selected";
-}
+    protected function _execute() {
 
-if ($v == 1) {
-    $mDb = db();
-    $mSql = "SELECT adm0, minx, miny, maxx, maxy FROM " . $_GET["t"] . " ORDER BY adm0 ASC";
-    if ($result = $mDb->query($mSql)) {
-        $r["d"] = array();
-        $i = 0;
-        while ($obj = $result->fetch_object()) {
-            $r["d"][] = $obj;
-            $i++;
+        $mCheck = array(
+            "t" => new ParamOpt(true,
+                    WsDataTypes::mString)
+        );
+
+        $mP = $this->_getParams($mCheck);
+
+        if ($this->_isSuccess()) {
+
+            $mSql = sprintf("SELECT adm0, minx, miny, maxx, maxy FROM %s ORDER BY adm0 ASC",
+                    $mP["t"]);
+
+            if (false !== ($mRes = Db::query($mSql))) {
+                $mNumResults = 0;
+
+                while (null !== ($mObj = $mRes->fetch_object())) {
+                    $this->_result->addData($mObj);
+                    $mNumResults++;
+                }
+
+                if ($mNumResults == 0) {
+                    $this->_result->setFailure(ErrorMsgs::noResults);
+                }
+            } else {
+                $this->_result->setFailure(ErrorMsgs::dbErroSelectCheckLog);
+            }
         }
-        if ($i == 0) {
-            $v = -1;
-            $m[] = "No data in table";
-        } else {
-            $v = 1;
-            $m[] = "Successfully loaded data";
-        };
-        $result->close();
-    } else {
-        $v = -1;
-        $r["m"] = "Error: " . mysqli_error($mDb);
+        $this->_result->echoJson();
     }
 
-    dbc($mDb);
+    public static function getInstance() {
+        return new WsGetAdm0Areas();
+    }
+
 }
 
-$r["s"] = $v;
-$r["m"] = $m;
-echo json_encode($r);
-?>
+WsGetAdm0Areas::getInstance()->run(true);
