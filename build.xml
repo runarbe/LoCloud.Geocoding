@@ -8,7 +8,7 @@
     <property name="ftp_userid" value = "europetech@postvoyant.com"/>
     <property name="ftp_password" value = "balleklor1n"/>
     <property name="ftp_server" value = "ftp.postvoyant.com"/>
-    <property name="ftp_remotedir" value = "locloud/latest"/>
+    <property name="ftp_remotedir" value = "no_avinet_locloud/latest"/>
     
     
     <taskdef name="jsdoctoolkit" classname="uk.co.darrenhurley.ant.tasks.JsDocToolkit" classpath="${jar}/jsdoc-toolkit-ant-task-1.1.2.jar;${jar}/jsdoc_toolkit-2.4.0/jsdoc-toolkit/java/classes/js.jar;${jar}/rhino1_7R4/rhino1_7R4/js.jar"/>
