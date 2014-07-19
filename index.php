@@ -19,6 +19,12 @@ if (!isLoggedIn()) {
         <link rel="stylesheet" href="css/cupertino/jquery-ui.css"/>
         <link rel="stylesheet" href="css/pure/pure.css"/>
         <link rel="stylesheet" href="css/style.css" title="main"/>
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/grids-responsive-min.css">
+        <!--<![endif]-->        
 
         <script src="http://maps.google.com/maps/api/js?v=3&sensor=false"></script>
         <script src="js/proj4js/proj4js-compressed.js" type="text/javascript"></script>
@@ -65,7 +71,8 @@ if (!isLoggedIn()) {
                 <?php include("./mod/mod-statusbar.php"); ?>
             </div>
         </div>
-        <?php include("./mod/mod-dialog.php"); ?>
+        <div id="dialog" title="Dialog">
+        </div>        
         <?php include("./mod/mod-new-datasource.php"); ?>        
         <?php include("./mod/mod-popup-window.php"); ?>        
         <?php include("./mod/mod-view-attributes.php"); ?>        
