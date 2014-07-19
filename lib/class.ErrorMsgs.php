@@ -8,6 +8,7 @@ class ErrorMsgs {
     const summary = "Error, please review these error messages and correct your web service request";
     const couldNotConnectToDatabase = "Error, could not connect to database";
     const database = "Error, database error";
+    const dbErrorSelectCheckLog = "Error during SELECT, please check log for details.";
     const dbErrorInsertCheckLog = "Error during INSERT, please check log for details.";
     const dbErrorUpdateCheckLog = "Error during UPDATE, please check log for details.";
     const dbErroDeleteCheckLog = "Error during DELETE, please check log for details.";
