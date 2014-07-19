@@ -20,11 +20,12 @@ function handlerSelectFilterCategory() {
 function handlerSelectFilterAdm0() {
     var mSbDatasourceId = jQuery('#sbDatasource').val();
     var mThisVal = jQuery('#sbFilterAdm0').val();
-    console.log(mThisVal);
+
     if (mThisVal === null || mThisVal === undefined || mThisVal === '') {
         jQuery('#sbFilterAdm1').val(null).hide();
+    } else {
+        loadAdm1(mSbDatasourceId, mThisVal);
     }
-    loadAdm1(mSbDatasourceId, mThisVal);
     listSrcDataStartItem = 0;
     loadSourceItems2(listSrcDataStartItem, listSrcDataNumItems);
     clearIcons();
