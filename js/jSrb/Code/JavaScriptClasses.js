@@ -93,6 +93,7 @@ var WsUrl = {
     sendPwdReminder: "./ws/ws-pwd-reminder.php",
     searchGeonames: "./ws/ws-search-geonames.php",
     updateAttributes: "./ws/ws-update-attrib.php",
+    updateItem: "./ws/ws-update2.php",
     upgradeInstallation: "./ws/ws-upgrade.php",
     uploadTextFile: "./ws/ws-upload-textfile.php",
     manageUsr: "./ws/ws-grd-usr.php",
