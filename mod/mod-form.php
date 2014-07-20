@@ -15,13 +15,17 @@
                         <label>Y|Latitude</label>
                         <input id="tbLatitude" name="tbLatitude" type="text" class="pure-input-1 resetable"/>
                     </div>
-                    <div class="pure-u-1 pure-u-md-2-5">
-                        <label>Linked persistent URI</label>
-                        <input id="tbLinkedPersistentURI" type="text" class="pure-input-1" readonly="true"/>
+                    <div class="pure-u-1 pure-u-md-1-5">
+                        <label>Linked P.URI</label>
+                        <input id="tbLinkedPURI" type="text" class="pure-input-1" readonly="true"/>
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>&nbsp;</label>
-                        <button id="btnClearPersistentURI">Clear URI</button>
+                        <button id="btnClearLinkedPURI">Clear</button>
+                    </div>
+                    <div class="pure-u-1 pure-u-md-1-5">
+                        <label>Geometry (WKT)</label>
+                        <input id="tbGeom" type="text" class="pure-input-1" readonly="true"/>
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>Map resolution</label>
