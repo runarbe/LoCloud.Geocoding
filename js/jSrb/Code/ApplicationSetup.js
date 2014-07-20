@@ -205,14 +205,14 @@ if (typeof (OpenLayers) !== "undefined") {
         /*
          * Clear persistent URI from form
          */
-        jQuery("#btnClearPersistentURI").button(
+        jQuery("#btnClearLinkedPURI").button(
                 {
                     icons: {
                         primary: 'ui-icon-close'
                     }
                 }).click(function(evt) {
             evt.preventDefault();
-            jQUery('#tbLinkedPersistentURI').val(null);
+            jQUery('#tbLinkedPURI').val(null);
         });
 
         /*
