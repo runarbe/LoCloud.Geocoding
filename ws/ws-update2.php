@@ -1,109 +1,83 @@
 <?php
 
 require_once("../functions.php");
-dieIfSessionExpired();
 
-$r = array();
-$m = array();
-$v = 1;
-$mDb = db();
+class WsUpdateItem extends GcWebService implements iWebService {
 
-if (!isset($_GET["dsID"])) {
-    $m[] = "Error: no dataset ID specified.";
-    $v = -1;
-}
+    protected function _execute() {
 
-if (!is_numeric($_GET["id"])) {
-    $m[] = "Error: no id specified.";
-    $v = -1;
-}
+        $mCheck = array(
+            "datasourceID" => new ParamOpt(true,
+                    WsDataTypes::mInteger),
+            "itemID" => new ParamOpt(true,
+                    WsDataTypes::mInteger),
+            "x" => new ParamOpt(true,
+                    WsDataTypes::mDouble),
+            "y" => new ParamOpt(true,
+                    WsDataTypes::mDouble),
+            "confidence" => new ParamOpt(true,
+                    WsDataTypes::mDouble),
+            "mapResolution" => new ParamOpt(true,
+                    WsDataTypes::mDouble),
+            "pURI" => new ParamOpt(false,
+                    WsDataTypes::mString,
+                    null),
+            "name" => new ParamOpt(true,
+                    WsDataTypes::mString),
+            "fieldChanges" => new ParamOpt(false,
+                    WsDataTypes::mString)
+        );
 
-if (!is_numeric($_GET["lon"])) {
-    $m[] = "Error: no x-coordinate/longitude specified.";
-    $v = -1;
-}
 
-if (!is_numeric($_GET["lat"])) {
-    $m[] = "Error: no y-coordinate/latitude specified.";
-    $v = -1;
-}
+        $mP = $this->_getParams($mCheck);
 
-if (!isset($_GET["name"])) {
-    $m[] = "Error: no name specified.";
-    $v = -1;
-    if (!isEscaped($_GET["name"])) {
-        $_GET["name"] = $mDb->real_escape_string($_GET["name"]);
-    }
-}
+        if ($this->_isSuccess()) {
 
-if (!is_numeric($_GET["probability"])) {
-    $m[] = "Notice: no probability specified. The default value 3 will be used.";
-    $_GET["probability"] = 3;
-};
+            if (!isEscaped($mP["name"])) {
+                $mP["name"] = Db::esc($mP["name"]);
+            }
+            if (!isEscaped($mP["fieldChanges"])) {
+                $mP["fieldChanges"] = Db::esc($mP["fieldChanges"]);
+            }
 
-if (!isset($_GET["fieldChanges"])) {
-    $m[] = "Error: no fieldChanges specified.";
-    $v = -1;
-    if (!isEscaped($_GET["fieldChanges"])) {
-        $_GET["fieldChanges"] = $mDb->real_escape_string($_GET["fieldChanges"]);
-    }
-}
-
-if ($v == 1) {
-    /*
-     * Determine the name of the table to update based on the datasource id and the naming rules
-     */
-    $mTableName = "ds" . $_GET["dsID"] . "_match";
-    
-    /*
-     * First attempt to insert a new record
-     * This will fail if the combination of the record id and the user id already exists
-     */
-    $mSql = "INSERT INTO " . $mTableName . "  (fk_ds_id, gc_name, gc_name2, gc_lon, gc_lat,gc_probability, gc_geom, gc_fieldchanges, gc_usr_id) VALUES (" .
-            $_GET["id"] . "," .
-            "'".$_GET["name"] . "'," .
-            "null," .
-            $_GET["lon"] . "," .
-            $_GET["lat"] . "," .
-            $_GET["probability"] . "," .
-            "null," .
-            "'".$_GET["fieldChanges"] . "'," .
-            $_SESSION["usr_id"] .
-            ");";
-    $mDb->query($mSql);
-    if ($mDb->affected_rows >= 1) {
-        $v = 1;
-        $m[] = "Notice: successfully inserted record.";
-    } else {
-        /*
-         * If insert failed, proceed to try an update
-         */
-        $m[] = "Error: insert failed.";
-        $m[] = "SQL error:" . mysqli_error($mDb);
-        $m[] = "SQL:" . $mSql;
-        $mSql = "UPDATE " . $mTableName . "  SET fk_ds_id=" . $_GET["id"] . ", gc_lon=" . $_GET["lon"] . ", gc_lat=" . $_GET["lat"] . ", gc_timestamp = now(), gc_probability='" . $_GET["probability"] . "', gc_name='" . $_GET["name"] . "', gc_usr_id=" . $_SESSION["usr_id"] . ", gc_fieldchanges='".$_GET["fieldChanges"]."', gc_geom=null WHERE fk_ds_id=" . $_GET["id"] . " AND gc_usr_id=" . $_SESSION["usr_id"];
-        $mDb->query($mSql);
-        if ($mDb->affected_rows >= 1) {
-            $m[] = "Notice: successfully updated record.";
-            $v = 1;
-        } else {
             /*
-             * If update failed, return error
+             * Determine the name of the table to update based on the datasource id and the naming rules
              */
-            $v = -1;
-            $m[] = "Error: update failed.";
-            $m[] = "SQL error:" . mysqli_error($mDb);
-            $m[] = "SQL:" . $mSql;
+            $mTableName = "ds" . $mP["dsID"] . "_match";
+
+            /*
+             * Upsert record into database - user ID + item ID is unique key in the table
+             */
+            $mSql = sprintf('INSERT INTO %s (fk_ds_id, gc_name, gc_lon, gc_lat,gc_probability, gc_geom, gc_fieldchanges, gc_usr_id) VALUES (%s, \'%s\', null, %s, %s, %s, \'%s\', \'%s\', %s) ON DUPLICATE KEY UPDATE SET gc_name=\'%s\', gc_lon=%s, gc_lat=%s ,gc_probability=%s, gc_geom=\'%s\', gc_fieldchanges=\'%s\'',
+                    $mTableName,
+                    $mP["itemID"],
+                    $mP["name"],
+                    $mP["lon"],
+                    $mP["lat"],
+                    $mP["confidence"],
+                    $mP["fieldChanges"],
+                    cUsr(),
+                    $mP["name"],
+                    $mP["lon"],
+                    $mP["lat"],
+                    $mP["confidence"],
+                    $mP["fieldChanges"]
+            );
+            Db::query($mSql);
+            if (mysqli_affected_rows(Db::$conn) >= 1) {
+                $this->_result->setSuccess();
+            } else {
+                $this->_result->setFailure(ErrorMsgs::dbErrorInsertCheckLog);
+            }
         }
+        
+        $this->_result->echoJson();
     }
-} else {
-    $v = -1;
-    $m[] = "Error: please review the error messages and correct your web service call.";
+
+    public static function getInstance() {
+        return new WsUpdateItem();
+    }
+
 }
 
-dbc($mDb);
-
-$r["s"] = $v;
-$r["m"] = $m;
-
-echo json_encode($r);
+WsUpdateItem::getInstance()->run(true);
