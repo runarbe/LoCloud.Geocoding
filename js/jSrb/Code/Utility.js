@@ -1,3 +1,9 @@
+/**
+ * Return a rounded number
+ * @param {Number} mDouble
+ * @param {Number} mNumDigits
+ * @returns {Number}
+ */
 function roundCoordinates(mDouble, mNumDigits) {
     var mFact = Math.pow(10, mNumDigits);
     var mPoint = (Math.round(mDouble * mFact)) / mFact;
@@ -66,6 +72,11 @@ function getW2UIGridRecByID(pW2UIGridName, pRecID) {
     return mRecord;
 }
 
+/**
+ * Open a popup window loaded with the specified URL
+ * @param {String} pUrl The URL to load
+ * @returns {void}
+ */
 function openPopup(pUrl) {
     var left = (jQuery(window).width() / 2) - (900 / 2);
     var top = (jQuery(window).height() / 2) - (600 / 2);
@@ -78,70 +89,36 @@ function setDefaultZoomTo(zoomLevel) {
     return true;
 }
 
-function resetGeocodingForm() {
-    jQuery("input.resetable, select.resetable", "form#gc").val("");
-    return true;
-}
-
-function getFieldChanges() {
-    var mFieldChanges = jQuery("#gc input#hdnFieldChanges").val();
-    if (mFieldChanges != '') {
-        return JSON.parse(jQuery("#gc input#hdnFieldChanges").val());
+function confidenceToProbability(pConfidence) {
+    if (jQuery.isNumeric(pConfidence) && pConfidence >=0 && pConfidence <=100) {
+        if (pConfidence > 90) {
+            return 1
+        } else if (pConfidence > 75) {
+            return 2
+        } else if (pConfidence > 20) {
+            return 3
+        } else {
+            return 0;
+        }
     } else {
-        return JSON.parse('{}');
+        return 0;
     }
 }
 
-function getFieldChangesAsText() {
-    return jQuery("#gc input#hdnFieldChanges").val();
-}
-
-function setFieldChanges(pChangedFields) {
-    jQuery("#gc input#hdnFieldChanges").val(pChangedFields);
-    return true;
-}
-
-function saveGeocoding(pTable, pId, pLon, pLat, pProbability, pItemName, pFieldChanges) {
-    var dsID = getSelectedDatasource().id;
-    console.log(pFieldChanges);
-    jQuery.getJSON('./ws/ws-update2.php',
-            {
-                //table:pTable,
-                dsID: dsID,
-                id: pId,
-                lon: pLon,
-                lat: pLat,
-                probability: pProbability,
-                name: pItemName,
-                fieldChanges: pFieldChanges
-            },
-    function(data) {
-        if (data.s == "1") {
-            jQuery("#selectable li.ui-selected").removeClass().addClass("ui-state-default").addClass("ui-state-highlight").addClass("ui-selected");
-            var mProbability = jQuery('input[name=rbProbability]:checked', '#gc').val();
-            if (mProbability != null) {
-                getSelectedSourceItem().addClass("prob" + mProbability);
-                getSelectedSourceItem().data("attributes").gc_probability = mProbability;
-                getSelectedSourceItem().data("attributes").gc_name = jQuery("#tbItemName").val();
-                getSelectedSourceItem().data("attributes").gc_fieldchanges = getFieldChangesAsText();
-                getSelectedSourceItem().data("attributes")._nc = jQuery("#tbItemName").val();
-                getSelectedSourceItem().html(jQuery("#tbItemName").val());
-                var mLonLat = new OpenLayers.LonLat(jQuery("#tbLongitude", "#gc").val(), jQuery("#tbLatitude", "#gc").val()).transform(pDatasource, p4326);
-                getSelectedSourceItem().data("attributes").gc_lon = mLonLat.lon;
-                getSelectedSourceItem().data("attributes").gc_lat = mLonLat.lat;
-            }
+function probabilityToConfidence(pProbability) {
+    if (jQuery.isNumeric(pProbability) && pProbability >=0 && pProbability <=3) {
+        if (pProbability === 1) {
+            return 90
+        } else if (pProbability === 2) {
+            return 75
+        } else if (pProbability === 3) {
+            return 20
         } else {
-            jQuery("#dialog").html(data.m);
-            jQuery("#dialog").dialog();
+            return 0;
         }
-    }).fail(function() {
-        console.log("Error during save.");
-    });
-
-}
-
-function showGeocodingForm() {
-    jQuery("#gcFormContainer").css("display", "block");
+    } else {
+        return 0;
+    }    
 }
 
 function clearDatasourceFilters() {
@@ -201,8 +178,4 @@ function showMsgBox(pMsg, pError) {
         minHeight: 200,
         maxHeight: 480
     });
-}
-
-function hideGeocodingForm() {
-    jQuery("#gcFormContainer").css("display", "none");
 }
