@@ -191,6 +191,31 @@ if (typeof (OpenLayers) !== "undefined") {
 
     function setupForm() {
         /*
+         * Add buttons to attribute edit form
+         */
+        jQuery(".attribFormBtn").button();
+
+        /*
+         * Add change handler to tbConfidence
+         */
+        jQuery('#tbConfidence').change(function() {
+            jQuery('#sliderConfidence').slider("value", this.value);
+        });
+
+        /*
+         * Clear persistent URI from form
+         */
+        jQuery("#btnClearPersistentURI").button(
+                {
+                    icons: {
+                        primary: 'ui-icon-close'
+                    }
+                }).click(function(evt) {
+            evt.preventDefault();
+            jQUery('#tbLinkedPersistentURI').val(null);
+        });
+
+        /*
          * View all attributes
          */
         jQuery("#btnViewAttributes").button(
@@ -227,10 +252,6 @@ if (typeof (OpenLayers) !== "undefined") {
             handlerBtnViewUrl();
         });
 
-        /*
-         * Add buttons to attribute edit form
-         */
-        jQuery(".attribFormBtn").button();
         /*
          * Cancel changes
          */
@@ -275,10 +296,11 @@ if (typeof (OpenLayers) !== "undefined") {
             evt.preventDefault();
             handlerBtnCancelEditsClose();
         });
+
         /*
          * Setup toggle list
          */
-        jQuery("#radio").buttonset();
+        //jQuery("#radio").buttonset();
 
     }
 
@@ -534,7 +556,7 @@ if (typeof (OpenLayers) !== "undefined") {
             } else {
                 console.log(jSrb.ErrMsg.installationUpToDate);
             }
-        },'json').fail(function(pResponse) {
+        }, 'json').fail(function(pResponse) {
             showMsgBox(jSrb.ErrMsg.ajaxRequestError, true);
             console.log(pResponse.responseText);
         });
