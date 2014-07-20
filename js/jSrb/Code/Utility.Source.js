@@ -44,6 +44,11 @@ function loadCategories(pDatasourceId) {
     });
 }
 
+/**
+ * Loads level 1 administrative areas
+ * @param {Number} pDatasourceId
+ * @returns {void}
+ */
 function loadAdm0(pDatasourceId) {
     var currentAdm0Table = "ds" + pDatasourceId + "_adm0";
     jQuery.post(WsUrl.getDsAdm0Areas,
@@ -85,6 +90,12 @@ function loadAdm0(pDatasourceId) {
     });
 }
 
+/**
+ * Load level 2 areas
+ * @param {Number} pDatasourceId
+ * @param {String} pCurrentAdm0
+ * @returns {void}
+ */
 function loadAdm1(pDatasourceId, pCurrentAdm0) {
     /*
      * Construct adm0 table name based on id of datasource
