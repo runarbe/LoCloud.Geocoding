@@ -29,7 +29,7 @@ function handlerBtnViewUrl() {
  * @returns {undefined}
  */
 function handlerBtnViewAttributes() {
-    //var mObj = jQuery(".ui-selected", "#selectable").first().data("attributes");
+
     var mSelectedItemAttributes = getSelectedSourceItem().data("attributes");
 
     /*
@@ -136,9 +136,10 @@ function handlerClickMap(pPoint) {
     if (mDatasource != null && jQuery("#hdnTableId").val() != "") {
         var mLonLat = map.getLonLatFromPixel(pPoint);
         addProposedIcon(mLonLat.clone());
-        var mTargetLonLat = mLonLat.transform(p900913, pDatasource)
-        jQuery("#tbLongitude").val(roundCoordinates(mTargetLonLat.lon, mDatasource.ds_coord_prec));
-        jQuery("#tbLatitude").val(roundCoordinates(mTargetLonLat.lat, mDatasource.ds_coord_prec));
+        var mTargetLonLat = mLonLat.transform(p900913, projDatasource)
+        jQuery('#tbLongitude', '#gc').val(roundCoordinates(mTargetLonLat.lon, mDatasource.ds_coord_prec));
+        jQuery('#tbLatitude', '#gc').val(roundCoordinates(mTargetLonLat.lat, mDatasource.ds_coord_prec));
+        jQuery('#tbMapResolution', '#gc').val(map.getResolution());
     }
 }
 
@@ -149,18 +150,25 @@ function handlerClickMap(pPoint) {
  * @returns {void}
  */
 function handlerBtnSaveGeocoding() {
-    var mId = jQuery("#hdnTableId").val();
-    var mTable = jQuery("#hdnAutoPkId").val();
-    var mLon = jQuery("#tbLongitude").val();
-    var mLat = jQuery("#tbLatitude").val();
-    var mLonLat = new OpenLayers.LonLat(mLon, mLat).transform(pDatasource, p4326);
-    var mItemName = jQuery("#tbItemName").val();
+
+    //var mId = jQuery("#hdnTableId").val();
+    var mItemID = jQuery('#hdnAutoPkId', '#gc').val();
+    var mItemName = jQuery('#tbItemName', '#gc').val();
+    var mConfidence = jQuery('#tbConfidence', '#gc').val();
+
+    var mX = jQuery('#tbLongitude', '#gc').val();
+    var mY = jQuery('#tbLatitude', '#gc').val();
+    var mLonLat = new OpenLayers.LonLat(mX, mY).transform(projDatasource, p4326);
+
     var mFieldChanges = getFieldChangesAsText();
-    var mProbability = jQuery("input[name=rbProbability]:checked", "#gc").val();
-    console.log(mFieldChanges);
-    saveGeocoding(mTable, mId, mLonLat.lon, mLonLat.lat, mProbability, mItemName, mFieldChanges);
-    jQuery("#divForm").effect("transfer", {
-        to: jQuery(".ui-selected", "#selectable").first()
+    var mLinkedPURI = jQuery("#tbLinkedPURI", '#gc').val();
+    var mMapResolution = jQuery('#tbMapResolution', '#gc').val();
+
+    saveGeocoding(mItemID, mLonLat.lon, mLonLat.lat, mConfidence, mItemName, mFieldChanges, mLinkedPURI, mMapResolution);
+
+    // Show animation
+    jQuery("#divForm").effect('transfer', {
+        to: jQuery('.ui-selected', '#selectable').first()
     }, 500);
 }
 
