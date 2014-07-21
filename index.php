@@ -51,7 +51,7 @@ if (!isLoggedIn()) {
                 <?php include("./mod/mod-source.php"); ?>
             </div>
         </div>
-        <div id="divSearch">
+        <div id="divSearch" class="scrollable">
             <div class="innerPadding">
                 <?php include("./mod/mod-search.php"); ?>
             </div>
