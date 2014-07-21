@@ -1,30 +1,27 @@
 <?php
+
 require_once("../functions.php");
 dieIfSessionExpired();
-$m = array(); //Mesages, notices, errors
-$v = 1; //Return status 1=success,-1=error
-$r = array();
-$d = array();
 
-$mDb = db();
-$mSql = "SELECT * FROM meta_dbsearch ORDER BY sch_title ASC";
-if ($result = $mDb->query($mSql)) {
-    $v = 1;
-    while($obj = $result->fetch_object()) {
-        $d[] = $obj;
-    };
-    $result->close();
-} else {
-    $v = -1;
-    $m[] = $mSql;
-    $m[] = mysqli_error($mDb);
+class WsLoadSearchDBs extends GcWebService implements iWebService {
+
+    protected function _execute() {
+        $mSql = "SELECT * FROM meta_dbsearch ORDER BY sch_title ASC";
+        if (false !== ($result = Db::query($mSql))) {
+            while ($mSearchDB = $result->fetch_object()) {
+                $this->_result->addData($mSearchDB);
+            }
+        } else {
+            $this->_result->setFailure(ErrorMsgs::dbErrorSelectCheckLog,
+                    get_class($this));
+        }
+        $this->_result->echoJson();
+    }
+
+    public static function getInstance() {
+        return new WsLoadSearchDBs();
+    }
+
 }
-dbc($mDb);
 
-$r["s"] = $v;
-$r["d"] = $d;
-$r["m"] = $m;
-
-echo json_encode($r);
-
-?>
+WsLoadSearchDBs::getInstance()->run(true);
