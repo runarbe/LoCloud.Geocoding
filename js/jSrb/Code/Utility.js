@@ -155,10 +155,13 @@ function getErrorMessages(pMessageArray) {
 }
 
 function showMsgBox(pMsg, pError) {
+    
+    pError = pError === undefined ? false : true;
+    
     var mCssClass = "ui-state-notification";
     var mContent = jQuery("<ul></ul>");
     var mTitle = "Notification!";
-    if (pError == true) {
+    if (pError === true) {
         mCssClass = "ui-state-highlight";
         mTitle = "Error!";
     }
