@@ -17,7 +17,7 @@
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>Linked P.URI</label>
-                        <input id="tbLinkedPURI" type="text" class="pure-input-1" readonly="true"/>
+                        <input id="tbLinkedPURI" type="text" class="pure-input-1 resetable" readonly="true"/>
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>&nbsp;</label>
@@ -25,11 +25,11 @@
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>Geometry (WKT)</label>
-                        <input id="tbGeom" type="text" class="pure-input-1" readonly="true"/>
+                        <input id="tbGeom" type="text" class="pure-input-1 resetable" readonly="true"/>
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>Map resolution</label>
-                        <input id="tbMapResolution" type="text" class="pure-input-1" readonly="true"/>
+                        <input id="tbMapResolution" type="text" class="pure-input-1 resetable" readonly="true"/>
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>Confidence (%)</label>
@@ -49,10 +49,8 @@
                 </div>
                 <input type="hidden" id="hdnImage" name="ds_image" class="resetable" value=""/>
                 <input type="hidden" id="hdnUrl" name="ds_url" class="resetable" value=""/>
-                <input type="hidden" id="hdnTableId" name="id" class="resetable" value=""/>
                 <input type="hidden" id="hdnAutoPkId" name="id" class="resetable" value=""/>
                 <input type="hidden" id="hdnFieldChanges" name="fieldChanges" class="resetable" value=""/>
-                <input type="hidden" id="hdnTableName" name="table" class="resetable" value=""/>
             </fieldset>
         </form>
     </div>
