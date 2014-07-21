@@ -39,6 +39,18 @@ class WsUpgradeDb extends GcWebService implements iWebService {
         }
     }
 
+    private function forEachDatasourceTable($pSql) {
+        $mTables = array();
+        $mDatasets = Db::query("SELECT DISTINCT ds_table FROM meta_datasources");
+        while (null !== ($mRow = mysqli_fetch_array($mDatasets))) {
+            $mTables[] = $mRow["ds_table"];
+        }
+        foreach ($mTables as $mTable) {
+            $mSql = sprintf($pSql, $mTable);
+            Db::query_multi($mSql);
+        }
+    }
+    
     public static function getInstance() {
         return new WsUpgradeDb();
     }
