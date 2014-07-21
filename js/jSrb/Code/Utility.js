@@ -89,36 +89,48 @@ function setDefaultZoomTo(zoomLevel) {
     return true;
 }
 
+/**
+ * Returns the corresponding probability value for a precentage between 1-100
+ * @param {Number} pConfidence
+ * @returns {Number|Null}
+ */
 function confidenceToProbability(pConfidence) {
-    if (jQuery.isNumeric(pConfidence) && pConfidence >=0 && pConfidence <=100) {
-        if (pConfidence > 90) {
+    if (jQuery.isNumeric(pConfidence) && pConfidence >= 0 && pConfidence <= 100) {
+        if (pConfidence >= 90 && pConfidence < 9999) {
             return 1
-        } else if (pConfidence > 75) {
+        } else if (pConfidence >= 75 && pConfidence < 9999) {
             return 2
-        } else if (pConfidence > 20) {
+        } else if (pConfidence >= 20 && pConfidence < 9999) {
             return 3
         } else {
-            return 0;
+            return 9999;
         }
     } else {
-        return 0;
+        return null;
     }
 }
 
+/**
+ * Get the corresponding confidence value for a probability value 1,2,3,9999
+ * @param {Number} pProbability
+ * @returns {Number|Null}
+ */
 function probabilityToConfidence(pProbability) {
-    if (jQuery.isNumeric(pProbability) && pProbability >=0 && pProbability <=3) {
+    if (jQuery.isNumeric(pProbability) && pProbability >= 0 && pProbability <= 3) {
         if (pProbability === 1) {
             return 90
         } else if (pProbability === 2) {
             return 75
         } else if (pProbability === 3) {
             return 20
-        } else {
+        } else if (pProbability === 9999) {
             return 0;
+        } else {
+            return null;
         }
     } else {
-        return 0;
-    }    
+        return null;
+    }
 }
 
 function clearDatasourceFilters() {
@@ -153,9 +165,9 @@ function showMsgBox(pMsg, pError) {
     /*
      * Ig pMsg is a string, simply add the string to a list element
      */
-    if (typeof pMsg == "string") {
+    if (typeof pMsg == 'string') {
         mContent.append("<li>" + pMsg + "</li>");
-    } else {
+    } else if (pMsg !== undefined) {
         /*
          * Otherwise, iterate through the array, object and add each value to a list
          */
