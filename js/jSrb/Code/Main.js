@@ -199,7 +199,7 @@ if (typeof (OpenLayers) !== 'undefined') {
      * A data source used for ???
      * @type jSrb.DataSource
      */
-    var pDatasource = null;
+    var projDatasource = null;
 
     /**
      * Set default extent in lon-lat.
@@ -235,12 +235,19 @@ if (typeof (OpenLayers) !== 'undefined') {
 
         initMapLayers();
 
-        //Create click control
-        var mClickMapControl = new OpenLayers.Control.Click({
-            handlerOptions: {
-                "single": true
-            }
-        });
+        /* 
+         * Define marker-layer to hold temporary points
+         */
+        markers = new OpenLayers.Layer.Markers("Geocoding markers");
+        var mFeatureLayer = new OpenLayers.Layer.Vector("Geocoding features");
+
+        // Attach handler function to 
+        mFeatureLayer.preFeatureInsert = function(pFeature) {
+            // Remove any existing features before processing new
+            mFeatureLayer.destroyFeatures();
+            // Execute handler function
+            handlerPreAddFeatureToMap(pFeature);
+        };
 
         /*
          * Create map control
@@ -251,7 +258,6 @@ if (typeof (OpenLayers) !== 'undefined') {
             projection: p900913,
             displayProjection: p900913,
             controls: [
-                mClickMapControl,
                 new OpenLayers.Control.LayerSwitcher(),
                 new OpenLayers.Control.Navigation(),
                 new OpenLayers.Control.Zoom(),
@@ -259,14 +265,9 @@ if (typeof (OpenLayers) !== 'undefined') {
                 new OpenLayers.Control.ZoomToMaxExtent(),
                 new OpenLayers.Control.MousePosition({
                     autoActivate: true
-                })
-            ]
+                }),
+                new OpenLayers.Control.EditingToolbar(mFeatureLayer)]
         });
-
-        /*
-         * Activate map click control
-         */
-        mClickMapControl.activate();
 
         /*
          * Custom local map from OSM tiles stored in directory hierarchy
@@ -277,35 +278,12 @@ if (typeof (OpenLayers) !== 'undefined') {
             isBaseLayer: true
         });
 
-        /* 
-         * Define marker-layer to hold temporary points
-         */
-        markers = new OpenLayers.Layer.Markers("Geocoding markers");
-        var mPolygonLayer = new OpenLayers.Layer.Vector("Polygon Layer");
-        var mPointLayer = new OpenLayers.Layer.Vector("Point Layer");
-        var mLineLayer = new OpenLayers.Layer.Vector("Line Layer");
-
         /*
          * Add markers to default map layers
          */
+        defaultMapLayers.push(mFeatureLayer);
         defaultMapLayers.push(markers);
-        defaultMapLayers.push(mPolygonLayer);
-        defaultMapLayers.push(mPointLayer);
-        defaultMapLayers.push(mLineLayer);
 
-        mDrawControls = {
-            point: new OpenLayers.Control.DrawFeature(mPointLayer,
-                    OpenLayers.Handler.Point),
-            line: new OpenLayers.Control.DrawFeature(mLineLayer,
-                    OpenLayers.Handler.Path),
-            polygon: new OpenLayers.Control.DrawFeature(mPolygonLayer,
-                    OpenLayers.Handler.Polygon)
-        };
-        
-        for (var key in mDrawControls) {
-            map.addControl(mDrawControls[key]);
-        }
-        
         /*
          * Add local tile layer to the start of default map layers, making it the default basemap
          */
@@ -321,7 +299,7 @@ if (typeof (OpenLayers) !== 'undefined') {
          */
         for (var i = 0; i < map.layers.length; i++) {
             // console.log(map.layers[i].name); // Debug
-            if (map.layers[i].name == 'Google Hybrid') {
+            if (map.layers[i].name === 'Google Hybrid') {
                 map.setBaseLayer(map.layers[i]);
             }
         }
