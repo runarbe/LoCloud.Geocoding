@@ -129,17 +129,24 @@ function handlerBtnCancel() {
 /**
  * Function that is triggered when the user clicks in the map
  * 
- * @param {OpenLayers.Pixel} pPoint
+ * @param {OpenLayers.Pixel} pFeature
  * @returns {void}
  */
-function handlerClickMap(pPoint) {
+function handlerPreAddFeatureToMap(pFeature) {
     if (mDatasource != null && jQuery("#hdnTableId").val() != "") {
-        var mLonLat = map.getLonLatFromPixel(pPoint);
-        addProposedIcon(mLonLat.clone());
-        var mTargetLonLat = mLonLat.transform(p900913, projDatasource)
-        jQuery('#tbLongitude', '#gc').val(roundCoordinates(mTargetLonLat.lon, mDatasource.ds_coord_prec));
-        jQuery('#tbLatitude', '#gc').val(roundCoordinates(mTargetLonLat.lat, mDatasource.ds_coord_prec));
+        // Add code here to distinguish between different geometry types
+        var mCentroid = pFeature.geometry.getCentroid();
+        
+        var mTargetPoint = mCentroid.clone().transform(p900913, projDatasource)
+        var mFormat = new OpenLayers.Format.WKT();
+        jQuery('#tbLongitude', '#gc').val(roundCoordinates(mTargetPoint.x, mDatasource.ds_coord_prec));
+        jQuery('#tbLatitude', '#gc').val(roundCoordinates(mTargetPoint.y, mDatasource.ds_coord_prec));
         jQuery('#tbMapResolution', '#gc').val(map.getResolution());
+        jQuery('#tbGeom', '#gc').val(mFormat.write(pFeature));
+
+        var mLonLat = new OpenLayers.LonLat(mCentroid.x, mCentroid.y);
+        addProposedIcon(mLonLat.clone());
+
     }
 }
 
