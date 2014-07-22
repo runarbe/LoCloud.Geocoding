@@ -4,31 +4,31 @@ jSrb.search = jSrb.search || {};
 
 jSrb.search.getSelectedSearchDB = function() {
     return jQuery("#sbSelectSearchDB option:selected");
-}
+};
 
 jSrb.search.getSelectedSearchResultItem = function() {
     return jQuery("#listSearchResults li.ui-selected").first();
-}
+};
 
 jSrb.search.loadSearchDBs = function() {
-    jQuery.getJSON("./ws/ws-load-search-dbs.php",
+    jQuery.post(WsUrl.getSearchDBs,
             {
             },
-            function(data) {
-                if (data.s == 1) {
-                    jQuery.each(data.d, function(key, val) {
-                        var opt = jQuery("<option value=\"" + val.id + "\">" + val.sch_title + "</option>");
-                        opt.data("attributes", val);
-                        jQuery("#sbSelectSearchDB").append(opt);
-                    })
-                    //console.log("Success loading search datbases");
+            function(pData) {
+                if (pData.status === 'success') {
+                    jQuery.each(pData.records, function(key, val) {
+                        var mSearchDBOpt = jQuery("<option value=\"" + val.id + "\">" + val.sch_title + "</option>");
+                        mSearchDBOpt.data("attributes", val);
+                        jQuery("#sbSelectSearchDB").append(mSearchDBOpt);
+                    });
                 } else {
-                    console.log("Loading search databases unsuccessful: " + d.m);
+                    showMsgBox(pData.message);
                 }
-            }).fail(function() {
-        console.log('Error loading search databases.')
+            }).fail(function(pResponse) {
+        showMsgBox(jSrb.ErrMsg.ajaxRequestError);
+        console.log(pResponse.responseText);
     });
-}
+};
 
 /**
  * Unselect any other items from the search list, highlight the current search
@@ -40,9 +40,7 @@ jSrb.search.selectSearchResultItem = function() {
     var mSelectedItem = jSrb.search.getSelectedSearchResultItem();
     mSelectedItem.addClass("ui-state-highlight");
     var mData = mSelectedItem.data("attributes");
-    console.log(mData);
     var mLonLat = new OpenLayers.LonLat(mData.lon, mData.lat).transform(p4326, p900913);
-    console.log(mLonLat);
     map.setCenter(mLonLat, defaultZoomTo);
     return;
 };
@@ -104,4 +102,4 @@ jSrb.search.loadSearchResults = function() {
     });
 
     return;
-}
+};
