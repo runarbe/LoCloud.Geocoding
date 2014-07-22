@@ -51,26 +51,28 @@ class WsUpdateItem extends GcWebService implements iWebService {
             /*
              * Upsert record into database - user ID + item ID is unique key in the table
              */
-            $mSql = sprintf('INSERT INTO %s (fk_ds_id, gc_name, gc_lon, gc_lat,gc_probability, gc_geom, gc_fieldchanges, gc_usr_id) VALUES (%s, \'%s\', %s, %s, %s, \'%s\', \'%s\',%s) ON DUPLICATE KEY UPDATE gc_name=\'%s\', gc_lon=%s, gc_lat=%s ,gc_probability=%s, gc_geom=\'%s\', gc_fieldchanges=\'%s\'',
+            $mSql = sprintf('INSERT INTO %s (fk_ds_id, gc_name, gc_lon, gc_lat, gc_confidence, gc_mapresolution, gc_geom, gc_fieldchanges, gc_usr_id, gc_dbsearch_puri) VALUES (%s, \'%s\', %s, %s, %s, %s, \'%s\', \'%s\',%s,\'%s\') ON DUPLICATE KEY UPDATE gc_name=\'%s\', gc_lon=%s, gc_lat=%s ,gc_confidence=%s, gc_mapresolution=%s, gc_geom=\'%s\', gc_fieldchanges=\'%s\', gc_dbsearch_puri=\'%s\'',
                     $mTableName,
                     $mP["itemID"],
                     $mP["name"],
                     $mP["x"],
                     $mP["y"],
                     $mP["confidence"],
+                    $mP["mapResolution"],
                     $mP["geom"],
                     $mP["fieldChanges"],
                     cUsr(),
+                    $mP["pURI"],
                     $mP["name"],
                     $mP["x"],
                     $mP["y"],
                     $mP["confidence"],
+                    $mP["mapResolution"],
                     $mP["geom"],
-                    $mP["fieldChanges"]
+                    $mP["fieldChanges"],
+                    $mP["pURI"]
             );
-            logIt($mSql);
-            Db::query($mSql);
-            if (mysqli_affected_rows(Db::$conn) >= 1) {
+            if (false !== Db::query($mSql)) {
                 $this->_result->setSuccess();
             } else {
                 $this->_result->setFailure(ErrorMsgs::dbErrorInsertCheckLog);
