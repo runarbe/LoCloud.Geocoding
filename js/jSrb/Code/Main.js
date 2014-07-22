@@ -1,3 +1,7 @@
+var jSrb = jSrb || {};
+
+jSrb.map = jSrb.map || {};
+
 if (typeof (OpenLayers) !== 'undefined') {
 
     /*
@@ -57,9 +61,15 @@ if (typeof (OpenLayers) !== 'undefined') {
 
     /**
      * The layer that will hold markers
-     * @type OpenLayers.MarkerLayer
+     * @type OpenLayers.Layer.Markers
      */
     var markers;
+
+    /**
+     * The layer that will hold vector geometries
+     * @type OpenLayers.Layer.Vector
+     */
+    jSrb.map.featureLayer = null;
 
     /**
      * 
@@ -237,14 +247,24 @@ if (typeof (OpenLayers) !== 'undefined') {
 
         /* 
          * Define marker-layer to hold temporary points
+         * @type OpenLayers.Layer.Markers
          */
-        markers = new OpenLayers.Layer.Markers("Geocoding markers");
-        var mFeatureLayer = new OpenLayers.Layer.Vector("Geocoding features");
+        markers = new OpenLayers.Layer.Markers("Geocoding markers", {
+            displayInLayerSwitcher: false
+        });
 
-        // Attach handler function to 
-        mFeatureLayer.preFeatureInsert = function(pFeature) {
-            // Remove any existing features before processing new
-            mFeatureLayer.destroyFeatures();
+        /*
+         * Define vector layer to hold temporary features
+         * @type OpenLayers.Layer.Vector
+         */
+        jSrb.map.featureLayer = new OpenLayers.Layer.Vector("Geocoding features", {
+            displayInLayerSwitcher: false
+        });
+
+        // Attach handler function to feature layer
+        jSrb.map.featureLayer.preFeatureInsert = function(pFeature) {
+            // Remove any existing features before processing new one
+            jSrb.map.featureLayer.destroyFeatures();
             // Execute handler function
             handlerPreAddFeatureToMap(pFeature);
         };
@@ -266,7 +286,7 @@ if (typeof (OpenLayers) !== 'undefined') {
                 new OpenLayers.Control.MousePosition({
                     autoActivate: true
                 }),
-                new OpenLayers.Control.EditingToolbar(mFeatureLayer)]
+                new OpenLayers.Control.EditingToolbar(jSrb.map.featureLayer)]
         });
 
         /*
@@ -279,15 +299,10 @@ if (typeof (OpenLayers) !== 'undefined') {
         });
 
         /*
-         * Add markers to default map layers
+         * Add markers and jSrb.map.featureLayer to default map layers
          */
-        defaultMapLayers.push(mFeatureLayer);
+        defaultMapLayers.push(jSrb.map.featureLayer);
         defaultMapLayers.push(markers);
-
-        /*
-         * Add local tile layer to the start of default map layers, making it the default basemap
-         */
-        //defaultMapLayers.unshift(localTiles);
 
         /*
          * Add default map layers to map
