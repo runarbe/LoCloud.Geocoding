@@ -433,10 +433,13 @@ if (typeof (OpenLayers) !== "undefined") {
          * Make search result list selectable
          */
         jQuery("#listSearchResults").selectable({
-            stop: function() {
+            stop: function(pEvent) {
                 handlerSelectSearchResultItem();
-            }
-        }).css("cursor", "pointer");
+            }})
+                .css("cursor", "pointer")
+                .bind('contextmenu', function(pEvent) {
+                    pEvent.preventDefault();
+                });
 
     }
 
