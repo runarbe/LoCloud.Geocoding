@@ -12,7 +12,14 @@
             <a id="btnManageDatasources" class="wide">Manage data sources</a>
         <?php } ?>
     </div>
-    <h3>Filter</h3>
+    <h3>Map settings</h3>
+    <div class="sh">
+        <div>
+            <p>Please select default zoom</p>
+            <div id="defaultZoomTo"></div>
+        </div>
+    </div>
+    <h3>Filter items</h3>
     <div class="sh">
         <form id="frmFilterByArea" class="hidden">
             <p>Filter by area</p>
@@ -40,15 +47,8 @@
             </select>
         </form>
     </div>
-    <h3>Settings</h3>
-    <div class="sh">
-        <div>
-            <p>Please select default zoom</p>
-            <div id="defaultZoomTo"></div>
-        </div>
-    </div>
 </div>
-<h3>Select an item</h3>
+<p>Select an item</p>
 <div>
     <ol id="selectable"></ol>
     <button id="btnPrevSrc" class="align-right">Previous</button>
