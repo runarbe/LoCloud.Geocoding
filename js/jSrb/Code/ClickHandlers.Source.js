@@ -115,61 +115,49 @@ function handlerSelectSourceItem() {
     jQuery('#selectable li').removeClass('ui-state-highlight');
     getSelectedSourceItem().addClass('ui-state-highlight')
             .each(function() {
-                var data = getSelectedSourceItem().data('attributes');
-        
-                jQuery('#tbItemName', '#gc').val(data._nc);
-                jQuery('#hdnAutoPkId', '#gc').val(data.autopk_id);
-                jQuery('#hdnFieldChanges', '#gc').val(data.gc_fieldchanges);
-                jQuery('#gc_mapresolution', '#gc').val(data.gc_mapresolution);
-                jQuery('#gc_dbsearch_puri', '#gc').val(data.gc_dbsearch_puri);
-                jQuery('#gc_geom', '#gc').val(data.gc_geom);
+                var mItemAttr = getSelectedSourceItem().data('attributes');
 
-                // Initialize button to show URL
-                if (data._uc === null) {
+                // Set form values
+                jQuery('#tbItemName', '#gc').val(mItemAttr._nc);
+                jQuery('#tbMapResolution', '#gc').val(mItemAttr.gc_mapresolution);
+                jQuery('#tbLinkedPURI', '#gc').val(mItemAttr.gc_dbsearch_puri);
+                jQuery('#tbConfidence').val(mItemAttr.gc_confidence);
+                jQuery('#hdnAutoPkId', '#gc').val(mItemAttr.autopk_id);
+                jQuery('#hdnFieldChanges', '#gc').val(mItemAttr.gc_fieldchanges);
+
+                // Set show URL button visibility
+                if (mItemAttr._uc === null) {
                     jQuery('#btnViewUrl').hide();
                 } else {
-                    jQuery('#hdnUrl').val(data._uc);
+                    jQuery('#hdnUrl').val(mItemAttr._uc);
                     jQuery('#btnViewUrl').show();
                 }
 
-                // Initialize button to show image
-                if (data._ic === null) {
+                // Set show image button visibility
+                if (mItemAttr._ic === null) {
                     jQuery('#btnViewImage').hide();
                 } else {
-                    jQuery('#hdnImage').val(data._ic);
+                    jQuery('#hdnImage').val(mItemAttr._ic);
                     jQuery('#btnViewImage').show();
                 }
 
+                // Clear any existing icons from map
                 clearIcons();
 
-                if (data.gc_confidence !== null) {
-                    jQuery('#tbConfidence').val(data.gc_confidence);
-                }
-
-                /*
-                 * Remove alternate markers from map
-                 */
-                jQuery.each(alternateMarkers, function(key2, val2) {
-                    markers.removeMarker(val2);
-                });
-
-                /*
-                 * Add alternate markers to map
-                 */
-                jQuery.each(data.gc_alternates, function(key3, val3) {
+                // Add alternate markers to map
+                jQuery.each(mItemAttr.gc_alternates, function(key3, val3) {
                     var mLonLat = new OpenLayers.LonLat(val3.gc_lon, val3.gc_lat).transform(p4326, p900913);
                     addAlternateIcons(mLonLat.clone());
                     mLonLat = null;
                 });
-
-                // Check for coordinate info from match table
-
-                if (data.gc_lon !== null && data.gc_lat !== null) {
-                    var mLonLat2 = new OpenLayers.LonLat(data.gc_lon, data.gc_lat).transform(p4326, projDatasource);
+                
+                // Add proposed markers to map
+                if (mItemAttr.gc_lon !== null && mItemAttr.gc_lat !== null) {
+                    var mLonLat2 = new OpenLayers.LonLat(mItemAttr.gc_lon, mItemAttr.gc_lat).transform(p4326, projDatasource);
                     jQuery("#tbLongitude").val(roundCoordinates(mLonLat2.lon, mDatasource.ds_coord_prec));
                     jQuery("#tbLatitude").val(roundCoordinates(mLonLat2.lat, mDatasource.ds_coord_prec));
 
-                    var mLonLat = new OpenLayers.LonLat(data.gc_lon, data.gc_lat).transform(p4326, p900913);
+                    var mLonLat = new OpenLayers.LonLat(mItemAttr.gc_lon, mItemAttr.gc_lat).transform(p4326, p900913);
                     addProposedIcon(mLonLat.clone());
                     map.setCenter(mLonLat, defaultZoomTo);
 
@@ -178,20 +166,28 @@ function handlerSelectSourceItem() {
                     jQuery('#tbLatitude').val(null);
                 }
 
-                // Check for coordinate info from data source
-                if (data._x !== null && data._y !== null) {
+                // Add original location marker to map
+                if (mItemAttr._x !== null && mItemAttr._y !== null) {
 
-                    mLonLat = new OpenLayers.LonLat(data._x, data._y).transform(projDatasource, p900913);
+                    mLonLat = new OpenLayers.LonLat(mItemAttr._x, mItemAttr._y).transform(projDatasource, p900913);
                     addExistingIcon(mLonLat.clone());
 
-                    if (jQuery('#tbLongitude').val() === null || (data.gc_lon === null || data.gc_lat === null)) {
-                        jQuery('#tbLongitude').val(data._x);
-                        jQuery('#tbLatitude').val(data._y);
+                    if (jQuery('#tbLongitude').val() === null || (mItemAttr.gc_lon === null || mItemAttr.gc_lat === null)) {
+                        jQuery('#tbLongitude').val(mItemAttr._x);
+                        jQuery('#tbLatitude').val(mItemAttr._y);
                         map.setCenter(mLonLat, defaultZoomTo);
                     }
 
                 }
-                // Do transfer effect from list to form
+
+                jQuery('#tbGeom', '#gc').val(mItemAttr.gc_geom);
+                
+                if (mItemAttr.gc_geom !== null) {
+                    var mWktReader = new OpenLayers.Format.WKT();
+                    var mFeature = mWktReader.read(mItemAttr.gc_geom);
+                    jSrb.map.featureLayer.addFeatures([mFeature]);
+                }
+                // Show transfer effect from list to form
                 jQuery(".ui-selected", "#selectable").first().effect("transfer", {
                     to: jQuery("#divForm")
                 }, 500);
