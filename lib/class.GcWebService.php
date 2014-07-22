@@ -24,6 +24,19 @@ abstract class GcWebService {
     abstract protected function _execute();
 
     /**
+     * User-defined string filter
+     * @param String $pString
+     * @return boolean
+     */
+    public static function LC_STRING_FILTER($pString) {
+        if ($pString === '' || $pString === null || !isset($pString)) {
+            return false;
+        } else {
+            return $pString;
+        }
+    }
+
+    /**
      * Default constructor - called if not implemented on child objects
      */
     public function __construct() {
@@ -116,7 +129,8 @@ abstract class GcWebService {
                     $mFilter = FILTER_DEFAULT;
                     break;
                 case WsDataTypes::mString:
-                    $mFilter = FILTER_DEFAULT;
+                    $mFilter = FILTER_CALLBACK;
+                    $mFlag = array("options"=>array(__CLASS__, "LC_STRING_FILTER"));
                     break;
                 case WsDataTypes::mInteger:
                     $mFilter = FILTER_VALIDATE_INT;
@@ -176,6 +190,19 @@ abstract class GcWebService {
             $this->_result->setFailure();
         }
         return $mReturn;
+    }
+    
+    /**
+     * If user is not authenticated, exits with error message
+     * @return void
+     */
+    protected function requireSession() {
+        if (!isLoggedIn()) {
+            $this->_result->setFailure(ErrorMsgs::sessionRequired, "Web Service");
+            $this->_result->echoJson();
+            exit;
+        }
+        return;
     }
 
     /**
