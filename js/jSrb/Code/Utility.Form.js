@@ -54,17 +54,18 @@ function showImagePopup(pImageUrl) {
 
 /**
  * Insert or update an item match record
- * @param {Number} pItemID
- * @param {Number} pX
- * @param {Number} pY
- * @param {Number} pConfidence
- * @param {String} pItemName
- * @param {String} pFieldChanges JSON string
+ * @param {Number} pItemID The value of the autopk_id column from the datasource table for this item
+ * @param {Number} pX X-coordinate or longitude
+ * @param {Number} pY Y-coordinate or latitude
+ * @param {Number} pConfidence A %-value from 0-100 that indicates the confidence of the match
+ * @param {String} pItemName The optionally edited name of the item
+ * @param {String} pFieldChanges JSON object string with modified values
  * @param {String} pLinkedPURI Universal Resource Identifier
- * @param {Number} pMapResolution
+ * @param {Number} pMapResolution A floating point value indicating the number of meters per pixel of the zoom level where the geometry was digitized for the item
+ * @param {String} pGeom WKT geometry string
  * @returns {void}
  */
-function saveGeocoding(pItemID, pX, pY, pConfidence, pItemName, pFieldChanges, pLinkedPURI, pMapResolution) {
+function saveGeocoding(pItemID, pX, pY, pConfidence, pItemName, pFieldChanges, pLinkedPURI, pMapResolution, pGeom) {
     var mDatasourceID = getSelectedDatasource().id;
     console.log(pFieldChanges);
     jQuery.post(WsUrl.updateItem,
@@ -77,36 +78,45 @@ function saveGeocoding(pItemID, pX, pY, pConfidence, pItemName, pFieldChanges, p
                 pURI: pLinkedPURI,
                 mapResolution: pMapResolution,
                 name: pItemName,
-                fieldChanges: pFieldChanges
+                fieldChanges: pFieldChanges,
+                geom: pGeom
             },
     function(pData) {
-        if (pData.status === 'success') {
-            jQuery("#selectable li.ui-selected").removeClass().addClass("ui-state-default").addClass("ui-state-highlight").addClass("ui-selected");
-            var mConfidence = jQuery('#tbConfidence', '#gc').val();
-            if (jQuery.isNumeric(mConfidence)) {
 
+        if (pData.status === 'success') {
+
+            jQuery("#selectable li.ui-selected")
+                    .removeClass()
+                    .addClass("ui-state-default")
+                    .addClass("ui-state-highlight")
+                    .addClass("ui-selected");
+
+            var mConfidence = jQuery('#tbConfidence', '#gc').val();
+
+            if (jQuery.isNumeric(mConfidence)) {
                 var mSourceItem = getSelectedSourceItem();
-                var mItemAttribs = mSourceItem.data('attributes');
                 var mProbability = confidenceToProbability(pConfidence);
                 mSourceItem.addClass('prob' + mProbability);
+
+                var mItemAttribs = mSourceItem.data('attributes');
                 mItemAttribs.gc_probability = mProbability;
                 mItemAttribs.gc_confidence = pConfidence;
-                
                 mItemAttribs.gc_fieldchanges = getFieldChangesAsText();
                 mItemAttribs.gc_dbsearch_puri = pLinkedPURI;
                 mItemAttribs.gc_mapresolution = pMapResolution;
-                
-                var mItemName = jQuery('#tbItemName').val();
 
+                var mItemName = jQuery('#tbItemName').val();
                 mItemAttribs.gc_name = pItemName;
                 mItemAttribs._nc = pItemName;
                 mSourceItem.html(pItemName);
 
+                // Add geometries back into object
                 var mLonLat = new OpenLayers.LonLat(jQuery('#tbLongitude', '#gc').val(), jQuery('#tbLatitude', '#gc')
                         .val())
                         .transform(projDatasource, p4326);
                 mItemAttribs.gc_lon = mLonLat.lon;
                 mItemAttribs.gc_lat = mLonLat.lat;
+                mItemAttribs.gc_geom = pGeom;
             }
         } else {
             showMsgBox(pData.message);
