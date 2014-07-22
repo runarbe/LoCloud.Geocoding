@@ -124,7 +124,7 @@ function loadAdm1(pDatasourceId, pCurrentAdm0) {
 
                 var mFilterAdm1 = jQuery("#sbFilterAdm1");
                 mFilterAdm1.show();
-                
+
                 jQuery.each(pData.records, function(key, val) {
                     var opt = jQuery("<option></option>");
                     opt.html(val.adm1);
@@ -195,7 +195,8 @@ function loadSourceItems2(pOffset, pLimit) {
     var p = jQuery("#sbFilterProbability").val();
     var c = jQuery("#sbFilterCategory").val();
     var dsID = getSelectedDatasource().id;
-    jQuery.getJSON(WsUrl.getItemsForDataSource,
+
+    jQuery.post(WsUrl.getItemsForDataSource,
             {
                 t: mDatasource.ds_table,
                 dsID: dsID,
@@ -215,15 +216,10 @@ function loadSourceItems2(pOffset, pLimit) {
                 offset: pOffset,
                 limit: pLimit
             },
-    /**
-     * @param {WsRetObj} data
-     * @ignore
-     */
-    function(data) {
-        if (data.v === WsStatus.success) {
-            //console.log(data);
+    function(pData) {
+        if (pData.status === 'success') {
             clearSourceItemList();
-            jQuery.each(data.d, function(key, val) {
+            jQuery.each(pData.records, function(key, val) {
                 /*
                  * Create new list item and assign default value if empty
                  */
@@ -233,8 +229,8 @@ function loadSourceItems2(pOffset, pLimit) {
                 }
                 listElement.html(val._nc);
 
-                if (val.gc_probability != null) {
-                    listElement.addClass("prob" + val.gc_probability);
+                if (val.gc_confidence != null) {
+                    listElement.addClass("prob" + confidenceToProbability(val.gc_confidence));
                 }
                 listElement.addClass("ui-state-default");
                 listElement.data("attributes", val)
@@ -243,7 +239,7 @@ function loadSourceItems2(pOffset, pLimit) {
             /*
              * If the load source item does not yield any results, provide this notification.
              */
-            if (data.d.length == 0) {
+            if (pData.records.length === 0) {
                 var mNotification = jQuery("<div></div>");
                 mNotification.addClass("ui-state-highlight");
                 mNotification.text("You have completed all the items in the current selection or the current filters you have selected above excludes all items.");
@@ -255,16 +251,17 @@ function loadSourceItems2(pOffset, pLimit) {
             } else {
                 jQuery("#btnPrevSrc").button("option", "disabled", false);
             }
-            if (data.d.length < listSrcDataNumItems) {
+            if (pData.records.length < listSrcDataNumItems) {
                 jQuery("#btnNextSrc").button("option", "disabled", true);
             } else {
                 jQuery("#btnNextSrc").button("option", "disabled", false);
             }
         }
         else {
-            showMsgBox(data.m, true);
+            showMsgBox(pData.message, true);
         }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        showMsgBox(new Array(textStatus, errorThrown), false);
+    }, 'json').fail(function(pResponse) {
+        showMsgBox(jSrb.ErrMsg.ajaxRequestError);
+        console.log(pResponse.responseText);
     });
 }
