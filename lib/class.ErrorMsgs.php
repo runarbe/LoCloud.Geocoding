@@ -25,6 +25,7 @@ class ErrorMsgs {
     const includedFilter = "Info, included filter";
     const noSuchUserOrWrongAuth = "Info, no such user or wrong username/password combination";
     const adminRequired = "This operation requires administrator privileges";
+    const sessionRequired = "This operation requires an active user session";
     const updateAvailable = "An update is available";
     const installationUpToDate = "The installation is up to date";
     const fileMissingOrInaccessible = "The file is missing or could not be opened";
