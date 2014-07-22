@@ -8,6 +8,6 @@ $mMU = new MetaUsr();
 $mMU->usr = "Runar";
 $mMU->pwd = "Runar";
 
-echo $mMU->Insert();
+echo $mMU->insert();
 
 ?>

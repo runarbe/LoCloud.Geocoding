@@ -107,7 +107,6 @@ if ($v == 1) {
     }
 
     $mSql .= " ORDER BY 1 ASC LIMIT " . $_GET["limit"] . " OFFSET " . $_GET["offset"];
-    logIt($mSql);
 
     if ($result = $mDb->query($mSql)) {
         $r["s"] = 1;

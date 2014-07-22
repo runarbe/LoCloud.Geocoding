@@ -9,12 +9,12 @@ $mDS->ds_col_name = "Name";
 $mDS->ds_coord_prec = 4;
 $mDS->ds_col_pk = "id";
 
-echo $mDS->Insert();
+echo $mDS->insert();
 
 $mDS->id = 1;
 
-echo $mDS->Update();
-echo $mDS->Delete();
+echo $mDS->update();
+echo $mDS->delete();
      
 
 ?>

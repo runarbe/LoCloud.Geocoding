@@ -10,5 +10,5 @@ $mDBS = new MetaDbSearch();
 $mDBS->sch_table = "test";
 $mDBS->sch_table = "test2";
 
-echo $mDBS->Insert();
+echo $mDBS->insert();
 ?>

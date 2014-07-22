@@ -93,7 +93,6 @@ if ($v == 1) {
     }
 
     $mSql .= " ORDER BY COALESCE(gc_name,if(" . $_GET["nc"] . "='',CONCAT('Unnamed item #',".$_GET["idc"].")," . $_GET["nc"] . "),'Unnamed item') ASC LIMIT " . $_GET["limit"] . " OFFSET " . $_GET["offset"];
-    logIt($mSql);
 
     if ($result = $mDb->query($mSql)) {
         $r["s"] = 1;
