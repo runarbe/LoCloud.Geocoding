@@ -44,7 +44,6 @@
                 <button id="btnOpenWikimapia" class="wide">Open Wikimapia</button>
                 <button id="btnOpenGeonames" class="wide">Open Geonames</button>
                 <button id="btnOpenGoogleMapmaker" class="wide">Open Google Mapmaker</button>
-                <!--button id="btnOpenBookingCom" class="wide">Open Booking.com</button-->
                 <button id="btnOpenPanoramio" class="wide">Open Panoramio</button>
                 <button id="btnOpenNokiaHere" class="wide">Open Here</button>
                 <button id="btnSearchGoogle" class="wide">Search Google</button>
