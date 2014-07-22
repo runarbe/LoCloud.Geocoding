@@ -30,10 +30,21 @@ function addAlternateIcons(pLonLat) {
 }
 
 function clearIcons() {
-    if (currentMarker != null) {
+
+    // Remove any original location markers from map
+    if (currentMarker !== undefined && currentMarker !== null) {
         markers.removeMarker(currentMarker);
     }
-    if (proposedMarker != null) {
+
+    // Remove any proposed location markers from map
+    if (proposedMarker !== undefined && proposedMarker !== null) {
         markers.removeMarker(proposedMarker);
+    }
+
+    // Remove any alternate location markers from map
+    if (alternateMarkers !== undefined && alternateMarkers !== null) {
+        jQuery.each(alternateMarkers, function(mKey, mAlternateMarker) {
+            markers.removeMarker(mAlternateMarker);
+        });
     }
 }
