@@ -1,139 +1,132 @@
-<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>
-	.KEYW {color: #933;}
-	.COMM {color: #bbb; font-style: italic;}
-	.NUMB {color: #393;}
-	.STRN {color: #393;}
-	.REGX {color: #339;}
-	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
-	</style></head><body><pre><span class='line'>  1</span> <span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">OpenLayers</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>  2</span> 
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>\n	.KEYW {color: #933;}\n	.COMM {color: #bbb; font-style: italic;}\n	.NUMB {color: #393;}\n	.STRN {color: #393;}\n	.REGX {color: #339;}\n	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}\n	</style></head><body><pre><span class='line'>  1</span> <span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">typeof</span><span class="PUNC">(</span><span class="NAME">OpenLayers</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'undefined'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>  2</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>  3</span> </span><span class="WHIT">    </span><span class="COMM">/*
 <span class='line'>  4</span>      * JavaScript datatypes
 <span class='line'>  5</span>      * String, Number, Boolean, Array, Object, Null, Undefined.
-<span class='line'>  6</span>      */</span><span class="WHIT">
-<span class='line'>  7</span> 
+<span class='line'>  6</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>  7</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>  8</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>  9</span>      * Global configuration settings for the application
 <span class='line'> 10</span>      * @class JsConf
-<span class='line'> 11</span>      */</span><span class="WHIT">
-<span class='line'> 12</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">jsConf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'> 11</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 12</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">jsConf</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 13</span> </span><span class="WHIT">        </span><span class="COMM">/**
 <span class='line'> 14</span>          * The title of the application
 <span class='line'> 15</span>          * @type String
-<span class='line'> 16</span>          */</span><span class="WHIT">
-<span class='line'> 17</span> </span><span class="WHIT">        </span><span class="NAME">app_title</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"LoCloud Geocoding Microservice"</span><span class="PUNC">,</span><span class="WHIT">
+<span class='line'> 16</span>          */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 17</span> </span><span class="WHIT">        </span><span class="NAME">app_title</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"LoCloud Geocoding Microservice"</span><span class="PUNC">,</span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 18</span> </span><span class="WHIT">        </span><span class="COMM">/**
 <span class='line'> 19</span>          * Application version
 <span class='line'> 20</span>          * @type String
-<span class='line'> 21</span>          */</span><span class="WHIT">
-<span class='line'> 22</span> </span><span class="WHIT">        </span><span class="NAME">app_version</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"1.0"</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 24</span> 
+<span class='line'> 21</span>          */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 22</span> </span><span class="WHIT">        </span><span class="NAME">app_version</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"1.0"</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 23</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 24</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 25</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 26</span>      * Name of default source table
 <span class='line'> 27</span>      * @type String
-<span class='line'> 28</span>      */</span><span class="WHIT">
-<span class='line'> 29</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">sourceTable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 30</span> 
+<span class='line'> 28</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 29</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">sourceTable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 30</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 31</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 32</span>      * The first item to show in the list
 <span class='line'> 33</span>      * @type Number
 <span class='line'> 34</span>      * @default 0
-<span class='line'> 35</span>      */</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">listSrcDataStartItem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 37</span> 
+<span class='line'> 35</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 36</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">listSrcDataStartItem</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 37</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 38</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 39</span>      * The number of items to show in the list
 <span class='line'> 40</span>      * @type Number
 <span class='line'> 41</span>      * @default 10
-<span class='line'> 42</span>      */</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">listSrcDataNumItems</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">10</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 44</span> 
+<span class='line'> 42</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 43</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">listSrcDataNumItems</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">10</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 44</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 45</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 46</span>      * The icon that will show the current position of an item
 <span class='line'> 47</span>      * @type OpenLayers.Icon
-<span class='line'> 48</span>      */</span><span class="WHIT">
-<span class='line'> 49</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mapIconCurrentPosition</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 50</span> 
+<span class='line'> 48</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 49</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mapIconCurrentPosition</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 50</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 51</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 52</span>      * The icon that will show the users proposed position for an item
 <span class='line'> 53</span>      * of the aplplication
 <span class='line'> 54</span>      * @type OpenLayers.Icon
-<span class='line'> 55</span>      */</span><span class="WHIT">
-<span class='line'> 56</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mapIconNewPosition</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 57</span> 
+<span class='line'> 55</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 56</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mapIconNewPosition</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 57</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 58</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 59</span>      * The layer that will hold markers
 <span class='line'> 60</span>      * @type OpenLayers.MarkerLayer
-<span class='line'> 61</span>      */</span><span class="WHIT">
-<span class='line'> 62</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">markers</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 63</span> 
+<span class='line'> 61</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 62</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">markers</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 63</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 64</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 65</span>      * 
 <span class='line'> 66</span>      * @type OpenLayers.Marker
-<span class='line'> 67</span>      */</span><span class="WHIT">
-<span class='line'> 68</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentMarker</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 69</span> 
+<span class='line'> 67</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 68</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">currentMarker</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 69</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 70</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 71</span>      * 
 <span class='line'> 72</span>      * @type OpenLayers.Marker
-<span class='line'> 73</span>      */</span><span class="WHIT">
-<span class='line'> 74</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">proposedMarker</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 75</span> 
+<span class='line'> 73</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 74</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">proposedMarker</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 75</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 76</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 77</span>      * An array of OpenLayers.Marker objects specifying existing proposed locations
 <span class='line'> 78</span>      * for an item as read from the database.
 <span class='line'> 79</span>      * @type Array
-<span class='line'> 80</span>      */</span><span class="WHIT">
-<span class='line'> 81</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">alternateMarkers</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 82</span> 
+<span class='line'> 80</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 81</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">alternateMarkers</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 82</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 83</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 84</span>      * The default level that the application will zoom to when clicking an item
 <span class='line'> 85</span>      * in the source data to be geocoded
 <span class='line'> 86</span>      * 
 <span class='line'> 87</span>      * @type Number
 <span class='line'> 88</span>      * @default 13
-<span class='line'> 89</span>      */</span><span class="WHIT">
-<span class='line'> 90</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">defaultZoomTo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">13</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 91</span> 
+<span class='line'> 89</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 90</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">defaultZoomTo</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">13</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 91</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 92</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'> 93</span>      * An object holding information about the selected data source.
 <span class='line'> 94</span>      * @type jSrb.DataSource
 <span class='line'> 95</span>      * @default null
-<span class='line'> 96</span>      */</span><span class="WHIT">
-<span class='line'> 97</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mDatasource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 98</span> 
+<span class='line'> 96</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 97</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mDatasource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'> 98</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'> 99</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>100</span>      * The number of significant digits for decimal numbers
 <span class='line'>101</span>      * @type Number
 <span class='line'>102</span>      * @default 2
-<span class='line'>103</span>      */</span><span class="WHIT">
-<span class='line'>104</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">coordinatePrecision</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>105</span> 
+<span class='line'>103</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>104</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">coordinatePrecision</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>105</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>106</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>107</span>      * The map layers to show by default at start-up
 <span class='line'>108</span>      * @type Array
-<span class='line'>109</span>      */</span><span class="WHIT">
-<span class='line'>110</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">defaultMapLayers</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>111</span> 
+<span class='line'>109</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>110</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">defaultMapLayers</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Array</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>111</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>112</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>113</span>      * Wheter or not to include Google Maps as background map
 <span class='line'>114</span>      * @type Boolean
-<span class='line'>115</span>      */</span><span class="WHIT">
-<span class='line'>116</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">useGoogleMaps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>117</span> 
+<span class='line'>115</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>116</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">useGoogleMaps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>117</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>118</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>119</span>      * Wheter or not to include Bing Maps as backgorund map
 <span class='line'>120</span>      * @type Boolean
-<span class='line'>121</span>      */</span><span class="WHIT">
-<span class='line'>122</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">useBingMaps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>123</span> 
+<span class='line'>121</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>122</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">useBingMaps</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>123</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>124</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>125</span>      * Wheter or not to include local map tiles as background map
 <span class='line'>126</span>      * @type Boolean
-<span class='line'>127</span>      */</span><span class="WHIT">
-<span class='line'>128</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">useLocalTiles</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>129</span> 
+<span class='line'>127</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>128</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">useLocalTiles</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">false</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>129</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>130</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>131</span>      * Bing MAP API Key
 <span class='line'>132</span>      * @type String
@@ -142,162 +135,162 @@
 <span class='line'>135</span>      * 
 <span class='line'>136</span>      * The key 'ApH6SQ0ZxiJAIv7_uGCBvKhmz-P9t4fVt3-gElJrcPQb2tIlHOEenjTRZPa5_4oE' is
 <span class='line'>137</span>      * for a localhost address in the name of (Stein) Runar Bergheim.
-<span class='line'>138</span>      */</span><span class="WHIT">
-<span class='line'>139</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">keyBingMapsApi</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'ApH6SQ0ZxiJAIv7_uGCBvKhmz-P9t4fVt3-gElJrcPQb2tIlHOEenjTRZPa5_4oE'</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>140</span> 
+<span class='line'>138</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>139</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">keyBingMapsApi</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'ApH6SQ0ZxiJAIv7_uGCBvKhmz-P9t4fVt3-gElJrcPQb2tIlHOEenjTRZPa5_4oE'</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>140</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>141</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>142</span>      * Main map object
 <span class='line'>143</span>      * @type OpenLayers.Map
-<span class='line'>144</span>      */</span><span class="WHIT">
-<span class='line'>145</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">map</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>146</span> 
+<span class='line'>144</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>145</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">map</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>146</span> </span><span class="TOKN"></span><span class="TOKN">
 <span class='line'>147</span> </span><span class="WHIT">    </span><span class="COMM">/**
 <span class='line'>148</span>      * The layer to hold selection
 <span class='line'>149</span>      * @type OpenLayers.Layer
-<span class='line'>150</span>      */</span><span class="WHIT">
-<span class='line'>151</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">select</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>152</span> 
-<span class='line'>153</span> </span><span class="COMM">// Declare constants</span><span class="WHIT">
+<span class='line'>150</span>      */</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>151</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">select</span><span class="PUNC">;</span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>152</span> </span><span class="TOKN"></span><span class="TOKN">
+<span class='line'>153</span> </span><span class="COMM">// Declare constants
 <span class='line'>154</span> 
-<span class='line'>155</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>155</span>     /**
 <span class='line'>156</span>      * Longitude: The longitude that the map will be centered on at startup
 <span class='line'>157</span>      * @type Number 
 <span class='line'>158</span>      * @default 15 (Europe)
-<span class='line'>159</span>      */</span><span class="WHIT">
-<span class='line'>160</span> </span><span class="WHIT">    </span><span class="COMM">//var lon = 56.835; // Oman</span><span class="WHIT">
-<span class='line'>161</span> </span><span class="WHIT">    </span><span class="COMM">//var lon = 15; // Europe</span><span class="WHIT">
-<span class='line'>162</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lon</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">20</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Norge</span><span class="WHIT">
+<span class='line'>159</span>      */
+<span class='line'>160</span>     //var lon = 56.835; // Oman
+<span class='line'>161</span>     //var lon = 15; // Europe
+<span class='line'>162</span>     var lon = 20; // Norge
 <span class='line'>163</span> 
-<span class='line'>164</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>164</span>     /**
 <span class='line'>165</span>      * Latitude: The latitude that the map will be centered on at startup
 <span class='line'>166</span>      * @type Number
 <span class='line'>167</span>      * @default 50 (Europe)
-<span class='line'>168</span>      */</span><span class="WHIT">
-<span class='line'>169</span> </span><span class="WHIT">    </span><span class="COMM">//var lat = 21.34; // Oman</span><span class="WHIT">
-<span class='line'>170</span> </span><span class="WHIT">    </span><span class="COMM">//var lat = 50; // Europe</span><span class="WHIT">
-<span class='line'>171</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lat</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">65</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Norge</span><span class="WHIT">
+<span class='line'>168</span>      */
+<span class='line'>169</span>     //var lat = 21.34; // Oman
+<span class='line'>170</span>     //var lat = 50; // Europe
+<span class='line'>171</span>     var lat = 65; // Norge
 <span class='line'>172</span> 
-<span class='line'>173</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>173</span>     /**
 <span class='line'>174</span>      * The zoom level of the map at startup
 <span class='line'>175</span>      * @type Double 
 <span class='line'>176</span>      * @default 3 (Europe)
-<span class='line'>177</span>      */</span><span class="WHIT">
-<span class='line'>178</span> </span><span class="WHIT">    </span><span class="COMM">//var zoom = 5; // Oman</span><span class="WHIT">
-<span class='line'>179</span> </span><span class="WHIT">    </span><span class="COMM">//var zoom = 3; // Europe</span><span class="WHIT">
-<span class='line'>180</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">zoom</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">4</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// Europe</span><span class="WHIT">
+<span class='line'>177</span>      */
+<span class='line'>178</span>     //var zoom = 5; // Oman
+<span class='line'>179</span>     //var zoom = 3; // Europe
+<span class='line'>180</span>     var zoom = 4; // Europe
 <span class='line'>181</span> 
-<span class='line'>182</span> </span><span class="WHIT">    </span><span class="COMM">/*
+<span class='line'>182</span>     /*
 <span class='line'>183</span>      * Initialize default projections that will be available in the applications
-<span class='line'>184</span>      */</span><span class="WHIT">
+<span class='line'>184</span>      */
 <span class='line'>185</span> 
-<span class='line'>186</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>186</span>     /**
 <span class='line'>187</span>      * The built-in Google Projection object of OpenLayers
 <span class='line'>188</span>      * @type OpenLayers.Projection
-<span class='line'>189</span>      */</span><span class="WHIT">
-<span class='line'>190</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">p900913</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Projection</span><span class="PUNC">(</span><span class="STRN">"EPSG:900913"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>189</span>      */
+<span class='line'>190</span>     var p900913 = new OpenLayers.Projection("EPSG:900913");
 <span class='line'>191</span> 
-<span class='line'>192</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>192</span>     /**
 <span class='line'>193</span>      * The built-in WGS 84 Lat/Lon Projection object of OpenLayers
 <span class='line'>194</span>      * @type OpenLayers.Projection
-<span class='line'>195</span>      */</span><span class="WHIT">
-<span class='line'>196</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">p4326</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Projection</span><span class="PUNC">(</span><span class="STRN">"EPSG:4326"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>195</span>      */
+<span class='line'>196</span>     var p4326 = new OpenLayers.Projection("EPSG:4326");
 <span class='line'>197</span> 
-<span class='line'>198</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>198</span>     /**
 <span class='line'>199</span>      * A data source used for ???
 <span class='line'>200</span>      * @type jSrb.DataSource
-<span class='line'>201</span>      */</span><span class="WHIT">
-<span class='line'>202</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">pDatasource</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>201</span>      */
+<span class='line'>202</span>     var pDatasource = null;
 <span class='line'>203</span> 
-<span class='line'>204</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>204</span>     /**
 <span class='line'>205</span>      * Set default extent in lon-lat.
 <span class='line'>206</span>      * @type OpenLayers.Bounds
-<span class='line'>207</span>      */</span><span class="WHIT">
-<span class='line'>208</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mExtent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Bounds</span><span class="PUNC">(</span><span class="NUMB">51</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">15</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">61</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">27</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>209</span> </span><span class="WHIT">    </span><span class="NAME">mExtent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mExtent.transform</span><span class="PUNC">(</span><span class="NAME">p4326</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">p900913</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>207</span>      */
+<span class='line'>208</span>     var mExtent = new OpenLayers.Bounds(51, 15, 61, 27);
+<span class='line'>209</span>     mExtent = mExtent.transform(p4326, p900913);
 <span class='line'>210</span> 
-<span class='line'>211</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>211</span>     /**
 <span class='line'>212</span>      * OpenLayers configuration option
 <span class='line'>213</span>      * 
 <span class='line'>214</span>      * Set proxy host for cross-domain requests from JavaScript
 <span class='line'>215</span>      * @type String
-<span class='line'>216</span>      */</span><span class="WHIT">
-<span class='line'>217</span> </span><span class="WHIT">    </span><span class="NAME">OpenLayers.ProxyHost</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">"./proxy.php?url="</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>216</span>      */
+<span class='line'>217</span>     OpenLayers.ProxyHost = "./proxy.php?url=";
 <span class='line'>218</span> 
-<span class='line'>219</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>219</span>     /**
 <span class='line'>220</span>      * OpenLayers configuration option
 <span class='line'>221</span>      * 
 <span class='line'>222</span>      * Set number of reload attempts for retrieving tiles
 <span class='line'>223</span>      * 
 <span class='line'>224</span>      * @type Number
 <span class='line'>225</span>      * @default 3
-<span class='line'>226</span>      */</span><span class="WHIT">
-<span class='line'>227</span> </span><span class="WHIT">    </span><span class="NAME">OpenLayers.IMAGE_RELOAD_ATTEMPTS</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>226</span>      */
+<span class='line'>227</span>     OpenLayers.IMAGE_RELOAD_ATTEMPTS = 3;
 <span class='line'>228</span> 
 <span class='line'>229</span> 
-<span class='line'>230</span> </span><span class="WHIT">    </span><span class="COMM">/**
+<span class='line'>230</span>     /**
 <span class='line'>231</span>      * Run once all has been completed
 <span class='line'>232</span>      * @function onDocumentReady
-<span class='line'>233</span>      */</span><span class="WHIT">
-<span class='line'>234</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"document"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">ready</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>233</span>      */
+<span class='line'>234</span>     jQuery("document").ready(function() {
 <span class='line'>235</span> 
-<span class='line'>236</span> </span><span class="WHIT">        </span><span class="NAME">initMapLayers</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>236</span>         initMapLayers();
 <span class='line'>237</span> 
-<span class='line'>238</span> </span><span class="WHIT">        </span><span class="COMM">//Create click control</span><span class="WHIT">
-<span class='line'>239</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mClickMapControl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Control.Click</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>240</span> </span><span class="WHIT">            </span><span class="NAME">handlerOptions</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>241</span> </span><span class="WHIT">                </span><span class="STRN">"single"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT">
-<span class='line'>242</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>243</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>238</span>         //Create click control
+<span class='line'>239</span>         var mClickMapControl = new OpenLayers.Control.Click({
+<span class='line'>240</span>             handlerOptions: {
+<span class='line'>241</span>                 "single": true
+<span class='line'>242</span>             }
+<span class='line'>243</span>         });
 <span class='line'>244</span> 
-<span class='line'>245</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>245</span>         /*
 <span class='line'>246</span>          * Create map control
-<span class='line'>247</span>          */</span><span class="WHIT">
-<span class='line'>248</span> </span><span class="WHIT">        </span><span class="NAME">map</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Map</span><span class="PUNC">(</span><span class="STRN">'theMap'</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>249</span> </span><span class="WHIT">            </span><span class="NAME">numZoomLevels</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">2</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>250</span> </span><span class="WHIT">            </span><span class="NAME">units</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">'m'</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>251</span> </span><span class="WHIT">            </span><span class="NAME">projection</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">p900913</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>252</span> </span><span class="WHIT">            </span><span class="NAME">displayProjection</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">p900913</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>253</span> </span><span class="WHIT">            </span><span class="NAME">controls</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="PUNC">[</span><span class="WHIT">
-<span class='line'>254</span> </span><span class="WHIT">                </span><span class="NAME">mClickMapControl</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>255</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Control.LayerSwitcher</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>256</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Control.Navigation</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>257</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Control.Zoom</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>258</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Control.ScaleLine</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>259</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Control.ZoomToMaxExtent</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>260</span> </span><span class="WHIT">                </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Control.MousePosition</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>261</span> </span><span class="WHIT">                    </span><span class="NAME">autoActivate</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT">
-<span class='line'>262</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>263</span> </span><span class="WHIT">            </span><span class="PUNC">]</span><span class="WHIT">
-<span class='line'>264</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>247</span>          */
+<span class='line'>248</span>         map = new OpenLayers.Map('theMap', {
+<span class='line'>249</span>             numZoomLevels: 20,
+<span class='line'>250</span>             units: 'm',
+<span class='line'>251</span>             projection: p900913,
+<span class='line'>252</span>             displayProjection: p900913,
+<span class='line'>253</span>             controls: [
+<span class='line'>254</span>                 mClickMapControl,
+<span class='line'>255</span>                 new OpenLayers.Control.LayerSwitcher(),
+<span class='line'>256</span>                 new OpenLayers.Control.Navigation(),
+<span class='line'>257</span>                 new OpenLayers.Control.Zoom(),
+<span class='line'>258</span>                 new OpenLayers.Control.ScaleLine(),
+<span class='line'>259</span>                 new OpenLayers.Control.ZoomToMaxExtent(),
+<span class='line'>260</span>                 new OpenLayers.Control.MousePosition({
+<span class='line'>261</span>                     autoActivate: true
+<span class='line'>262</span>                 })
+<span class='line'>263</span>             ]
+<span class='line'>264</span>         });
 <span class='line'>265</span> 
-<span class='line'>266</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>266</span>         /*
 <span class='line'>267</span>          * Activate map click control
-<span class='line'>268</span>          */</span><span class="WHIT">
-<span class='line'>269</span> </span><span class="WHIT">        </span><span class="NAME">mClickMapControl.activate</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>268</span>          */
+<span class='line'>269</span>         mClickMapControl.activate();
 <span class='line'>270</span> 
-<span class='line'>271</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>271</span>         /*
 <span class='line'>272</span>          * Custom local map from OSM tiles stored in directory hierarchy
-<span class='line'>273</span>          */</span><span class="WHIT">
-<span class='line'>274</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">localTiles</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Layer.OSM</span><span class="PUNC">(</span><span class="STRN">"OSM base map (local)"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"./tiles/${z}/${x}/${y}.png"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>275</span> </span><span class="WHIT">            </span><span class="NAME">numZoomLevels</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">13</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>276</span> </span><span class="WHIT">            </span><span class="NAME">alpha</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>277</span> </span><span class="WHIT">            </span><span class="NAME">isBaseLayer</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="WHIT">
-<span class='line'>278</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>273</span>          */
+<span class='line'>274</span>         var localTiles = new OpenLayers.Layer.OSM("OSM base map (local)", "./tiles/${z}/${x}/${y}.png", {
+<span class='line'>275</span>             numZoomLevels: 13,
+<span class='line'>276</span>             alpha: true,
+<span class='line'>277</span>             isBaseLayer: true
+<span class='line'>278</span>         });
 <span class='line'>279</span> 
-<span class='line'>280</span> </span><span class="WHIT">        </span><span class="COMM">/* 
+<span class='line'>280</span>         /* 
 <span class='line'>281</span>          * Define marker-layer to hold temporary points
-<span class='line'>282</span>          */</span><span class="WHIT">
-<span class='line'>283</span> </span><span class="WHIT">        </span><span class="NAME">markers</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.Layer.Markers</span><span class="PUNC">(</span><span class="STRN">"Geocoding markers"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>282</span>          */
+<span class='line'>283</span>         markers = new OpenLayers.Layer.Markers("Geocoding markers");
 <span class='line'>284</span> 
-<span class='line'>285</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>285</span>         /*
 <span class='line'>286</span>          * Add markers to default map layers
-<span class='line'>287</span>          */</span><span class="WHIT">
-<span class='line'>288</span> </span><span class="WHIT">        </span><span class="NAME">defaultMapLayers.push</span><span class="PUNC">(</span><span class="NAME">markers</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>287</span>          */
+<span class='line'>288</span>         defaultMapLayers.push(markers);
 <span class='line'>289</span> 
-<span class='line'>290</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>290</span>         /*
 <span class='line'>291</span>          * Define layer to show already geocoded accommodation items
-<span class='line'>292</span>          */</span><span class="WHIT">
-<span class='line'>293</span> </span><span class="WHIT">        </span><span class="COMM">/*var accommodation_layer = new OpenLayers.Layer.Vector("Geocoded accommodation", {
+<span class='line'>292</span>          */
+<span class='line'>293</span>         /*var accommodation_layer = new OpenLayers.Layer.Vector("Geocoded accommodation", {
 <span class='line'>294</span>          visibility: false,
 <span class='line'>295</span>          styleMap: new OpenLayers.StyleMap({
 <span class='line'>296</span>          "default": new OpenLayers.Style({
@@ -337,11 +330,11 @@
 <span class='line'>330</span>          })
 <span class='line'>331</span>          });
 <span class='line'>332</span>          defaultMapLayers.push(accommodation_layer);
-<span class='line'>333</span>          */</span><span class="WHIT">
-<span class='line'>334</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>333</span>          */
+<span class='line'>334</span>         /*
 <span class='line'>335</span>          * Define layer to show already geocoded accommodation items
-<span class='line'>336</span>          */</span><span class="WHIT">
-<span class='line'>337</span> </span><span class="WHIT">        </span><span class="COMM">/*var attraction_layer = new OpenLayers.Layer.Vector("Geocoded attractions", {
+<span class='line'>336</span>          */
+<span class='line'>337</span>         /*var attraction_layer = new OpenLayers.Layer.Vector("Geocoded attractions", {
 <span class='line'>338</span>          visibility: false,
 <span class='line'>339</span>          styleMap: new OpenLayers.StyleMap({
 <span class='line'>340</span>          "default": new OpenLayers.Style({
@@ -381,39 +374,39 @@
 <span class='line'>374</span>          })
 <span class='line'>375</span>          });
 <span class='line'>376</span>          defaultMapLayers.push(attraction_layer);
-<span class='line'>377</span>          */</span><span class="WHIT">
-<span class='line'>378</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>377</span>          */
+<span class='line'>378</span>         /*
 <span class='line'>379</span>          * Add local tile layer to the start of default map layers, making it the default basemap
-<span class='line'>380</span>          */</span><span class="WHIT">
-<span class='line'>381</span> </span><span class="WHIT">        </span><span class="COMM">//defaultMapLayers.unshift(localTiles);</span><span class="WHIT">
+<span class='line'>380</span>          */
+<span class='line'>381</span>         //defaultMapLayers.unshift(localTiles);
 <span class='line'>382</span> 
-<span class='line'>383</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>383</span>         /*
 <span class='line'>384</span>          * Add default map layers to map
-<span class='line'>385</span>          */</span><span class="WHIT">
-<span class='line'>386</span> </span><span class="WHIT">        </span><span class="NAME">map.addLayers</span><span class="PUNC">(</span><span class="NAME">defaultMapLayers</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>385</span>          */
+<span class='line'>386</span>         map.addLayers(defaultMapLayers);
 <span class='line'>387</span> 
-<span class='line'>388</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>388</span>         /*
 <span class='line'>389</span>          * Set Google Hybrid to default basemap if present in default map layers
-<span class='line'>390</span>          */</span><span class="WHIT">
-<span class='line'>391</span> </span><span class="WHIT">        </span><span class="KEYW">for</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NUMB">0</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="WHIT"> </span><span class="PUNC">&lt;</span><span class="WHIT"> </span><span class="NAME">map.layers.length</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="NAME">i</span><span class="PUNC">++</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>392</span> </span><span class="WHIT">            </span><span class="COMM">// console.log(map.layers[i].name); // Debug</span><span class="WHIT">
-<span class='line'>393</span> </span><span class="WHIT">            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">map.layers</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">name</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="STRN">'Google Hybrid'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>394</span> </span><span class="WHIT">                </span><span class="NAME">map.setBaseLayer</span><span class="PUNC">(</span><span class="NAME">map.layers</span><span class="PUNC">[</span><span class="NAME">i</span><span class="PUNC">]</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>395</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>396</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>390</span>          */
+<span class='line'>391</span>         for (var i = 0; i &lt; map.layers.length; i++) {
+<span class='line'>392</span>             // console.log(map.layers[i].name); // Debug
+<span class='line'>393</span>             if (map.layers[i].name == 'Google Hybrid') {
+<span class='line'>394</span>                 map.setBaseLayer(map.layers[i]);
+<span class='line'>395</span>             }
+<span class='line'>396</span>         }
 <span class='line'>397</span> 
-<span class='line'>398</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>398</span>         /*
 <span class='line'>399</span>          * Zoom and center the map on the predefined center lat long coordinates
-<span class='line'>400</span>          */</span><span class="WHIT">
-<span class='line'>401</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="PUNC">!</span><span class="NAME">map.getCenter</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>402</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">lonLat</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.LonLat</span><span class="PUNC">(</span><span class="NAME">lon</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">lat</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">transform</span><span class="PUNC">(</span><span class="NAME">p4326</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">p900913</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>403</span> </span><span class="WHIT">            </span><span class="NAME">map.setCenter</span><span class="PUNC">(</span><span class="NAME">lonLat</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">zoom</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>404</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>400</span>          */
+<span class='line'>401</span>         if (!map.getCenter()) {
+<span class='line'>402</span>             var lonLat = new OpenLayers.LonLat(lon, lat).transform(p4326, p900913);
+<span class='line'>403</span>             map.setCenter(lonLat, zoom);
+<span class='line'>404</span>         }
 <span class='line'>405</span> 
-<span class='line'>406</span> </span><span class="WHIT">        </span><span class="COMM">/*
+<span class='line'>406</span>         /*
 <span class='line'>407</span>          * Update the default zoom to so that it is always less than the max zoom level of the map
-<span class='line'>408</span>          */</span><span class="WHIT">
-<span class='line'>409</span> </span><span class="WHIT">        </span><span class="NAME">setDefaultZoomTo</span><span class="PUNC">(</span><span class="NAME">map.baseLayer.getZoomForResolution</span><span class="PUNC">(</span><span class="NAME">map.baseLayer.minResolution</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">-</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>410</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>411</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>408</span>          */
+<span class='line'>409</span>         setDefaultZoomTo(map.baseLayer.getZoomForResolution(map.baseLayer.minResolution) - 3);
+<span class='line'>410</span>     });
+<span class='line'>411</span> }
 <span class='line'>412</span> </span></pre></body></html>

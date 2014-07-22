@@ -1,181 +1,174 @@
-<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>
-	.KEYW {color: #933;}
-	.COMM {color: #bbb; font-style: italic;}
-	.NUMB {color: #393;}
-	.STRN {color: #393;}
-	.REGX {color: #339;}
-	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
-	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>\n	.KEYW {color: #933;}\n	.COMM {color: #bbb; font-style: italic;}\n	.NUMB {color: #393;}\n	.STRN {color: #393;}\n	.REGX {color: #339;}\n	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}\n	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
 <span class='line'>  2</span>  * Function that is triggered when the new data source button is pressed. Allows
 <span class='line'>  3</span>  * the user to upload a file, then parses the file, inserts the contents into the
 <span class='line'>  4</span>  * database, populates the dropdowns with field names and advances to step 2 in the
 <span class='line'>  5</span>  * wizard.
 <span class='line'>  6</span>  * 
 <span class='line'>  7</span>  * @returns void
-<span class='line'>  8</span>  */</span><span class="WHIT">
-<span class='line'>  9</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnNewDatasource</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 10</span> 
-<span class='line'> 11</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ctlBar</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">'.ctlBar'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 12</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ctlPercent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">'.ctlPercent'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 13</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ctlStatus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">'#ctlStatus'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 14</span> 
-<span class='line'> 15</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#btnNdswNext3"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 16</span> </span><span class="WHIT">        </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#dlgNewDatasource"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">dialog</span><span class="PUNC">(</span><span class="STRN">"close"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 17</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 18</span> 
-<span class='line'> 19</span> </span><span class="WHIT">    </span><span class="NAME">SetNewDataSourceTab</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="COMM">// Get character encodigs</span><span class="WHIT">
-<span class='line'> 21</span> </span><span class="WHIT">    </span><span class="NAME">jQuery.getJSON</span><span class="PUNC">(</span><span class="NAME">WsUrl.getCharacterEncodings</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 22</span> </span><span class="WHIT">            </span><span class="PUNC">{</span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="WHIT">            </span><span class="COMM">/**
+<span class='line'>  8</span>  */</span><span class="TOKN">
+<span class='line'>  9</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnNewDatasource</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN">
+<span class='line'> 10</span> </span><span class="TOKN">
+<span class='line'> 11</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ctlBar</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">'.ctlBar'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 12</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ctlPercent</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">'.ctlPercent'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 13</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ctlStatus</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">'#ctlStatus'</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 14</span> </span><span class="TOKN">
+<span class='line'> 15</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#btnNdswNext3"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">click</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN">
+<span class='line'> 16</span> </span><span class="WHIT">        </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#dlgNewDatasource"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">dialog</span><span class="PUNC">(</span><span class="STRN">"close"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 17</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 18</span> </span><span class="TOKN">
+<span class='line'> 19</span> </span><span class="WHIT">    </span><span class="NAME">SetNewDataSourceTab</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="COMM">// Get character encodigs
+<span class='line'> 21</span>     jQuery.getJSON(WsUrl.getCharacterEncodings,
+<span class='line'> 22</span>             {},
+<span class='line'> 23</span>             /**
 <span class='line'> 24</span>              * @param {WsRetObj} data
 <span class='line'> 25</span>              * @ignore
-<span class='line'> 26</span>              */</span><span class="WHIT">
-<span class='line'> 27</span> </span><span class="WHIT">                    </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 28</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.v</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">WsStatus.success</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 29</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">ds_encoding</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"select#ds_encoding"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 30</span> </span><span class="WHIT">                            </span><span class="NAME">jQuery.each</span><span class="PUNC">(</span><span class="NAME">data.d</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pKey</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="WHIT">                                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">pVal</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="STRN">"ISO-8859-1"</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 32</span> </span><span class="WHIT">                                    </span><span class="NAME">ds_encoding.append</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"&lt;option/>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">text</span><span class="PUNC">(</span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"selected"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"selected"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 34</span> </span><span class="WHIT">                                    </span><span class="NAME">ds_encoding.append</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"&lt;option/>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">text</span><span class="PUNC">(</span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 35</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 36</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 37</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 26</span>              */
+<span class='line'> 27</span>                     function(data) {
+<span class='line'> 28</span>                         if (data.v === WsStatus.success) {
+<span class='line'> 29</span>                             var ds_encoding = jQuery("select#ds_encoding");
+<span class='line'> 30</span>                             jQuery.each(data.d, function(pKey, pVal) {
+<span class='line'> 31</span>                                 if (pVal === "ISO-8859-1") {
+<span class='line'> 32</span>                                     ds_encoding.append(jQuery("&lt;option/>").val(pVal).text(pVal).attr("selected", "selected"));
+<span class='line'> 33</span>                                 } else {
+<span class='line'> 34</span>                                     ds_encoding.append(jQuery("&lt;option/>").val(pVal).text(pVal))
+<span class='line'> 35</span>                                 }
+<span class='line'> 36</span>                             });
+<span class='line'> 37</span>                         }
 <span class='line'> 38</span> 
-<span class='line'> 39</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 40</span> </span><span class="WHIT">                </span><span class="NAME">showMsgBox</span><span class="PUNC">(</span><span class="STRN">"Error loading character encodings"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 41</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 42</span> </span><span class="WHIT">            </span><span class="COMM">//jQuery("select#ds_encoding").val("ISO-8859-1");</span><span class="WHIT">
-<span class='line'> 43</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"select#ds_encoding option:contains('ISO-8859-1')"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"selected"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"selected"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 39</span>                     }).fail(function() {
+<span class='line'> 40</span>                 showMsgBox("Error loading character encodings");
+<span class='line'> 41</span>             });
+<span class='line'> 42</span>             //jQuery("select#ds_encoding").val("ISO-8859-1");
+<span class='line'> 43</span>             jQuery("select#ds_encoding option:contains('ISO-8859-1')").attr("selected", "selected");
 <span class='line'> 44</span> 
-<span class='line'> 45</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'> 45</span>             /*
 <span class='line'> 46</span>              * Initialize the first step of the wizard
-<span class='line'> 47</span>              */</span><span class="WHIT">
-<span class='line'> 48</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#frmNewDataSourceWizardStep1"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">ajaxForm</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 49</span> </span><span class="WHIT">                </span><span class="NAME">dataType</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"json"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 50</span> </span><span class="WHIT">                </span><span class="NAME">beforeSend</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 51</span> </span><span class="WHIT">                    </span><span class="NAME">ctlStatus.empty</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 52</span> </span><span class="WHIT">                    </span><span class="NAME">ctlStatus.html</span><span class="PUNC">(</span><span class="STRN">"Please wait while uploading file..."</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 53</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">percentVal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'0%'</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 54</span> </span><span class="WHIT">                    </span><span class="NAME">ctlBar.width</span><span class="PUNC">(</span><span class="NAME">percentVal</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 55</span> </span><span class="WHIT">                    </span><span class="NAME">ctlPercent.html</span><span class="PUNC">(</span><span class="NAME">percentVal</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 56</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 57</span> </span><span class="WHIT">                </span><span class="NAME">uploadProgress</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">event</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">position</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">total</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">percentComplete</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 58</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">percentVal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">percentComplete</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">'%'</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 59</span> </span><span class="WHIT">                    </span><span class="NAME">ctlBar.width</span><span class="PUNC">(</span><span class="NAME">percentVal</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'> 60</span> </span><span class="WHIT">                    </span><span class="NAME">ctlPercent.html</span><span class="PUNC">(</span><span class="NAME">percentVal</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 61</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 62</span> </span><span class="WHIT">                </span><span class="NAME">success</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 63</span> </span><span class="WHIT">                    </span><span class="NAME">ctlStatus.html</span><span class="PUNC">(</span><span class="STRN">"&lt;p>Successfully uploaded file: "</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">data.files</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">name</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">".&lt;/p>&lt;p>Please wait while parsing the file and inserting into database. Once completed, the wizard will automatically proceed to the next step.&lt;/p>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 64</span> </span><span class="WHIT">                    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#btnNdswNext1"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">addClass</span><span class="PUNC">(</span><span class="STRN">"pure-button-disabled"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 65</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">percentVal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">'100%'</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 66</span> </span><span class="WHIT">                    </span><span class="NAME">ctlBar.width</span><span class="PUNC">(</span><span class="NAME">percentVal</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 67</span> </span><span class="WHIT">                    </span><span class="NAME">ctlPercent.html</span><span class="PUNC">(</span><span class="NAME">percentVal</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 68</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mSepChar</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"select#ds_sepchar option:selected"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 69</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mCharEncoding</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"select#ds_encoding option:selected"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 70</span> </span><span class="WHIT">                    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mFnFirstRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"input#ds_fnfirstrow"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">prop</span><span class="PUNC">(</span><span class="STRN">"checked"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 71</span> </span><span class="WHIT">                    </span><span class="NAME">jQuery.getJSON</span><span class="PUNC">(</span><span class="NAME">WsUrl.parseTextFile</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 72</span> </span><span class="WHIT">                            </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 73</span> </span><span class="WHIT">                                </span><span class="NAME">fn</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">data.files</span><span class="PUNC">[</span><span class="NUMB">0</span><span class="PUNC">]</span><span class="PUNC">.</span><span class="NAME">name</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 74</span> </span><span class="WHIT">                                </span><span class="NAME">delimiter</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">mSepChar</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 75</span> </span><span class="WHIT">                                </span><span class="NAME">encoding</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">mCharEncoding</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 76</span> </span><span class="WHIT">                                </span><span class="NAME">fnfirstrow</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">mFnFirstRow</span><span class="WHIT">
-<span class='line'> 77</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'> 78</span> </span><span class="WHIT">                    </span><span class="COMM">/**
+<span class='line'> 47</span>              */
+<span class='line'> 48</span>             jQuery("#frmNewDataSourceWizardStep1").ajaxForm({
+<span class='line'> 49</span>                 dataType: "json",
+<span class='line'> 50</span>                 beforeSend: function() {
+<span class='line'> 51</span>                     ctlStatus.empty();
+<span class='line'> 52</span>                     ctlStatus.html("Please wait while uploading file...");
+<span class='line'> 53</span>                     var percentVal = '0%';
+<span class='line'> 54</span>                     ctlBar.width(percentVal)
+<span class='line'> 55</span>                     ctlPercent.html(percentVal);
+<span class='line'> 56</span>                 },
+<span class='line'> 57</span>                 uploadProgress: function(event, position, total, percentComplete) {
+<span class='line'> 58</span>                     var percentVal = percentComplete + '%';
+<span class='line'> 59</span>                     ctlBar.width(percentVal)
+<span class='line'> 60</span>                     ctlPercent.html(percentVal);
+<span class='line'> 61</span>                 },
+<span class='line'> 62</span>                 success: function(data) {
+<span class='line'> 63</span>                     ctlStatus.html("&lt;p>Successfully uploaded file: " + data.files[0].name + ".&lt;/p>&lt;p>Please wait while parsing the file and inserting into database. Once completed, the wizard will automatically proceed to the next step.&lt;/p>");
+<span class='line'> 64</span>                     jQuery("#btnNdswNext1").addClass("pure-button-disabled");
+<span class='line'> 65</span>                     var percentVal = '100%';
+<span class='line'> 66</span>                     ctlBar.width(percentVal);
+<span class='line'> 67</span>                     ctlPercent.html(percentVal);
+<span class='line'> 68</span>                     var mSepChar = jQuery("select#ds_sepchar option:selected").val();
+<span class='line'> 69</span>                     var mCharEncoding = jQuery("select#ds_encoding option:selected").val();
+<span class='line'> 70</span>                     var mFnFirstRow = jQuery("input#ds_fnfirstrow").prop("checked");
+<span class='line'> 71</span>                     jQuery.getJSON(WsUrl.parseTextFile,
+<span class='line'> 72</span>                             {
+<span class='line'> 73</span>                                 fn: data.files[0].name,
+<span class='line'> 74</span>                                 delimiter: mSepChar,
+<span class='line'> 75</span>                                 encoding: mCharEncoding,
+<span class='line'> 76</span>                                 fnfirstrow: mFnFirstRow
+<span class='line'> 77</span>                             },
+<span class='line'> 78</span>                     /**
 <span class='line'> 79</span>                      * @param {WsRetObj} data
 <span class='line'> 80</span>                      * @ignore
-<span class='line'> 81</span>                      */</span><span class="WHIT">
-<span class='line'> 82</span> </span><span class="WHIT">                    </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 83</span> </span><span class="WHIT">                        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.v</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">WsStatus.success</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 84</span> </span><span class="WHIT">                            </span><span class="COMM">/*
+<span class='line'> 81</span>                      */
+<span class='line'> 82</span>                     function(data) {
+<span class='line'> 83</span>                         if (data.v === WsStatus.success) {
+<span class='line'> 84</span>                             /*
 <span class='line'> 85</span>                              * Select all dropdowns to be populated with file names from the
 <span class='line'> 86</span>                              * selected table and clear any current options.
-<span class='line'> 87</span>                              */</span><span class="WHIT">
-<span class='line'> 88</span> </span><span class="WHIT">                            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mFNDropDowns</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"select.FND"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 89</span> </span><span class="WHIT">                            </span><span class="NAME">mFNDropDowns.empty</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 90</span> </span><span class="WHIT">                            </span><span class="COMM">/*
+<span class='line'> 87</span>                              */
+<span class='line'> 88</span>                             var mFNDropDowns = jQuery("select.FND");
+<span class='line'> 89</span>                             mFNDropDowns.empty();
+<span class='line'> 90</span>                             /*
 <span class='line'> 91</span>                              * Add blank option to the top of the dropdowns
-<span class='line'> 92</span>                              */</span><span class="WHIT">
-<span class='line'> 93</span> </span><span class="WHIT">                            </span><span class="NAME">mFNDropDowns.append</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"&lt;option/>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="STRN">"value"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">text</span><span class="PUNC">(</span><span class="STRN">"&lt;not applicable>"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 94</span> </span><span class="WHIT">                            </span><span class="NAME">mFNDropDowns.append</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"&lt;option/>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="STRN">"value"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"autopk_id"</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">text</span><span class="PUNC">(</span><span class="STRN">"&lt;system generated number>"</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 95</span> </span><span class="WHIT">                            </span><span class="NAME">jQuery.each</span><span class="PUNC">(</span><span class="NAME">data.d.fields</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pIdx</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 96</span> </span><span class="WHIT">                                </span><span class="NAME">mOpt</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"&lt;option/>"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="STRN">"value"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">pVal</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">text</span><span class="PUNC">(</span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 97</span> </span><span class="WHIT">                                </span><span class="NAME">mFNDropDowns.append</span><span class="PUNC">(</span><span class="NAME">mOpt</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 98</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 99</span> </span><span class="WHIT">                            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#ds_table"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="STRN">"value"</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">data.d.table</span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>100</span> </span><span class="WHIT">                            </span><span class="NAME">SetNewDataSourceTab</span><span class="PUNC">(</span><span class="NUMB">1</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>101</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>102</span> </span><span class="WHIT">                            </span><span class="NAME">showMsgBox</span><span class="PUNC">(</span><span class="NAME">data.m</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>103</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>104</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>105</span> </span><span class="WHIT">                        </span><span class="NAME">showMsgBox</span><span class="PUNC">(</span><span class="STRN">"Could not parse text file"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>106</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>107</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'> 92</span>                              */
+<span class='line'> 93</span>                             mFNDropDowns.append(jQuery("&lt;option/>").attr({"value": ""}).text("&lt;not applicable>"));
+<span class='line'> 94</span>                             mFNDropDowns.append(jQuery("&lt;option/>").attr({"value": "autopk_id"}).text("&lt;system generated number>"));
+<span class='line'> 95</span>                             jQuery.each(data.d.fields, function(pIdx, pVal) {
+<span class='line'> 96</span>                                 mOpt = jQuery("&lt;option/>").attr({"value": pVal}).text(pVal);
+<span class='line'> 97</span>                                 mFNDropDowns.append(mOpt);
+<span class='line'> 98</span>                             });
+<span class='line'> 99</span>                             jQuery("#ds_table").attr({"value": data.d.table});
+<span class='line'>100</span>                             SetNewDataSourceTab(1);
+<span class='line'>101</span>                         } else {
+<span class='line'>102</span>                             showMsgBox(data.m, true);
+<span class='line'>103</span>                         }
+<span class='line'>104</span>                     }).fail(function() {
+<span class='line'>105</span>                         showMsgBox("Could not parse text file");
+<span class='line'>106</span>                     });
+<span class='line'>107</span>                 }
 <span class='line'>108</span> 
-<span class='line'>109</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// End Step 1</span><span class="WHIT">
+<span class='line'>109</span>             }); // End Step 1
 <span class='line'>110</span> 
-<span class='line'>111</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'>111</span>             /*
 <span class='line'>112</span>              * Initialize the second step of the wizard 
-<span class='line'>113</span>              */</span><span class="WHIT">
-<span class='line'>114</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#frmNewDataSourceWizardStep2"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">ajaxForm</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>115</span> </span><span class="WHIT">                </span><span class="NAME">dataType</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"json"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>116</span> </span><span class="WHIT">                </span><span class="COMM">/**
+<span class='line'>113</span>              */
+<span class='line'>114</span>             jQuery("#frmNewDataSourceWizardStep2").ajaxForm({
+<span class='line'>115</span>                 dataType: "json",
+<span class='line'>116</span>                 /**
 <span class='line'>117</span>                  * @param {WsRetObj} data
 <span class='line'>118</span>                  * @ignore
-<span class='line'>119</span>                  */</span><span class="WHIT">
-<span class='line'>120</span> </span><span class="WHIT">                </span><span class="NAME">success</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>121</span> </span><span class="WHIT">                    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.v</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">WsStatus.success</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>119</span>                  */
+<span class='line'>120</span>                 success: function(data) {
+<span class='line'>121</span>                     if (data.v === WsStatus.success) {
 <span class='line'>122</span> 
-<span class='line'>123</span> </span><span class="COMM">// Call prepare tables web service</span><span class="WHIT">
-<span class='line'>124</span> </span><span class="WHIT">                        </span><span class="NAME">jQuery.getJSON</span><span class="PUNC">(</span><span class="NAME">WsUrl.prepareTables</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>125</span> </span><span class="WHIT">                                </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>126</span> </span><span class="WHIT">                                    </span><span class="NAME">t</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">data.d.table</span><span class="WHIT">
-<span class='line'>127</span> </span><span class="WHIT">                                </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>128</span> </span><span class="WHIT">                        </span><span class="COMM">/**
+<span class='line'>123</span> // Call prepare tables web service
+<span class='line'>124</span>                         jQuery.getJSON(WsUrl.prepareTables,
+<span class='line'>125</span>                                 {
+<span class='line'>126</span>                                     t: data.d.table
+<span class='line'>127</span>                                 },
+<span class='line'>128</span>                         /**
 <span class='line'>129</span>                          * @param {WsRetObj} data
 <span class='line'>130</span>                          * @ignore
-<span class='line'>131</span>                          */</span><span class="WHIT">
-<span class='line'>132</span> </span><span class="WHIT">                        </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">data</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>131</span>                          */
+<span class='line'>132</span>                         function(data) {
 <span class='line'>133</span> 
-<span class='line'>134</span> </span><span class="WHIT">                            </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">data.v</span><span class="WHIT"> </span><span class="PUNC">===</span><span class="WHIT"> </span><span class="NAME">WsStatus.success</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
+<span class='line'>134</span>                             if (data.v === WsStatus.success) {
 <span class='line'>135</span> 
-<span class='line'>136</span> </span><span class="WHIT">                                </span><span class="NAME">SetNewDataSourceTab</span><span class="PUNC">(</span><span class="NUMB">2</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>137</span> </span><span class="WHIT">                                </span><span class="NAME">loadDatasources</span><span class="PUNC">(</span><span class="KEYW">null</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>138</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>139</span> </span><span class="WHIT">                                </span><span class="NAME">showMsgBox</span><span class="PUNC">(</span><span class="NAME">data.m</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>140</span> </span><span class="WHIT">                            </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>136</span>                                 SetNewDataSourceTab(2);
+<span class='line'>137</span>                                 loadDatasources(null);
+<span class='line'>138</span>                             } else {
+<span class='line'>139</span>                                 showMsgBox(data.m, true);
+<span class='line'>140</span>                             }
 <span class='line'>141</span> 
-<span class='line'>142</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">fail</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>143</span> </span><span class="WHIT">                            </span><span class="NAME">showMsgBox</span><span class="PUNC">(</span><span class="STRN">"Error preparing tables"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>144</span> </span><span class="WHIT">                        </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>145</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT"> </span><span class="KEYW">else</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>146</span> </span><span class="COMM">// Show error message</span><span class="WHIT">
-<span class='line'>147</span> </span><span class="WHIT">                        </span><span class="NAME">showMsgBox</span><span class="PUNC">(</span><span class="NAME">data.m</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>148</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>149</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>142</span>                         }).fail(function() {
+<span class='line'>143</span>                             showMsgBox("Error preparing tables");
+<span class='line'>144</span>                         });
+<span class='line'>145</span>                     } else {
+<span class='line'>146</span> // Show error message
+<span class='line'>147</span>                         showMsgBox(data.m, true);
+<span class='line'>148</span>                     }
+<span class='line'>149</span>                 }
 <span class='line'>150</span> 
-<span class='line'>151</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT"> </span><span class="COMM">// End step 2</span><span class="WHIT">
+<span class='line'>151</span>             }); // End step 2
 <span class='line'>152</span> 
-<span class='line'>153</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'>153</span>             /*
 <span class='line'>154</span>              * Open and style the the actual dialog
-<span class='line'>155</span>              */</span><span class="WHIT">
-<span class='line'>156</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#dlgNewDatasource"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">dialog</span><span class="PUNC">(</span><span class="WHIT">
-<span class='line'>157</span> </span><span class="WHIT">                    </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>158</span> </span><span class="WHIT">                        </span><span class="NAME">hide</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"fade"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>159</span> </span><span class="WHIT">                        </span><span class="NAME">show</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"fade"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>160</span> </span><span class="WHIT">                        </span><span class="NAME">closeOnEscape</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>161</span> </span><span class="WHIT">                        </span><span class="NAME">modal</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>162</span> </span><span class="WHIT">                        </span><span class="NAME">height</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">480</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>163</span> </span><span class="WHIT">                        </span><span class="NAME">width</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">640</span><span class="WHIT">
-<span class='line'>164</span> </span><span class="WHIT">                    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>165</span> </span><span class="WHIT">            </span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>166</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>155</span>              */
+<span class='line'>156</span>             jQuery("#dlgNewDatasource").dialog(
+<span class='line'>157</span>                     {
+<span class='line'>158</span>                         hide: "fade",
+<span class='line'>159</span>                         show: "fade",
+<span class='line'>160</span>                         closeOnEscape: true,
+<span class='line'>161</span>                         modal: true,
+<span class='line'>162</span>                         height: 480,
+<span class='line'>163</span>                         width: 640
+<span class='line'>164</span>                     }
+<span class='line'>165</span>             );
+<span class='line'>166</span>         }
 <span class='line'>167</span> 
-<span class='line'>168</span> </span><span class="COMM">/**
+<span class='line'>168</span> /**
 <span class='line'>169</span>  * Insert new data source
 <span class='line'>170</span>  * @returns void
-<span class='line'>171</span>  */</span><span class="WHIT">
-<span class='line'>172</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnNewDatasourceOk</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>173</span> </span><span class="WHIT">    </span><span class="NAME">alert</span><span class="PUNC">(</span><span class="STRN">"Not yet implemented"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>174</span> </span><span class="PUNC">}</span></pre></body></html>
+<span class='line'>171</span>  */
+<span class='line'>172</span> function handlerBtnNewDatasourceOk() {
+<span class='line'>173</span>     alert("Not yet implemented");
+<span class='line'>174</span> }</span></pre></body></html>

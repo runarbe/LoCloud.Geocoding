@@ -1,188 +1,181 @@
-<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>
-	.KEYW {color: #933;}
-	.COMM {color: #bbb; font-style: italic;}
-	.NUMB {color: #393;}
-	.STRN {color: #393;}
-	.REGX {color: #339;}
-	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}
-	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
+<html><head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> <style>\n	.KEYW {color: #933;}\n	.COMM {color: #bbb; font-style: italic;}\n	.NUMB {color: #393;}\n	.STRN {color: #393;}\n	.REGX {color: #339;}\n	.line {border-right: 1px dotted #666; color: #666; font-style: normal;}\n	</style></head><body><pre><span class='line'>  1</span> <span class="COMM">/**
 <span class='line'>  2</span>  * Function that is triggered when clicking view image button in geocoding form
 <span class='line'>  3</span>  * 
 <span class='line'>  4</span>  * @returns {void}
-<span class='line'>  5</span>  */</span><span class="WHIT">
-<span class='line'>  6</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnViewImage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>  7</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mImage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#hdnImage"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>  8</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">mImage</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>  9</span> </span><span class="WHIT">        </span><span class="NAME">showImagePopup</span><span class="PUNC">(</span><span class="NAME">mImage</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 10</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 11</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 12</span> 
+<span class='line'>  5</span>  */</span><span class="TOKN">
+<span class='line'>  6</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnViewImage</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN">
+<span class='line'>  7</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mImage</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#hdnImage"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'>  8</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">mImage</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN">
+<span class='line'>  9</span> </span><span class="WHIT">        </span><span class="NAME">showImagePopup</span><span class="PUNC">(</span><span class="NAME">mImage</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 10</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="TOKN">
+<span class='line'> 11</span> </span><span class="PUNC">}</span><span class="TOKN">
+<span class='line'> 12</span> </span><span class="TOKN">
 <span class='line'> 13</span> </span><span class="COMM">/**
 <span class='line'> 14</span>  * Function that is triggered when clicking visit url button in geocoding form
 <span class='line'> 15</span>  * 
 <span class='line'> 16</span>  * @returns {void}
-<span class='line'> 17</span>  */</span><span class="WHIT">
-<span class='line'> 18</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnViewUrl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 19</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mUrl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#hdnUrl"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">mUrl</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 21</span> </span><span class="WHIT">        </span><span class="NAME">openPopup</span><span class="PUNC">(</span><span class="NAME">mUrl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 22</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 23</span> </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 24</span> 
+<span class='line'> 17</span>  */</span><span class="TOKN">
+<span class='line'> 18</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnViewUrl</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN">
+<span class='line'> 19</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mUrl</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#hdnUrl"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 20</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">mUrl</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN">
+<span class='line'> 21</span> </span><span class="WHIT">        </span><span class="NAME">openPopup</span><span class="PUNC">(</span><span class="NAME">mUrl</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="TOKN">
+<span class='line'> 22</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="TOKN">
+<span class='line'> 23</span> </span><span class="PUNC">}</span><span class="TOKN">
+<span class='line'> 24</span> </span><span class="TOKN">
 <span class='line'> 25</span> </span><span class="COMM">/**
 <span class='line'> 26</span>  * Function that is triggered when clicking view attributes button in the
 <span class='line'> 27</span>  * geocoding form
 <span class='line'> 28</span>  * 
 <span class='line'> 29</span>  * @returns {undefined}
-<span class='line'> 30</span>  */</span><span class="WHIT">
-<span class='line'> 31</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnViewAttributes</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="COMM">//var mObj = jQuery(".ui-selected", "#selectable").first().data("attributes");</span><span class="WHIT">
-<span class='line'> 33</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mSelectedItemAttributes</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">getSelectedSourceItem</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">data</span><span class="PUNC">(</span><span class="STRN">"attributes"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 30</span>  */</span><span class="TOKN">
+<span class='line'> 31</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnViewAttributes</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="TOKN">
+<span class='line'> 32</span> </span><span class="WHIT">    </span><span class="COMM">//var mObj = jQuery(".ui-selected", "#selectable").first().data("attributes");
+<span class='line'> 33</span>     var mSelectedItemAttributes = getSelectedSourceItem().data("attributes");
 <span class='line'> 34</span> 
-<span class='line'> 35</span> </span><span class="WHIT">    </span><span class="COMM">/*
+<span class='line'> 35</span>     /*
 <span class='line'> 36</span>      * Empty the existin field list
-<span class='line'> 37</span>      */</span><span class="WHIT">
-<span class='line'> 38</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#attributeTable"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">empty</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 37</span>      */
+<span class='line'> 38</span>     jQuery("#attributeTable").empty();
 <span class='line'> 39</span> 
-<span class='line'> 40</span> </span><span class="WHIT">    </span><span class="COMM">/*
+<span class='line'> 40</span>     /*
 <span class='line'> 41</span>      * Get current changed fields (if any)
 <span class='line'> 42</span>      * @type &lt;JSON object>
-<span class='line'> 43</span>      */</span><span class="WHIT">
-<span class='line'> 44</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mChangedFields</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">getFieldChanges</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 43</span>      */
+<span class='line'> 44</span>     var mChangedFields = getFieldChanges();
 <span class='line'> 45</span> 
-<span class='line'> 46</span> </span><span class="WHIT">    </span><span class="COMM">/*
+<span class='line'> 46</span>     /*
 <span class='line'> 47</span>      * Create table header
-<span class='line'> 48</span>      */</span><span class="WHIT">
-<span class='line'> 49</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#attributeTable"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="STRN">"&lt;tr>&lt;th class=\"ui-widget-header pct-30\">Field&lt;/th>&lt;th class=\"ui-widget-header pct-30\">Current Value&lt;/th>&lt;th class=\"ui-widget-header pct-40\">Edited Value&lt;/th>&lt;/tr>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 48</span>      */
+<span class='line'> 49</span>     jQuery("#attributeTable").html("&lt;tr>&lt;th class=\"ui-widget-header pct-30\">Field&lt;/th>&lt;th class=\"ui-widget-header pct-30\">Current Value&lt;/th>&lt;th class=\"ui-widget-header pct-40\">Edited Value&lt;/th>&lt;/tr>");
 <span class='line'> 50</span> 
-<span class='line'> 51</span> </span><span class="WHIT">    </span><span class="COMM">/*
+<span class='line'> 51</span>     /*
 <span class='line'> 52</span>      * Iterate through all attributes for the selected object
-<span class='line'> 53</span>      */</span><span class="WHIT">
-<span class='line'> 54</span> </span><span class="WHIT">    </span><span class="NAME">jQuery.each</span><span class="PUNC">(</span><span class="NAME">mSelectedItemAttributes</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">key</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">val</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 55</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">key.substring</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">1</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'_'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">key.substring</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'gc_'</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">key.substring</span><span class="PUNC">(</span><span class="NUMB">0</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">3</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">'fk_'</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 56</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'> 53</span>      */
+<span class='line'> 54</span>     jQuery.each(mSelectedItemAttributes, function(key, val) {
+<span class='line'> 55</span>         if (key.substring(0, 1) !== '_' && key.substring(0, 3) !== 'gc_' && key.substring(0, 3) !== 'fk_') {
+<span class='line'> 56</span>             /*
 <span class='line'> 57</span>              * Create row
-<span class='line'> 58</span>              */</span><span class="WHIT">
-<span class='line'> 59</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mRow</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"&lt;tr>&lt;/tr>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 58</span>              */
+<span class='line'> 59</span>             var mRow = jQuery("&lt;tr>&lt;/tr>");
 <span class='line'> 60</span> 
-<span class='line'> 61</span> </span><span class="WHIT">            </span><span class="COMM">/* 
+<span class='line'> 61</span>             /* 
 <span class='line'> 62</span>              * Create html elements for table cells
-<span class='line'> 63</span>              */</span><span class="WHIT">
-<span class='line'> 64</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mLabel</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"&lt;td>&lt;/td>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 65</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mOldValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mLabel.clone</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 66</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mEditedValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mLabel.clone</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 63</span>              */
+<span class='line'> 64</span>             var mLabel = jQuery("&lt;td>&lt;/td>");
+<span class='line'> 65</span>             var mOldValue = mLabel.clone();
+<span class='line'> 66</span>             var mEditedValue = mLabel.clone();
 <span class='line'> 67</span> 
-<span class='line'> 68</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'> 68</span>             /*
 <span class='line'> 69</span>              * Assign values to table cells
-<span class='line'> 70</span>              */</span><span class="WHIT">
-<span class='line'> 71</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="NAME">mLabel</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="NAME">key</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 72</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="NAME">mOldValue</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="NAME">val</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 70</span>              */
+<span class='line'> 71</span>             jQuery(mLabel).html(key);
+<span class='line'> 72</span>             jQuery(mOldValue).html(val);
 <span class='line'> 73</span> 
-<span class='line'> 74</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'> 74</span>             /*
 <span class='line'> 75</span>              * Check if value exists in changed fields
-<span class='line'> 76</span>              */</span><span class="WHIT">
-<span class='line'> 77</span> </span><span class="WHIT">            </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mTmpValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="STRN">''</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 76</span>              */
+<span class='line'> 77</span>             var mTmpValue = '';
 <span class='line'> 78</span> 
-<span class='line'> 79</span> </span><span class="WHIT">            </span><span class="NAME">jQuery.each</span><span class="PUNC">(</span><span class="NAME">mChangedFields</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">pKey</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">pVal</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 80</span> </span><span class="WHIT">                </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">pKey</span><span class="WHIT"> </span><span class="PUNC">==</span><span class="WHIT"> </span><span class="NAME">key</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'> 81</span> </span><span class="WHIT">                    </span><span class="NAME">mTmpValue</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">pVal</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'> 82</span> </span><span class="WHIT">                </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'> 83</span> </span><span class="WHIT">            </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 79</span>             jQuery.each(mChangedFields, function(pKey, pVal) {
+<span class='line'> 80</span>                 if (pKey == key) {
+<span class='line'> 81</span>                     mTmpValue = pVal;
+<span class='line'> 82</span>                 }
+<span class='line'> 83</span>             });
 <span class='line'> 84</span> 
-<span class='line'> 85</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'> 85</span>             /*
 <span class='line'> 86</span>              * Add edit field
-<span class='line'> 87</span>              */</span><span class="WHIT">
-<span class='line'> 88</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="NAME">mEditedValue</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">html</span><span class="PUNC">(</span><span class="STRN">"&lt;input type=\"text\" class=\"attrFormField\" id=\""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">key</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"\" value=\""</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="NAME">mTmpValue</span><span class="WHIT"> </span><span class="PUNC">+</span><span class="WHIT"> </span><span class="STRN">"\"/>"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 87</span>              */
+<span class='line'> 88</span>             jQuery(mEditedValue).html("&lt;input type=\"text\" class=\"attrFormField\" id=\"" + key + "\" value=\"" + mTmpValue + "\"/>");
 <span class='line'> 89</span> 
-<span class='line'> 90</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'> 90</span>             /*
 <span class='line'> 91</span>              * Add table cells to row
-<span class='line'> 92</span>              */</span><span class="WHIT">
-<span class='line'> 93</span> </span><span class="WHIT">            </span><span class="NAME">mRow.append</span><span class="PUNC">(</span><span class="NAME">mLabel</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="NAME">mOldValue</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="NAME">mEditedValue</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 92</span>              */
+<span class='line'> 93</span>             mRow.append(mLabel).append(mOldValue).append(mEditedValue);
 <span class='line'> 94</span> 
-<span class='line'> 95</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'> 95</span>             /*
 <span class='line'> 96</span>              * Add rows to table
-<span class='line'> 97</span>              */</span><span class="WHIT">
-<span class='line'> 98</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#attributeTable"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">append</span><span class="PUNC">(</span><span class="NAME">mRow</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'> 97</span>              */
+<span class='line'> 98</span>             jQuery("#attributeTable").append(mRow);
 <span class='line'> 99</span> 
-<span class='line'>100</span> </span><span class="WHIT">            </span><span class="COMM">/*
+<span class='line'>100</span>             /*
 <span class='line'>101</span>              * Next field
-<span class='line'>102</span>              */</span><span class="WHIT">
-<span class='line'>103</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>104</span> </span><span class="WHIT">        </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#attributeTable tr:even"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">css</span><span class="PUNC">(</span><span class="STRN">"backgroundColor"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"#ffffff"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>105</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>106</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#dlgViewAttributes"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">dialog</span><span class="PUNC">(</span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>107</span> </span><span class="WHIT">        </span><span class="NAME">hide</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"fade"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>108</span> </span><span class="WHIT">        </span><span class="NAME">show</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="STRN">"fade"</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>109</span> </span><span class="WHIT">        </span><span class="NAME">closeOnEscape</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>110</span> </span><span class="WHIT">        </span><span class="NAME">modal</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="KEYW">true</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>111</span> </span><span class="WHIT">        </span><span class="NAME">height</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">480</span><span class="PUNC">,</span><span class="WHIT">
-<span class='line'>112</span> </span><span class="WHIT">        </span><span class="NAME">width</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NUMB">640</span><span class="WHIT">
-<span class='line'>113</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>114</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>102</span>              */
+<span class='line'>103</span>         }
+<span class='line'>104</span>         jQuery("#attributeTable tr:even").css("backgroundColor", "#ffffff");
+<span class='line'>105</span>     });
+<span class='line'>106</span>     jQuery("#dlgViewAttributes").dialog({
+<span class='line'>107</span>         hide: "fade",
+<span class='line'>108</span>         show: "fade",
+<span class='line'>109</span>         closeOnEscape: true,
+<span class='line'>110</span>         modal: true,
+<span class='line'>111</span>         height: 480,
+<span class='line'>112</span>         width: 640
+<span class='line'>113</span>     });
+<span class='line'>114</span> }
 <span class='line'>115</span> 
-<span class='line'>116</span> </span><span class="COMM">/**
+<span class='line'>116</span> /**
 <span class='line'>117</span>  * Function that is triggered when clicking the cancel button in the geocoding
 <span class='line'>118</span>  * form
 <span class='line'>119</span>  * 
 <span class='line'>120</span>  * @returns {void}
-<span class='line'>121</span>  */</span><span class="WHIT">
-<span class='line'>122</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnCancel</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>123</span> </span><span class="WHIT">    </span><span class="NAME">clearSourceItemListSelection</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>124</span> </span><span class="WHIT">    </span><span class="NAME">clearIcons</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>125</span> </span><span class="WHIT">    </span><span class="NAME">resetGeocodingForm</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>126</span> </span><span class="WHIT">    </span><span class="NAME">hideGeocodingForm</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>127</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>121</span>  */
+<span class='line'>122</span> function handlerBtnCancel() {
+<span class='line'>123</span>     clearSourceItemListSelection();
+<span class='line'>124</span>     clearIcons();
+<span class='line'>125</span>     resetGeocodingForm();
+<span class='line'>126</span>     hideGeocodingForm();
+<span class='line'>127</span> }
 <span class='line'>128</span> 
-<span class='line'>129</span> </span><span class="COMM">/**
+<span class='line'>129</span> /**
 <span class='line'>130</span>  * Function that is triggered when the user clicks in the map
 <span class='line'>131</span>  * 
 <span class='line'>132</span>  * @param {OpenLayers.Pixel} pPoint
 <span class='line'>133</span>  * @returns {void}
-<span class='line'>134</span>  */</span><span class="WHIT">
-<span class='line'>135</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerClickMap</span><span class="PUNC">(</span><span class="NAME">pPoint</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>136</span> </span><span class="WHIT">    </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">mDatasource</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="KEYW">null</span><span class="WHIT"> </span><span class="PUNC">&&</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#hdnTableId"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">!=</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>137</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mLonLat</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">map.getLonLatFromPixel</span><span class="PUNC">(</span><span class="NAME">pPoint</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>138</span> </span><span class="WHIT">        </span><span class="NAME">addProposedIcon</span><span class="PUNC">(</span><span class="NAME">mLonLat.clone</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>139</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mTargetLonLat</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">mLonLat.transform</span><span class="PUNC">(</span><span class="NAME">p900913</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">pDatasource</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>140</span> </span><span class="WHIT">        </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#tbLongitude"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="NAME">roundCoordinates</span><span class="PUNC">(</span><span class="NAME">mTargetLonLat.lon</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mDatasource.ds_coord_prec</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>141</span> </span><span class="WHIT">        </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#tbLatitude"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="NAME">roundCoordinates</span><span class="PUNC">(</span><span class="NAME">mTargetLonLat.lat</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mDatasource.ds_coord_prec</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>142</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>143</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>134</span>  */
+<span class='line'>135</span> function handlerClickMap(pPoint) {
+<span class='line'>136</span>     if (mDatasource != null && jQuery("#hdnTableId").val() != "") {
+<span class='line'>137</span>         var mLonLat = map.getLonLatFromPixel(pPoint);
+<span class='line'>138</span>         addProposedIcon(mLonLat.clone());
+<span class='line'>139</span>         var mTargetLonLat = mLonLat.transform(p900913, pDatasource)
+<span class='line'>140</span>         jQuery("#tbLongitude").val(roundCoordinates(mTargetLonLat.lon, mDatasource.ds_coord_prec));
+<span class='line'>141</span>         jQuery("#tbLatitude").val(roundCoordinates(mTargetLonLat.lat, mDatasource.ds_coord_prec));
+<span class='line'>142</span>     }
+<span class='line'>143</span> }
 <span class='line'>144</span> 
-<span class='line'>145</span> </span><span class="COMM">/**
+<span class='line'>145</span> /**
 <span class='line'>146</span>  * Function that is triggered when the user clicks the save geocoding button
 <span class='line'>147</span>  * in the geocoding form
 <span class='line'>148</span>  * 
 <span class='line'>149</span>  * @returns {void}
-<span class='line'>150</span>  */</span><span class="WHIT">
-<span class='line'>151</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnSaveGeocoding</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>152</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mId</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#hdnTableId"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>153</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mTable</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#hdnTableName"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>154</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mLon</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#tbLongitude"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>155</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mLat</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#tbLatitude"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>156</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mLonLat</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">OpenLayers.LonLat</span><span class="PUNC">(</span><span class="NAME">mLon</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mLat</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">transform</span><span class="PUNC">(</span><span class="NAME">pDatasource</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">p4326</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>157</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mItemName</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#tbItemName"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>158</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mFieldChanges</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">getFieldChangesAsText</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>159</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mProbability</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"input[name=rbProbability]:checked"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"#gc"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>160</span> </span><span class="WHIT">    </span><span class="NAME">console.log</span><span class="PUNC">(</span><span class="NAME">mFieldChanges</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>161</span> </span><span class="WHIT">    </span><span class="NAME">saveGeocoding</span><span class="PUNC">(</span><span class="NAME">mTable</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mId</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mLonLat.lon</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mLonLat.lat</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mProbability</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mItemName</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">mFieldChanges</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>162</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#divForm"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">effect</span><span class="PUNC">(</span><span class="STRN">"transfer"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>163</span> </span><span class="WHIT">        </span><span class="NAME">to</span><span class="PUNC">:</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">".ui-selected"</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="STRN">"#selectable"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">first</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT">
-<span class='line'>164</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NUMB">500</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>165</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>150</span>  */
+<span class='line'>151</span> function handlerBtnSaveGeocoding() {
+<span class='line'>152</span>     var mId = jQuery("#hdnTableId").val();
+<span class='line'>153</span>     var mTable = jQuery("#hdnTableName").val();
+<span class='line'>154</span>     var mLon = jQuery("#tbLongitude").val();
+<span class='line'>155</span>     var mLat = jQuery("#tbLatitude").val();
+<span class='line'>156</span>     var mLonLat = new OpenLayers.LonLat(mLon, mLat).transform(pDatasource, p4326);
+<span class='line'>157</span>     var mItemName = jQuery("#tbItemName").val();
+<span class='line'>158</span>     var mFieldChanges = getFieldChangesAsText();
+<span class='line'>159</span>     var mProbability = jQuery("input[name=rbProbability]:checked", "#gc").val();
+<span class='line'>160</span>     console.log(mFieldChanges);
+<span class='line'>161</span>     saveGeocoding(mTable, mId, mLonLat.lon, mLonLat.lat, mProbability, mItemName, mFieldChanges);
+<span class='line'>162</span>     jQuery("#divForm").effect("transfer", {
+<span class='line'>163</span>         to: jQuery(".ui-selected", "#selectable").first()
+<span class='line'>164</span>     }, 500);
+<span class='line'>165</span> }
 <span class='line'>166</span> 
-<span class='line'>167</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnCancelEditsClose</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>168</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#dlgViewAttributes"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">dialog</span><span class="PUNC">(</span><span class="STRN">"close"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>169</span> </span><span class="PUNC">}</span><span class="WHIT">
+<span class='line'>167</span> function handlerBtnCancelEditsClose() {
+<span class='line'>168</span>     jQuery("#dlgViewAttributes").dialog("close");
+<span class='line'>169</span> }
 <span class='line'>170</span> 
-<span class='line'>171</span> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">handlerBtnSaveAttrEdits</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>172</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mFieldEdits</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">new</span><span class="WHIT"> </span><span class="NAME">Object</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>173</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#attributeTable tr td input.attrFormField"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">each</span><span class="PUNC">(</span><span class="KEYW">function</span><span class="PUNC">(</span><span class="NAME">index</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>174</span> </span><span class="WHIT">        </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">mVal</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>175</span> </span><span class="WHIT">        </span><span class="KEYW">if</span><span class="WHIT"> </span><span class="PUNC">(</span><span class="NAME">mVal</span><span class="WHIT"> </span><span class="PUNC">!==</span><span class="WHIT"> </span><span class="STRN">""</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
-<span class='line'>176</span> </span><span class="WHIT">            </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="NAME">mFieldEdits</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">data</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">attr</span><span class="PUNC">(</span><span class="STRN">"id"</span><span class="PUNC">)</span><span class="PUNC">,</span><span class="WHIT"> </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="KEYW">this</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">val</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>177</span> </span><span class="WHIT">        </span><span class="PUNC">}</span><span class="WHIT">
-<span class='line'>178</span> </span><span class="WHIT">    </span><span class="PUNC">}</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>179</span> </span><span class="WHIT">    </span><span class="NAME">setFieldChanges</span><span class="PUNC">(</span><span class="NAME">JSON.stringify</span><span class="PUNC">(</span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="NAME">mFieldEdits</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">data</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>180</span> </span><span class="WHIT">    </span><span class="NAME">jQuery</span><span class="PUNC">(</span><span class="STRN">"#dlgViewAttributes"</span><span class="PUNC">)</span><span class="PUNC">.</span><span class="NAME">dialog</span><span class="PUNC">(</span><span class="STRN">"close"</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>181</span> </span><span class="PUNC">}</span></pre></body></html>
+<span class='line'>171</span> function handlerBtnSaveAttrEdits() {
+<span class='line'>172</span>     var mFieldEdits = new Object();
+<span class='line'>173</span>     jQuery("#attributeTable tr td input.attrFormField").each(function(index) {
+<span class='line'>174</span>         var mVal = jQuery(this).val();
+<span class='line'>175</span>         if (mVal !== "") {
+<span class='line'>176</span>             jQuery(mFieldEdits).data(jQuery(this).attr("id"), jQuery(this).val());
+<span class='line'>177</span>         }
+<span class='line'>178</span>     });
+<span class='line'>179</span>     setFieldChanges(JSON.stringify(jQuery(mFieldEdits).data()));
+<span class='line'>180</span>     jQuery("#dlgViewAttributes").dialog("close");
+<span class='line'>181</span> }</span></pre></body></html>
