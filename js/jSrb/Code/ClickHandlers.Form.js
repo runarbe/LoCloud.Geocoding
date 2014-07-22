@@ -136,7 +136,7 @@ function handlerPreAddFeatureToMap(pFeature) {
     if (mDatasource != null && jQuery("#hdnTableId").val() != "") {
         // Add code here to distinguish between different geometry types
         var mCentroid = pFeature.geometry.getCentroid();
-        
+
         var mTargetPoint = mCentroid.clone().transform(p900913, projDatasource)
         var mFormat = new OpenLayers.Format.WKT();
         jQuery('#tbLongitude', '#gc').val(roundCoordinates(mTargetPoint.x, mDatasource.ds_coord_prec));
@@ -165,13 +165,14 @@ function handlerBtnSaveGeocoding() {
 
     var mX = jQuery('#tbLongitude', '#gc').val();
     var mY = jQuery('#tbLatitude', '#gc').val();
-    var mLonLat = new OpenLayers.LonLat(mX, mY).transform(projDatasource, p4326);
+    var mLonLat = new OpenLayers.Geometry.Point(mX, mY).transform(projDatasource, p4326);
 
     var mFieldChanges = getFieldChangesAsText();
     var mLinkedPURI = jQuery("#tbLinkedPURI", '#gc').val();
     var mMapResolution = jQuery('#tbMapResolution', '#gc').val();
+    var mGeom = jQuery('#tbGeom', '#gc').val();
 
-    saveGeocoding(mItemID, mLonLat.lon, mLonLat.lat, mConfidence, mItemName, mFieldChanges, mLinkedPURI, mMapResolution);
+    saveGeocoding(mItemID, mLonLat.x, mLonLat.y, mConfidence, mItemName, mFieldChanges, mLinkedPURI, mMapResolution, mGeom);
 
     // Show animation
     jQuery("#divForm").effect('transfer', {
