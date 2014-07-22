@@ -31,6 +31,7 @@ class Db {
 
     /**
      * Execute an SQL statement that returns a single value
+     * NB! does not work for boolean values true/false
      * @param String $pSql
      * @return mixed|null
      */
@@ -45,6 +46,24 @@ class Db {
             logIt("In: " . $pSql);
             logIt("..." . mysqli_error(Db::$conn));
             return null;
+        }
+    }
+
+    /**
+     * Execute an SQL statement discarding the result
+     * NB! does not work for boolean values true/false
+     * @param String $pSql
+     * @return Boolean True on success, false on error
+     */
+    public static function execute($pSql) {
+        Db::connect();
+        mysqli_query(Db::$conn,
+                $pSql);
+        if (mysqli_errno(Db::$conn) === 0) {
+            return true;
+        } else {
+            logIt(mysqli_error(Db::$conn));
+            return false;
         }
     }
 
