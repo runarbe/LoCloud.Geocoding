@@ -4,7 +4,7 @@ require_once("functions.php");
 <html>
     <head>
         <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-        <title>Install LoCloud Geocoding Micro Service</title>
+        <title>Install LoCloud Geocoding Application</title>
         <link href="css/style.css" rel="stylesheet" type="text/css" title="main"/>
         <link rel="stylesheet" href="css/cupertino/jquery-ui.css"/>
         <link rel="stylesheet" href="css/pure/pure.css"/>
