@@ -51,7 +51,7 @@ function handlerBtnViewAttributes() {
     /*
      * Iterate through all attributes for the selected object
      */
-    jQuery.each(mSelectedItemAttributes, function(key, val) {
+    jQuery.each(mSelectedItemAttributes, function (key, val) {
         if (key.substring(0, 1) !== '_' && key.substring(0, 3) !== 'gc_' && key.substring(0, 3) !== 'fk_') {
             /*
              * Create row
@@ -76,7 +76,7 @@ function handlerBtnViewAttributes() {
              */
             var mTmpValue = '';
 
-            jQuery.each(mChangedFields, function(pKey, pVal) {
+            jQuery.each(mChangedFields, function (pKey, pVal) {
                 if (pKey == key) {
                     mTmpValue = pVal;
                 }
@@ -144,6 +144,11 @@ function handlerPreAddFeatureToMap(pFeature) {
         jQuery('#tbMapResolution', '#gc').val(map.getResolution());
         jQuery('#tbGeom', '#gc').val(mFormat.write(pFeature));
 
+        var mCConfidence = jQuery("#tbConfidence", "#gc").val();
+        if (!jQuery.isNumeric(mCConfidence)) {
+            jQuery("#tbConfidence", "#gc").val(90);
+        }
+
         var mLonLat = new OpenLayers.LonLat(mCentroid.x, mCentroid.y);
         addProposedIcon(mLonLat.clone());
 
@@ -172,7 +177,11 @@ function handlerBtnSaveGeocoding() {
     var mMapResolution = jQuery('#tbMapResolution', '#gc').val();
     var mGeom = jQuery('#tbGeom', '#gc').val();
 
-    saveGeocoding(mItemID, mLonLat.x, mLonLat.y, mConfidence, mItemName, mFieldChanges, mLinkedPURI, mMapResolution, mGeom);
+    if (jQuery.isNumeric(mX) && jQuery.isNumeric(mY) && jQuery.isNumeric(mMapResolution)) {
+        saveGeocoding(mItemID, mLonLat.x, mLonLat.y, mConfidence, mItemName, mFieldChanges, mLinkedPURI, mMapResolution, mGeom);
+    } else {
+        console.log("No coordinates supplied...");
+    }
 
     // Show animation
     jQuery("#divForm").effect('transfer', {
@@ -186,7 +195,7 @@ function handlerBtnCancelEditsClose() {
 
 function handlerBtnSaveAttrEdits() {
     var mFieldEdits = new Object();
-    jQuery("#attributeTable tr td input.attrFormField").each(function(index) {
+    jQuery("#attributeTable tr td input.attrFormField").each(function (index) {
         var mVal = jQuery(this).val();
         if (mVal !== "") {
             jQuery(mFieldEdits).data(jQuery(this).attr("id"), jQuery(this).val());
