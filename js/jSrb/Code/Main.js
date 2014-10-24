@@ -168,8 +168,8 @@ if (typeof (OpenLayers) !== 'undefined') {
      * @default 15 (Europe)
      */
     //var lon = 56.835; // Oman
-    //var lon = 15; // Europe
-    var lon = 20; // Norge
+    var lon = 15; // Europe
+    //var lon = 20; // Norge
 
     /**
      * Latitude: The latitude that the map will be centered on at startup
@@ -177,8 +177,8 @@ if (typeof (OpenLayers) !== 'undefined') {
      * @default 50 (Europe)
      */
     //var lat = 21.34; // Oman
-    //var lat = 50; // Europe
-    var lat = 65; // Norge
+    var lat = 50; // Europe
+    //var lat = 65; // Norge
 
     /**
      * The zoom level of the map at startup
