@@ -7,7 +7,6 @@ class LgmsConfig {
     const db_usr = "root";
     const db_pwd = "root";
     const basedir = "C:\GitHub\Avinet.LoCloud.Geocoding";
-    const app_version = "1.6.4";
+    const app_version = "1.7.0";
     const updateurl = "http://locloud.avinet.no/latest";
-    
 }
