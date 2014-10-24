@@ -7,6 +7,6 @@ class LgmsConfig {
     const db_usr = "%s";
     const db_pwd = "%s";
     const basedir = "%s";
-    const app_version = "1.5.6";
+    const app_version = "1.7.0";
     const updateurl = "http://locloud.avinet.no/latest";
 }
