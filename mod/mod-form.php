@@ -16,12 +16,12 @@
                         <input id="tbLatitude" name="tbLatitude" type="text" class="pure-input-1 resetable"/>
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
-                        <label>Linked P.URI</label>
-                        <input id="tbLinkedPURI" type="text" class="pure-input-1 resetable" readonly="true"/>
+<!--                        <label>Linked P.URI</label>
+                        <input id="tbLinkedPURI" type="text" class="pure-input-1 resetable" readonly="true"/>-->
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
-                        <label>&nbsp;</label>
-                        <button id="btnClearLinkedPURI">Clear</button>
+<!--                        <label>&nbsp;</label>
+                        <button id="btnClearLinkedPURI">Clear</button>-->
                     </div>
                     <div class="pure-u-1 pure-u-md-1-5">
                         <label>Geometry (WKT)</label>
