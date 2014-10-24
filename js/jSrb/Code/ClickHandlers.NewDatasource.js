@@ -12,7 +12,7 @@ function handlerBtnNewDatasource() {
     var ctlPercent = jQuery('.ctlPercent');
     var ctlStatus = jQuery('#ctlStatus');
 
-    jQuery("#btnNdswNext3").click(function() {
+    jQuery("#btnNdswNext3").click(function () {
         jQuery("#dlgNewDatasource").dialog("close");
     });
 
@@ -24,10 +24,10 @@ function handlerBtnNewDatasource() {
              * @param {WsRetObj} data
              * @ignore
              */
-                    function(data) {
+                    function (data) {
                         if (data.v === WsStatus.success) {
                             var ds_encoding = jQuery("select#ds_encoding");
-                            jQuery.each(data.d, function(pKey, pVal) {
+                            jQuery.each(data.d, function (pKey, pVal) {
                                 if (pVal === "ISO-8859-1") {
                                     ds_encoding.append(jQuery("<option/>").val(pVal).text(pVal).attr("selected", "selected"));
                                 } else {
@@ -36,10 +36,10 @@ function handlerBtnNewDatasource() {
                             });
                         }
 
-                    }).fail(function() {
+                    }).fail(function () {
                 showMsgBox("Error loading character encodings");
             });
-            
+
             //jQuery("select#ds_encoding").val("ISO-8859-1");
             jQuery("select#ds_encoding option:contains('ISO-8859-1')").attr("selected", "selected");
 
@@ -48,19 +48,19 @@ function handlerBtnNewDatasource() {
              */
             jQuery("#frmNewDataSourceWizardStep1").ajaxForm({
                 dataType: "json",
-                beforeSend: function() {
+                beforeSend: function () {
                     ctlStatus.empty();
                     ctlStatus.html("Please wait while uploading file...");
                     var percentVal = '0%';
                     ctlBar.width(percentVal);
                     ctlPercent.html(percentVal);
                 },
-                uploadProgress: function(event, position, total, percentComplete) {
+                uploadProgress: function (event, position, total, percentComplete) {
                     var percentVal = percentComplete + '%';
                     ctlBar.width(percentVal);
                     ctlPercent.html(percentVal);
                 },
-                success: function(data) {
+                success: function (data) {
                     ctlStatus.html("<p>Successfully uploaded file: " + data.files[0].name + ".</p><p>Please wait while parsing the file and inserting into database. Once completed, the wizard will automatically proceed to the next step.</p>");
                     jQuery("#btnNdswNext1").addClass("pure-button-disabled");
                     var percentVal = '100%';
@@ -80,7 +80,7 @@ function handlerBtnNewDatasource() {
                      * @param {WsRetObj} data
                      * @ignore
                      */
-                    function(data) {
+                    function (data) {
                         if (data.v === WsStatus.success) {
                             /*
                              * Select all dropdowns to be populated with file names from the
@@ -93,7 +93,7 @@ function handlerBtnNewDatasource() {
                              */
                             mFNDropDowns.append(jQuery("<option/>").attr({"value": ""}).text("<not set>"));
                             mFNDropDowns.append(jQuery("<option/>").attr({"value": "autopk_id"}).text("<system generated number>"));
-                            jQuery.each(data.d.fields, function(pIdx, pVal) {
+                            jQuery.each(data.d.fields, function (pIdx, pVal) {
                                 mOpt = jQuery("<option/>").attr({"value": pVal}).text(pVal);
                                 mFNDropDowns.append(mOpt);
                             });
@@ -102,7 +102,7 @@ function handlerBtnNewDatasource() {
                         } else {
                             showMsgBox(data.m, true);
                         }
-                    }).fail(function(pResponse) {
+                    }).fail(function (pResponse) {
                         showMsgBox(pResponse.responseText);
                     });
                 }
@@ -118,7 +118,7 @@ function handlerBtnNewDatasource() {
                  * @param {WsRetObj} data
                  * @ignore
                  */
-                success: function(data) {
+                success: function (data) {
                     if (data.v === WsStatus.success) {
 
                         // Call prepare tables web service
@@ -130,7 +130,7 @@ function handlerBtnNewDatasource() {
                          * @param {WsRetObj} data
                          * @ignore
                          */
-                        function(data) {
+                        function (data) {
 
                             if (data.v === WsStatus.success) {
 
@@ -140,13 +140,16 @@ function handlerBtnNewDatasource() {
                                 showMsgBox(data.m, true);
                             }
 
-                        }).fail(function() {
+                        }).fail(function () {
                             showMsgBox("Error preparing tables");
                         });
                     } else {
-                    // Show error message
+                        // Show error message
                         showMsgBox(data.m, true);
                     }
+                },
+                error: function (pResponse) {
+                    showMsgBox(pResponse.responseText, true);
                 }
 
             }); // End step 2
