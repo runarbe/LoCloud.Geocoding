@@ -38,6 +38,9 @@ class WsSearchLoGeo extends GcWebService implements iWebService {
                 case "Google":
                     $this->searchService("Google");
                     break;
+                case "National":
+                    $this->searchService("National");
+                    break;
                 default:
                     $this->_notSupported();
                     break;
@@ -53,13 +56,13 @@ class WsSearchLoGeo extends GcWebService implements iWebService {
 
     /**
      * Execute a search towards the LoCloud Geocoding API
-     * @param String $pServiceKeyword One of "Google", "Geonames" or "LoOnto"
+     * @param String $pServiceKeyword One of "Google", "Geonames" or "National"
      */
     private function searchService($pServiceKeyword) {
         $mJson = json_decode(
                 $this->_curlGetJSON(
-                        sprintf('http://locloudgeo.eculturelab.eu/LoGeo_1_0/loGeo.aspx?'
-                                . 'Place=%s&ContextPlace=Norway&MaxOutput=10'
+                        sprintf('http://locloudgeo.eculturelab.eu/LoGeo_1_2/loGeo.aspx?'
+                                . 'InputText=%s&MaxOutput=10'
                                 . '&PreferableSource=%s&Key=%s',
                                 $this->_q,
                                 $pServiceKeyword,
@@ -69,13 +72,15 @@ class WsSearchLoGeo extends GcWebService implements iWebService {
         );
 
         $mID = 0;
-        foreach ($mJson as $mRecords) {
-            foreach ($mRecords as $mRecord) {
-                $this->_result->addData(SearchMatch::get($mID,
-                                $mRecord->PlaceX,
-                                $mRecord->PlaceY,
-                                $mRecord->PlaceName));
-                $mID++;
+        if (count($mJson) > 0) {
+            foreach ($mJson as $mRecords) {
+                foreach ($mRecords as $mRecord) {
+                    $this->_result->addData(SearchMatch::get($mID,
+                                    $mRecord->PlaceX,
+                                    $mRecord->PlaceY,
+                                    $mRecord->PlaceName));
+                    $mID++;
+                }
             }
         }
     }

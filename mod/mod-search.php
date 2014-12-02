@@ -50,7 +50,7 @@
             </div>
         </div>
     </div>
-    <h3>Select a search result</h3>
+    <p>Select a search result</p>
     <div>
         <ol id="listSearchResults">
         </ol>

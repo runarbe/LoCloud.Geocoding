@@ -117,6 +117,18 @@ function initMapLayers() {
         attribution: ''
     });
     defaultMapLayers.push(skTopo2);
+    
+    var rceWms = new OpenLayers.Layer.WMS(
+            "RCE WMS", "http://services.rce.geovoorziening.nl/rce/wms",
+            {
+                layers: 'Townscapes',
+                format: 'image/png; mode=8bit'
+            }, {
+        attribution: ''
+    });
+    defaultMapLayers.push(rceWms);
+//    http://services.rce.geovoorziening.nl/rce/wms
+//http://services.rce.geovoorziening.nl/rce/wfs
 
     /*
      * Other basemaps

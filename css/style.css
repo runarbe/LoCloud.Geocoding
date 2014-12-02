@@ -75,7 +75,8 @@ div {
     display: block;
     width: 300px;
     z-index: 20;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #divMap {
