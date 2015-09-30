@@ -1,3 +1,11 @@
+config.php
+docs/
+latest/
+nbproject/
+specifications/datamodel/l
+tests/
+upload/
+ws/deprecated/
 #################
 ## Eclipse
 #################
