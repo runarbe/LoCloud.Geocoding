@@ -142,11 +142,8 @@ if (typeof (OpenLayers) !== 'undefined') {
      * @type String
      * @description Sign up for an API-key with BING. This must be specific to the
      * web site URL that the map is being hosted from.
-     * 
-     * The key 'ApH6SQ0ZxiJAIv7_uGCBvKhmz-P9t4fVt3-gElJrcPQb2tIlHOEenjTRZPa5_4oE' is
-     * for a localhost address in the name of (Stein) Runar Bergheim.
      */
-    var keyBingMapsApi = 'ApH6SQ0ZxiJAIv7_uGCBvKhmz-P9t4fVt3-gElJrcPQb2tIlHOEenjTRZPa5_4oE';
+    var keyBingMapsApi = '[insert key here]';
 
     /**
      * Main map object
