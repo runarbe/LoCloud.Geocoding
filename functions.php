@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Load configuration file if it exists
  */
@@ -202,14 +203,17 @@ function dbcreate() {
  */
 function db($pConnectWithoutDb = false) {
     if ($pConnectWithoutDb === true) {
-        $db = new mysqli(LgmsConfig::db_host,
+        $db = @new mysqli(LgmsConfig::db_host,
                 LgmsConfig::db_usr,
                 LgmsConfig::db_pwd);
     } else {
-        $db = new mysqli(LgmsConfig::db_host,
+        $db = @new mysqli(LgmsConfig::db_host,
                 LgmsConfig::db_usr,
                 LgmsConfig::db_pwd,
                 LgmsConfig::db);
+    }
+    if (mysqli_connect_errno() != 0) {
+        die('Could not connect to the database, please verify that MySQL Server is running on the server');
     }
     $db->set_charset("utf8");
     return $db;
